@@ -23,11 +23,6 @@ bool isInTex( const vec2 coords )
 
 vec2 translate(vec2 st, vec2 center, vec2 position)
 {
-	//uncomment following if you want to link to tracker
-	//vec2 off = position / vec2(adsk_result_w, adsk_result_h);
-	//return (st - off);
-
-	//comment following if you want to link to tracker
 	return (st - position) + center;
 
 }

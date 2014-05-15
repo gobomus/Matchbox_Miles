@@ -12,8 +12,10 @@ void main(void)
 	vec4 color = front_matte + back_matte - 2.0 * front_matte * back_matte;
 
 	if (result) {
-		gl_FragColor = clamp(front_matte * back_matte, 0.0, 1.0);
+		color = clamp(front_matte * back_matte, 0.0, 1.0);
+		gl_FragColor = vec4(color.rgb, color.r);
 	} else {
-		gl_FragColor = clamp(color, 0.0, 1.0);
+		color = clamp(color, 0.0, 1.0);
+		gl_FragColor = vec4(color.rgb, color.r);
 	}
 }
