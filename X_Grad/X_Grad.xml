@@ -1,0 +1,98 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+A Simple grad.
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+miles@noesclavo.com" Name="X_Grad">
+   	<Shader OutputBitDepth="Output" Index="1">
+      	<Uniform Index="0" NoInput="Black" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      	</Uniform>
+   	</Shader>
+
+   	<Shader OutputBitDepth="Output" Index="2">
+      	<Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Back">
+      	</Uniform>
+   	</Shader>
+
+   	<Shader OutputBitDepth="Output" Index="3">
+      	<Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
+      	</Uniform>
+   	</Shader>
+
+   	<Shader OutputBitDepth="Output" Index="4">
+
+
+
+      	<Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Center" IconType="None" Type="vec2" Name="center"
+			UIConditionSource="grad_type" UIConditionValue="2" UIConditionInvert="False" UIConditionType="Hide">
+
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         	</SubUniform>
+      	</Uniform>
+
+      	<Uniform Row="1" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Invert Grad" Type="bool" Name="invert_grad">
+      	</Uniform>
+
+      	<Uniform Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Offset Grad" IconType="None" Type="vec2" Name="grad_offset">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         	</SubUniform>
+      	</Uniform>
+
+		 <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Grad Type" Type="int" Name="grad_type" ValueType="Popup">
+        	<PopupEntry Title="Horizontal" Value="0"></PopupEntry>
+        	<PopupEntry Title="Vertical" Value="1"></PopupEntry>
+        	<PopupEntry Title="Circular" Value="2"></PopupEntry>
+      	</Uniform>
+
+
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.25" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Circle Diameter" Type="float" Name="size"
+			UIConditionSource="grad_type" UIConditionValue="2" UIConditionInvert="False" UIConditionType="Hide">
+     	</Uniform>
+   	</Shader>
+
+   	<Shader OutputBitDepth="Output" Index="5">
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      	</Uniform>
+
+      	<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Grad Translation" IconType="Axis" Type="vec2" Name="grad_position"
+			UIConditionSource="repeat_grad" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         	</SubUniform>
+      	</Uniform>
+
+      	<Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Multiply with Matte" Type="bool" Name="premult">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      	</Uniform>
+      	<Uniform Row="2" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Repeat Grad" Type="bool" Name="repeat_grad">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      	</Uniform>
+
+		 <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Output" Type="int" Name="result" ValueType="Popup">
+        	<PopupEntry Title="Gradient" Value="0"></PopupEntry>
+        	<PopupEntry Title="Composite" Value="2"></PopupEntry>
+        	<PopupEntry Title="Over Front" Value="1"></PopupEntry>
+        	<PopupEntry Title="Mult Front" Value="3"></PopupEntry>
+      	</Uniform>
+
+
+
+
+   	</Shader>
+
+   	<Page Name="Page 1" Page="0">
+      	<Col Name="Grad Options" Col="0" Page="0">
+      	</Col>
+      	<Col Name="Grad Manipulations" Col="1" Page="0">
+      	</Col>
+      	<Col Name="Output Options" Col="2" Page="0">
+      	</Col>
+   	</Page>
+</ShaderNodePreset>
