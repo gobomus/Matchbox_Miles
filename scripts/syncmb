@@ -1,0 +1,16 @@
+#!/bin/sh
+
+SYNC_TO_HOST=(flame01)
+
+SYNC_TO_DIR='/mnt/BACKUP/Matchbox/'
+
+DIRS_TO_SYNC=(
+	~/Matchbox/
+	~/Matchbox_Miles/
+)
+
+for host in ${SYNC_TO_HOST}; do
+	rsync -av --delete ${DIRS_TO_SYNC[@]} ${host}:${SYNC_TO_DIR}
+done
+
+

@@ -1,0 +1,20 @@
+#!/bin/SH
+
+NAME=${1}
+SHADER_DIR='/Users/miles/Matchbox_Miles'
+BASE_SHADER="${SHADER_DIR}/X_BaseShader"
+SHADERS=`ls -1 ${BASE_SHADER} | grep 0`
+NEW_DIR="${SHADER_DIR}/${NAME}"
+
+if [[ -z ${NAME} ]]; then
+	echo "Usage: ${0} <shader_prefix>"
+	exit
+fi
+
+if [[ ! -f ${NEW_DIR} ]]; then
+	mkdir ${NEW_DIR}
+fi
+
+for shader in ${SHADERS} ; do
+	cp -rv ${BASE_SHADER}/${shader} ${NEW_DIR}/${NAME}.${shader}
+done;

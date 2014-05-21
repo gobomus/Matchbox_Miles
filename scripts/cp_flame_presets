@@ -1,0 +1,45 @@
+#!/usr/bin/python
+
+import os
+import sys
+import re
+from subprocess import Popen, PIPE
+from shlex import split
+
+
+DISCREET='/usr/discreet'
+PRESETS='MilesPresets'
+
+class cp_presets(object):
+	def __init__(self, svers, dvers):
+		found = self.find_presets(os.path.join(DISCREET, svers), os.path.join(DISCREET, dvers))
+		self.tar_presets(found)
+
+	def tar_presets(self, found):
+		for f in found.keys():
+			sync = "rsync -av %s/ %s" % (f, found[f])
+			p1 = Popen(split(sync))
+
+	def find_presets(self, svers, dvers):
+		found = {}
+
+		for root, dirnames, filenames in os.walk(svers):
+			if re.search(PRESETS, root):
+				preset = re.sub(svers, '', root)
+				ddir = "%s%s" % (dvers, preset)
+				found[root] = ddir
+
+		return found
+
+def usage():
+	print "Usage: cp_presets <from_version> <to_version>"
+	print "Example version: flamepremium_2014.0.2"
+	sys.exit(0)
+
+
+if __name__ == "__main__":
+	if len(sys.argv) < 3:
+		usage()
+	else:
+			cp_presets(sys.argv[1], sys.argv[2])
+

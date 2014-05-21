@@ -20,13 +20,11 @@ float fractal(in vec2 uv) {
 	float c = cos(1.0/float(SIDES)*TAU);
 	float s = sin(1.0/float(SIDES)*TAU);
 	
-	//mat2 m = mat2(c, s, -s, c);
-	mat2 m = mat2(c, -s, s, c);
+	mat2 m = mat2(c, s, -s, c);
 	vec2 p = vec2(width, 0.0); 
 	vec2 r = p;
 	
-	//for (int i = 0; i < 7; ++i) {
-	for (int i = 0; i < 11; ++i) {
+	for (int i = 0; i < 7; ++i) {
 		float dmin = length(uv - r);
 		for (int j = 0; j < SIDES; ++j) {
 			p = m*p;
@@ -37,11 +35,10 @@ float fractal(in vec2 uv) {
 			}
 		}
 
-		//uv = 2.0*uv - r;
-		uv = x2*uv - r;
+		uv = 2.0*uv - r;
 	}
 	
-	//return (length(uv-r)-0.15)/pow(2.0, 7.0);
+	return (length(uv-r)-0.15)/pow(2.0, 7.0);
 
 	return length(uv-r)/ 10.0;
 }
@@ -55,9 +52,8 @@ void main(void)
 	uv.x *= iResolution.x/iResolution.y;
 	
 	float d = fractal(uv);
-	//d = smoothstep(0.001, 0.015, d);
+	d = smoothstep(0.001, 0.015, d);
 	
-	//gl_FragColor = vec4(vec3(pow(vig*d, 0.45)),1.0);
+	gl_FragColor = vec4(vec3(pow(vig*d, 0.45)),1.0);
 
-	gl_FragColor = vec4(d);
 }

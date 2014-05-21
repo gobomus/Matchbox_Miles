@@ -4,7 +4,7 @@ uniform float adsk_result_w, adsk_result_h;
 uniform float adsk_result_frameratio;
 uniform float circle_radius;
 uniform vec2 center;
-uniform float sharpness;
+uniform float softness;
 
 void main(void)
 {
@@ -16,8 +16,7 @@ void main(void)
 	center_offset.x *= adsk_result_frameratio;
 
 	float dist = length(st - center_offset);
-	float circle = smoothstep(circle_radius, circle_radius+sharpness*.005, dist);
-	
+	float circle = smoothstep(circle_radius, circle_radius+softness*.005, dist);
 
 	gl_FragColor = vec4(1.0 - circle);
 }

@@ -1,13 +1,15 @@
 #version 120
 
 uniform float adsk_result_w, adsk_result_h;
+vec2 res = vec2(adsk_result_w, adsk_result_h);
+
 uniform sampler2D Front;
 
 void main(void)
 {
-	vec2 st = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
+	vec2 st = gl_FragCoord.xy / res;
 
-	vec4 front = texture2D(Front, st);
+	vec3 front = texture2D(Front, st).rgb;
 
-	gl_FragColor = front;
+	gl_FragColor = vec4(front, 0.0);
 }
