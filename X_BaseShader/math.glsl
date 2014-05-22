@@ -11,6 +11,8 @@ uniform vec2 point2;
 
 const float pi = 3.141592653589793238462643383279502884197969;
 
+uniform float f_slider;
+
 
 
 
@@ -80,22 +82,42 @@ void main()
 
 	// Find an angle between 2 vectors
 	// works in both normalized and non-normalized coord systems
-	c =  bc;
-	v1 = vec2(bc - gl_FragCoord.xy);
-
 	c = center;
+	c.x *= adsk_result_frameratio;
 	v1 = center - st;
+	v1.x *= adsk_result_frameratio;
 
 	// This returns angle in radians
 	float result = acos(dot(c,v1)/(mag(c)*mag(v1)));
 
-	// This convert radians to degrees
-	result *= 180.0/pi;
+	//col += vec3(0.0,  0.0, cos(result));
+	//col += vec3(0.0,  0.0, sign(cos(result)));
+	//col += vec3(0.0,  0.0, cross1.z);
 
+	// This convert radians to degrees
+	//result *= 180.0/pi;
+	// or better yet
+	float deg = degrees(result);
+
+	// This changes the 1-180 degrees to 360 degrees around a circle
+	// Probably a better way to acheive this
+	if (cross1.z > 0.0) {
+		deg = 360.0 - deg;
+	}
+
+	result = deg;
+	//result = cross1.z;
+
+	// View the angle analyze with a cc node to see the values go from 0 - 360
 	col = vec3(0.0,  result, 0.0);
 
 	// This will make you sick
-	col = vec3(0.0,  sin(result), 0.0);
+	//col = vec3(0.0,  sin(result), 0.0);
+
+	//col += vec3(0.0,  0.0, inversesqrt(result));
+
+
+
 
 
 
