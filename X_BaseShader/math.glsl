@@ -8,6 +8,16 @@ vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform vec2 center;
 uniform vec2 point2;
 
+
+const float pi = 3.141592653589793238462643383279502884197969;
+
+
+
+
+float mag(vec2 v) {
+	return sqrt(v.x * v.x + v.y * v.y);
+}
+
 void main()
 {
 	vec2 st = gl_FragCoord.xy / res;
@@ -63,6 +73,32 @@ void main()
 
 	col += vec3(0.0, 0.0, parallel);
 
+	col = clamp(col, 0.0, 1.0);
+
+	// Everything above here works (more or less)
+
+
+	// Find an angle between 2 vectors
+	// works in both normalized and non-normalized coord systems
+	c =  bc;
+	v1 = vec2(bc - gl_FragCoord.xy);
+
+	c = center;
+	v1 = center - st;
+
+	// This returns angle in radians
+	float result = acos(dot(c,v1)/(mag(c)*mag(v1)));
+
+	// This convert radians to degrees
+	result *= 180.0/pi;
+
+	col = vec3(0.0,  result, 0.0);
+
+	// This will make you sick
+	col = vec3(0.0,  sin(result), 0.0);
+
+
+
 
 	// make center cross
 	// do this back in normalized space
@@ -73,6 +109,7 @@ void main()
 	}
 
 	c.x /= adsk_result_frameratio;
+
 
 	gl_FragColor = vec4(col, 1.0);
 }
