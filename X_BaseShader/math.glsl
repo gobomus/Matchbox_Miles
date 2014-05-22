@@ -14,6 +14,9 @@ const float pi = 3.141592653589793238462643383279502884197969;
 uniform float f_slider;
 
 
+vec2 p2;
+vec2 v2,v3,v4;
+
 
 
 float mag(vec2 v) {
@@ -77,27 +80,28 @@ void main()
 
 	col = clamp(col, 0.0, 1.0);
 
-	// Everything above here works (more or less)
-
-
 	// Find an angle between 2 vectors
 	// works in both normalized and non-normalized coord systems
-	c = center;
+	c = center - point2;
 	c.x *= adsk_result_frameratio;
 	v1 = center - st;
 	v1.x *= adsk_result_frameratio;
 
 	// This returns angle in radians
-	float result = acos(dot(c,v1)/(mag(c)*mag(v1)));
+	float angle = acos(dot(c,v1)/(mag(c)*mag(v1)));
 
-	//col += vec3(0.0,  0.0, cos(result));
-	//col += vec3(0.0,  0.0, sign(cos(result)));
+	//col += vec3(0.0,  0.0, cos(angle));
+	//col += vec3(0.0,  0.0, sign(cos(angle)));
 	//col += vec3(0.0,  0.0, cross1.z);
 
 	// This convert radians to degrees
-	//result *= 180.0/pi;
+	//angle *= 180.0/pi;
 	// or better yet
-	float deg = degrees(result);
+	float deg = degrees(angle);
+
+
+	//angle = cross1.z;
+	//col += vec3(0.0,  angle, 0.0);
 
 	// This changes the 1-180 degrees to 360 degrees around a circle
 	// Probably a better way to acheive this
@@ -105,20 +109,37 @@ void main()
 		deg = 360.0 - deg;
 	}
 
-	result = deg;
-	//result = cross1.z;
+	angle = deg;
 
 	// View the angle analyze with a cc node to see the values go from 0 - 360
-	col = vec3(0.0,  result, 0.0);
+	//col += vec3(0.0,  angle, 0.0);
 
 	// This will make you sick
-	//col = vec3(0.0,  sin(result), 0.0);
+	//col = vec3(0.0,  sin(angle), 0.0);
 
-	//col += vec3(0.0,  0.0, inversesqrt(result));
+	c.x /= adsk_result_frameratio;
+	v1.x /= adsk_result_frameratio;
 
 
+	// Everything above here works (more or less)
 
+	c = center;
+	p2 = point2;
+	v1 = center - st;
+	v2 = p2 - st;
+	v3 = center - p2;
+	v4 = c - p2;
 
+	c1v = vec3(c, 0.0);
+	v1v = vec3(v4, 0.0);
+
+	v4.x *= adsk_result_frameratio;
+	mw = 1.0*distance(c,p2);
+
+	col = vec3(.45);
+	if (length(v1) < length(v3) && length(v2) < length(v3) && abs(cross1.z) < 0.1*mw) {
+			col = vec3(1.0);
+	}
 
 
 
