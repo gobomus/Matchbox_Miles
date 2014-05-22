@@ -42,7 +42,7 @@ void main()
 
 	// max width of line
 	// multiply max_width by distance from center to 0.0 (making line an even width as it 
-	// gets closer and further away
+	// gets closer and further away, not working
 	float max_width = 10.0;
 	float mw = max_width * distance(c, point2);
 
