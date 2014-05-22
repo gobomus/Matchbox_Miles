@@ -21,23 +21,23 @@ void main()
 	// max width of line
 	// multiply max_width by distance from center to 0.0 (making line an even width as it 
 	// gets closer and further away
-	float max_width = 20.0;
-	max_width *= distance(c, vec2(0.0));
+	float max_width = 10.0;
+	float mw = max_width * distance(c, vec2(0.0));
 
 	// use bc and gl_FragCoord.xy because there seems to be
 	// floating point erros in normalized space ?
-	vec2 v1 = vec2(bc - gl_FragCoord.xy)  / max_width;
+	vec2 v1 = vec2(bc - gl_FragCoord.xy)  / mw;
 
 	// if dot product == 0 then vectors are perpendicular
 	// if angle between vectors is less than 90 degrees, dot product it's positive
 	// if angle between vectors is more than 90 degrees, dot product it's negative
 	float dot1 = dot(v1,  c);
-	float dot2 = abs(dot1);
+	float dot2 = 1.0 - abs(dot1);
 
 	// Draw a line that is perpendicular to the center vector
 	vec3 col = vec3(0.0);
-	dot2 = smoothstep(.8, 1.0, dot2);
-	col += vec3(0.0, 1.0 - dot2, 0.0);
+	dot2 = smoothstep(.0, .2, dot2);
+	col += vec3(0.0, dot2, 0.0);
 
 	// this determines magnitude of vectors
 	float c_mag = sqrt(c.x * c.x + c.y + c.y);
@@ -59,9 +59,10 @@ void main()
 	c.x /= adsk_result_frameratio;
 
 	// make center cross
-	if (abs(center.x - st.x) < .002) {
+	// do this back in normalized space
+	if (abs(center.x - st.x) < max_width/adsk_result_w) {
 		col = vec3(1.0,0.0,0.0);
-	} else if (abs(center.y - st.y) < .002 * adsk_result_frameratio) {
+	} else if (abs(center.y - st.y) < max_width/adsk_result_h) {
 		col = vec3(1.0,0.0,0.0);
 	}
 
