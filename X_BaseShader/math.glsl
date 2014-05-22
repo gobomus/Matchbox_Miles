@@ -6,23 +6,30 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 uniform vec2 center;
+uniform vec2 point2;
 
 void main()
 {
 	vec2 st = gl_FragCoord.xy / res;
+	//vec2 point2 = vec2(0.0);
 
 	// make unnormalized center
 	vec2 bc = center * res;
 
+	// trying to get the center vector to change.
+	// it changes but the lines get squished. probably something
+	// to do with the whole rotation matrix thing. which i don't
+	// understand at all.
+	vec2 c = point2 - center;
+
 	// adjust for aspect ratio
-	vec2 c = center;
 	c.x *= adsk_result_frameratio;
 
 	// max width of line
 	// multiply max_width by distance from center to 0.0 (making line an even width as it 
 	// gets closer and further away
 	float max_width = 10.0;
-	float mw = max_width * distance(c, vec2(0.0));
+	float mw = max_width * distance(c, point2);
 
 	// use bc and gl_FragCoord.xy because there seems to be
 	// floating point erros in normalized space ?
@@ -56,7 +63,6 @@ void main()
 
 	col += vec3(0.0, 0.0, parallel);
 
-	c.x /= adsk_result_frameratio;
 
 	// make center cross
 	// do this back in normalized space
@@ -65,6 +71,8 @@ void main()
 	} else if (abs(center.y - st.y) < max_width/adsk_result_h) {
 		col = vec3(1.0,0.0,0.0);
 	}
+
+	c.x /= adsk_result_frameratio;
 
 	gl_FragColor = vec4(col, 1.0);
 }
