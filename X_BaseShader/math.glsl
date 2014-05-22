@@ -40,6 +40,7 @@ void main()
 	// adjust for aspect ratio
 	c.x *= adsk_result_frameratio;
 
+
 	// max width of line
 	// multiply max_width by distance from center to 0.0 (making line an even width as it 
 	// gets closer and further away, not working
