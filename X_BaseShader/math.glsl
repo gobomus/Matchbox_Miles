@@ -1,11 +1,11 @@
 #version 120
 
 
+uniform float adsk_result_frameratio;
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
+
 uniform vec2 center;
-uniform vec2 center2;
-uniform float adsk_result_frameratio;
 
 void main()
 {
@@ -26,9 +26,9 @@ void main()
 	// floating point erros in normalized space ?
 	vec2 v1 = vec2(bc - gl_FragCoord.xy)  / (max_width * distance(c, vec2(0.0)));
 
-	// if dot product == 0 then vectors are parallel
-	// if dot product is less than 90 degrees it's positive
-	// if dot product is more than 90 degrees it's negative
+	// if dot product == 0 then vectors are perpendicular
+	// if angle between vectors is less than 90 degrees, dot product it's positive
+	// if angle between vectors is more than 90 degrees, dot product it's negative
 	float dot1 = dot(v1,  c);
 	float dot2 = abs(dot1);
 
@@ -41,6 +41,10 @@ void main()
 	float c_mag = sqrt(c.x * c.x + c.y + c.y);
 	float v_mag = sqrt(v1.x * v1.x + v1.y + v1.y);
 
+	if (c_mag * v_mag == dot1) {
+		col += vec3(0.0,0.0,1.0);
+	}
+
 	c.x /= adsk_result_frameratio;
 
 	// make center cross
@@ -50,7 +54,5 @@ void main()
 		col = vec3(1.0,0.0,0.0);
 	}
 
-
 	gl_FragColor = vec4(col, 1.0);
 }
-
