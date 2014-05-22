@@ -129,15 +129,16 @@ void main()
 	v2 = p2 - st;
 	v3 = center - p2;
 	v4 = c - p2;
+	v4 = p2 - c;
 
 	c1v = vec3(c, 0.0);
 	v1v = vec3(v4, 0.0);
 
 	v4.x *= adsk_result_frameratio;
-	mw = 1.0*distance(c,p2);
+	mw = length(p2 - c);
 
-	col = vec3(.45);
-	if (length(v1) < length(v3) && length(v2) < length(v3) && abs(cross1.z) < 0.1*mw) {
+	//col = vec3(.45);
+	if (length(v1) < length(v3) && length(v2) < length(v3) && abs(cross1.z) < mw) {
 			col = vec3(1.0);
 	}
 
