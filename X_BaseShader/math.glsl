@@ -23,6 +23,14 @@ float mag(vec2 v) {
 	return sqrt(v.x * v.x + v.y * v.y);
 }
 
+vec2 uniform_scale(vec2 st, vec2 center, float scale)
+{
+    vec2 ss = vec2(scale / vec2(100.0));
+
+    return (st - center) / ss + center;
+}
+
+
 void main()
 {
 	vec2 st = gl_FragCoord.xy / res;
@@ -35,11 +43,10 @@ void main()
 	// it changes but the lines get squished. probably something
 	// to do with the whole rotation matrix thing. which i don't
 	// understand at all.
-	vec2 c = point2 - center;
+	vec2 c = center - point2;
 
 	// adjust for aspect ratio
 	c.x *= adsk_result_frameratio;
-
 
 	// max width of line
 	// multiply max_width by distance from center to 0.0 (making line an even width as it 
@@ -49,7 +56,8 @@ void main()
 
 	// use bc and gl_FragCoord.xy because there seems to be
 	// floating point erros in normalized space ?
-	vec2 v1 = vec2(bc - gl_FragCoord.xy)  / mw;
+	//vec2 v1 = vec2(bc - gl_FragCoord.xy)  / mw;
+	vec2 v1 = vec2(bc - gl_FragCoord.xy);
 
 	// if dot product == 0 then vectors are perpendicular
 	// if angle between vectors is less than 90 degrees, dot product it's positive
@@ -74,10 +82,13 @@ void main()
 	vec3 c1v = vec3(c, 0.0);
 	vec3 cross1 = cross(c1v, v1v);
 
-	float parallel = 1.0 - abs(cross1.z);
-	parallel = smoothstep(0.0, .2, parallel);
+	float parallel = abs(cross1.z/mag(c));
+	//float parallel = abs(cross1.z);
+	parallel = 1.0 - parallel;
+	parallel = smoothstep(0.0, .5, parallel);
 
 	col += vec3(0.0, 0.0, parallel);
+
 
 	col = clamp(col, 0.0, 1.0);
 
@@ -126,32 +137,32 @@ void main()
 
 	c = center;
 	p2 = point2;
-	v1 = center - st;
+	v1 = c - st;
+
 	v2 = p2 - st;
-	v3 = center - p2;
-	v4 = c - p2;
+	v3 = c - p2;
 	v4 = p2 - c;
 
-	c1v = vec3(c, 0.0);
-	v1v = vec3(v4, 0.0);
+	c1v = vec3(v1, 0.0);
+	v1v = vec3(v3, 0.0);
 
-	v4.x *= adsk_result_frameratio;
+
 	mw = length(p2 - c);
 
-	//col = vec3(.45);
-	if (length(v1) < length(v3) && length(v2) < length(v3) && abs(cross1.z) < mw) {
-			col = vec3(1.0);
+	// HERE
+	cross1 = cross(c1v, v1v);
+
+	if (length(v1) < length(v3) && length(v2) < length(v3) && abs(cross1.z / mag(v3)) < .01) {
+			col += vec3(1.0);
 	}
 
-
-
 	// make center cross
-	// do this back in normalized space
 	if (abs(center.x - st.x) < max_width/adsk_result_w) {
 		col = vec3(1.0,0.0,0.0);
 	} else if (abs(center.y - st.y) < max_width/adsk_result_h) {
 		col = vec3(1.0,0.0,0.0);
 	}
+
 
 	c.x /= adsk_result_frameratio;
 
