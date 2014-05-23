@@ -12,6 +12,8 @@
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="f_slider" Type="float" Name="f_slider">
+      </Uniform>
    </Shader>
    <Page Name="Page 1" Page="0">
       <Col Name="Column 1" Col="0" Page="0">
