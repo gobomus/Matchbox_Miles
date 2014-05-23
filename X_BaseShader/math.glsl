@@ -49,6 +49,8 @@ float mag(vec2 v) {
 
 float is_parallel(vec3 point_from_center, vec3 coords_from_center)
 {
+	// the cross product will return 0 if parallel and
+	// gets further away from 0 as it gets less paralell
 	// scale the vector so the cross product can be visualized sharper
 	float scale_vector = 1000.0;
 
@@ -66,12 +68,26 @@ float is_parallel(vec3 point_from_center, vec3 coords_from_center)
 
 float is_perpendicular(vec2 point_from_center, vec2 coords_from_center)
 {
+	// the dot product will return 0 if perpendicular and gets
+	// further away from 0 the less perpendicular
 	float scale_vector = 1000.0;
 	float width = 20.0;
 
 	float dot1 = 1.0 - abs(dot(normalize(point_from_center) / width, coords_from_center * scale_vector));
 
 	return dot1;
+}
+
+float draw_cross(vec3 center_vector, vec3 coords_from_center)
+{
+
+	float col = is_parallel(center_vector, coords_from_center);
+
+	col = clamp(col, 0.0, 1.0);
+
+
+	return col;
+
 }
 
 void main()
@@ -100,6 +116,14 @@ void main()
 	float perp = is_perpendicular(v2, v3);
 	col += green(perp);
 
+
+	// draw center cross
+	vec3 center_offset = vec3(v1v - vec3(0.0, v1v.y, 0.0));
+	float center_cross = draw_cross(v1v - center_offset, v3v);
+
+	center_offset = vec3(v1v - vec3(v1v.x, 0.0, 0.0));
+	center_cross += draw_cross(v1v - center_offset, v3v);
+	col += red(center_cross);
 
 
 
