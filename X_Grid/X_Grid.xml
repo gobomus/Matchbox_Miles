@@ -1,0 +1,50 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Grid Size" Type="float" Name="u_grid_size"
+	  UIConditionSource="grid_size_uniform" UIConditionValue="False" UIConditionInvert="True" UIConditionType="Hide">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Line Width" Type="float" Name="u_line_width"
+	  UIConditionSource="line_width_uniform" UIConditionValue="False" UIConditionInvert="True" UIConditionType="Hide">
+      </Uniform>
+
+      <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Uniform Line Width" Type="bool" Name="line_width_uniform">
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Grid Color" IconType="Pick" ValueType="Colour" Type="vec3" Name="line_color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+      <Uniform Row="0" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Uniform Line Width" Type="bool" Name="grid_size_uniform">
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Grid Size" IconType="None" Type="vec2" Name="grid_size"
+	  UIConditionSource="grid_size_uniform" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Line Width" IconType="None" Type="vec2" Name="line_width"
+	  UIConditionSource="line_width_uniform" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Grid Size" Col="0" Page="0">
+      </Col>
+      <Col Name="Line Width" Col="1" Page="0">
+      </Col>
+      <Col Name="Color" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

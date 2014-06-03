@@ -9,7 +9,7 @@ void main(void)
 {
 	vec2 st = gl_FragCoord.xy / res;
 
-	vec3 front = texture2D(Front, st).rrr;
+	vec3 front = texture2D(Front, st).rgb;
 
 	gl_FragColor = vec4(front, 0.0);
 }
