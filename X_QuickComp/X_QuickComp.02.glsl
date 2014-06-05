@@ -25,8 +25,13 @@ uniform vec3 angle3D;
 
 uniform float near;
 
-uniform sampler2D Front;
-vec2 center = vec2(.5);
+uniform sampler2D adsk_results_pass1;
+uniform sampler2D Back;
+
+uniform float transparency;
+
+
+uniform vec2 center;
 
 bool isInTex( const vec2 coords )
 {
@@ -34,30 +39,6 @@ bool isInTex( const vec2 coords )
 			coords.y >= 0.0 && coords.y <= 1.0;
 }
 
-
-mat3 rotate3D(float angle, vec3 axis3D)
-{
-	// Need to figure out how to make this rotate around center of texture not camera
-	// Once figured out get rid of the rotate_* functions below
-
-	vec3 nv1 = axis3D;
-	float x = normalize(nv1.x);
-	float y = normalize(nv1.y);
-	float z = normalize(nv1.z);
-
-	float c = cos(angle);
-	float nc = 1.0 - c;
-	float s = sin(angle);
-	float ns = 1.0 - s;
-
-	mat3 rotation_matrix = mat3(
-								x * x * nc + c, 		y * x * nc - z * s, 	z * x * nc + y * s,
-								x * y * nc + z * s, 	y * y * nc + c, 		z * y * nc - x * s,
-								x * z * nc - y * s, 	y * z * nc + x * s, 	z * z * nc + c
-								);
-
-	return rotation_matrix;
-}
 
 mat3 shear(vec3 shear_amount)
 {
@@ -117,18 +98,21 @@ mat3 rotate_x(float rotation_amount)
 mat3 translate(vec3 translation_amount)
 {
 	mat3 translation_matrix = mat3(
-									1.0, 0.0, -translation_amount.x,
-									0.0, 1.0, -translation_amount.y,
+									1.0, 0.0, -translation_amount.x + .5,
+									0.0, 1.0, -translation_amount.y + .5,
 									0.0, 0.0, 1.0 + translation_amount.z
 								);
 
 	return translation_matrix;
 }
 
-vec2 apply_transformations(vec2 coords, vec2 center, mat3 transformation_matrix)
+vec2 apply_transformations(vec2 coords, vec2 center, mat3 transformation_matrix, int ratio)
 {
+
 	coords -= center;
-   	coords.x *= adsk_result_frameratio;
+	if (ratio > 0) {
+   		coords.x *= adsk_result_frameratio;
+	}
 
 	vec3 tmp_vec = vec3(coords, 1.0);
    	tmp_vec *= transformation_matrix;
@@ -136,7 +120,10 @@ vec2 apply_transformations(vec2 coords, vec2 center, mat3 transformation_matrix)
     coords.x = tmp_vec.x / tmp_vec.z;
     coords.y = tmp_vec.y / tmp_vec.z;
 
-   	coords.x /= adsk_result_frameratio;
+	if (ratio > 0) {
+   		coords.x /= adsk_result_frameratio;
+	}
+
    	coords += center;
 
 	return coords;
@@ -145,7 +132,9 @@ vec2 apply_transformations(vec2 coords, vec2 center, mat3 transformation_matrix)
 void main(void)
 {
     vec2 st = gl_FragCoord.xy / res;
-	vec3 front = vec3(0.0);
+
+	vec4 front = vec4(0.0);
+    vec4 back = texture2D(Back, st);
 
 	// Default postion
 	mat3 t_matrix = mat3(
@@ -154,24 +143,24 @@ void main(void)
 						0.0, 0.0, 1.0
 						);
 
-
 	t_matrix *= translate(translation_amount);
+	st = apply_transformations(st, center, t_matrix, 0);
 
-	t_matrix *= rotate3D(angle3D.x, vec3(1.0, 0.0, 0.0));
-	t_matrix *= rotate3D(angle3D.y, vec3(0.0, 1.0, 0.0));
-	t_matrix *= rotate3D(angle3D.z, vec3(0.0, 0.0, 1.0));
-
-	t_matrix *= scale(scale_amount);
-	t_matrix *= rotate_x(x_rotation);
+	t_matrix = rotate_x(x_rotation);
 	t_matrix *= rotate_y(y_rotation);
 	t_matrix *= rotate_z(z_rotation);
+	t_matrix *= scale(scale_amount);
 	t_matrix *= shear(shear_amount);
 
-	st = apply_transformations(st, center, t_matrix);
+	st = apply_transformations(st, center,  t_matrix, 1);
 
 	if (isInTex(st)) {
-    	front = texture2D(Front, st).rgb;
+    	front = texture2D(adsk_results_pass1, st);
 	}
 
-    gl_FragColor = vec4(front, 0.0);
+	float matte = front.a * (1.0 - transparency);
+
+	vec4 comp = front * matte + back * (1.0 - matte);
+
+    gl_FragColor = vec4(comp.rgb, front.a);
 }

@@ -13,7 +13,7 @@ void main(void)
 	vec2 center = vec2(.5);
 
 	mat2 x = mat2(0,1,1,0);
-	mat2 t = mat2(0, -shear.x, shear.y, 0);
+	mat2 t = mat2(0, shear.x, shear.y, 0);
 
 	//-1,-1 is a flip
 	// 0,-1 is a flip flop
