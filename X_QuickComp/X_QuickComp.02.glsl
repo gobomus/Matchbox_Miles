@@ -30,6 +30,8 @@ uniform sampler2D Back;
 
 uniform float transparency;
 
+uniform bool front_premult;
+
 
 uniform vec2 center;
 
@@ -159,8 +161,12 @@ void main(void)
 	}
 
 	float matte = front.a * (1.0 - transparency);
-
 	vec4 comp = front * matte + back * (1.0 - matte);
+
+	if (front_premult) {
+		comp = front + back * (1.0 - matte);
+	}
+
 
     gl_FragColor = vec4(comp.rgb, front.a);
 }
