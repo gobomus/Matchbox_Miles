@@ -1,9 +1,10 @@
 #version 120
+#extension GL_ARB_shader_texture_lod : enable
 
 uniform float adsk_time, adsk_result_w, adsk_result_h, adsk_result_frameratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
-uniform sampler2D adsk_results_pass1, adsk_results_pass2, adsk_results_pass3, adsk_results_pass4;
+uniform sampler2D adsk_results_pass1, adsk_results_pass2, adsk_results_pass3, adsk_results_pass4, adsk_results_pass5;
 
 uniform int process;
 uniform int result;
@@ -14,9 +15,13 @@ uniform bool show_swatch;
 uniform vec2 swatch_center;
 uniform float swatch_size;
 
+uniform bool show_pallette;
+uniform float pallette_detail;
+
 uniform vec3 color;
 
 uniform bool static_noise;
+uniform bool color_noise;
 
 uniform vec3 cb_color1, cb_color2;
 uniform float checkerboard_freq;
@@ -29,6 +34,15 @@ uniform vec2 cw_center;
 uniform float cw_size;
 uniform float cw_val;
 uniform float cw_aspect;
+
+uniform int grad_type;
+uniform int grad_fit;
+uniform vec2 grad2_p1;
+uniform vec2 grad2_p2;
+uniform vec3 grad_color1;
+uniform vec3 grad_color2;
+uniform vec3 grad_color3;
+uniform vec3 grad_color4;
 
 vec2 texel = vec2(1.0) / res;
 
@@ -43,6 +57,12 @@ const vec3 blue = vec3(0.0, 0.0, 1.0);
 const vec3 cyan = white - red;
 const vec3 magenta = white - green;
 const vec3 yellow = white - blue;
+
+bool isInTex( const vec2 coords )
+{
+   return coords.x >= 0.0 && coords.x <= 1.0 &&
+          coords.y >= 0.0 && coords.y <= 1.0;
+}
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -82,7 +102,7 @@ float draw_circle(vec2 st, vec2 center, float size, float aspect)
 	vec2 v3 = center - st;
 	v3.x *= adsk_result_frameratio * aspect;
 
-    float circle =  1.0 - smoothstep(length(v2) - .1*.1, length(v2), length(v3));
+    float circle =  1.0 - smoothstep(length(v2) - .005, length(v2), length(v3));
 
     return circle;
 }
@@ -262,6 +282,53 @@ vec3 colorbars(vec2 st)
 	}	
 }
 
+float is_perpendicular(vec2 point_from_center, vec2 coords_from_center)
+{
+    float scale_vector = 1000.0;
+    float width = 10.0;
+
+    float dot1 = 1.0 - abs(dot(normalize(point_from_center) / width, coords_from_center * scale_vector));
+
+    return dot1;
+}
+
+
+float is_parallel(vec3 point_from_center, vec3 coords_from_center)
+{
+    float scale_vector = 1000.0;
+
+    float para = 1.0 - abs(cross(normalize(point_from_center) / 1, coords_from_center * scale_vector).z);
+
+    return para;
+}
+
+
+vec3 gradient(vec2 st) {
+	vec3 col = vec3(st.x);
+
+	if (grad_type == 1) {
+		col = vec3(st.y);
+	} else if (grad_type == 2) {
+		st -= vec2(.5);
+		if (grad_fit == 0) {
+			st.x *= adsk_result_frameratio;
+			st /= .5;
+		} else if (grad_fit == 2) {
+			st /= .5;
+		} else if (grad_fit == 1) {
+			st.y /= adsk_result_frameratio;
+			st /= .5;
+		}
+
+		st += vec2(.5);
+		col = vec3(1.0 - distance(vec2(.5), st));
+	}
+
+	col = mix(grad_color2, grad_color1, col);
+	
+	return col;
+}
+
 void main(void)
 {
 	vec2 st = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
@@ -270,19 +337,57 @@ void main(void)
 	// Default output is solid color
 	vec3 col = vec3(color);
 
+	vec4 pallette = vec4(0.0);
+	float swatch = draw_circle(st, swatch_center, swatch_size * .25, 1.0);
+
 	if (process == 0) {
 		if (show_swatch) {
-			float circle = draw_circle(st, swatch_center, swatch_size * .25, 1.0);
-			col = mix(front, col, circle);
+			col = mix(front, color, swatch);
+		}
+
+		if (show_pallette) {
+			vec2 coords = (st - vec2(.5)) / .65 + .5;
+			if (isInTex(coords)) {
+				pallette = texture2DLod(adsk_results_pass5, coords , pallette_detail);
+			
+
+				col = mix(front, pallette.rgb, pallette.a);
+
+				if (show_swatch) {
+					col = mix(col, color, swatch);
+				}	
+
+				if (st.x < .2) {
+					col.rgb -= .5;
+					col = clamp(col, 0.0, 1.0);
+				}
+
+				float thresh = .93;
+				if (col.r > thresh && col.g > thresh && col.b > thresh) {
+					col.rgb = white;
+				}
+			} else {
+				if (show_swatch) {
+					col = mix(front, color, swatch);
+				} else {	
+					col = front;
+				}
+			}
 		}
 	} else if (process == 1) {
 		col = vec3(noise(st));
+		if ( color_noise ) {
+            col = vec3(noise(st * noise(st)+1.), noise(st * noise(st)-1.), noise(st));
+		}
+
 	} else if (process == 2) {
 		col = checkerboard(st, cb_color1, cb_color2);
 	} else if (process == 3) {
 		col = colorbars(st);
 	} else if (process == 4) {
 		col = colorwheel(st);
+	} else if (process == 5) {
+		col = gradient(st);
 	}
 
 	float matte_out = luminance(col);
