@@ -42,6 +42,10 @@ void main( void ) {
 		} else {
 			col = 1.0;
 		}
+
+		col = 1.0;
+	} else {
+		col = u + v;
 	}
 
 	gl_FragColor = vec4(col);
