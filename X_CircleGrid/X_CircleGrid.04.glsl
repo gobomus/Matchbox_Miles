@@ -5,20 +5,17 @@ vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 uniform sampler2D adsk_results_pass1, adsk_results_pass3;
 
-uniform float circle_size;
-uniform float triangle_size;
-//uniform bool shaded_triangle;
-bool shaded_triangle = false;
-
 uniform float softness;
-
 uniform float aspect;
-
 uniform int grid_type;
-//int grid_type = 1;
-
 vec2 center = vec2(.5);
 
+uniform vec2 shape_offset;
+
+uniform float circle_size;
+
+uniform float triangle_size;
+bool shaded_triangle = false;
 
 vec2 unalign(vec2 st) {
     st.x /= adsk_result_frameratio;
@@ -36,11 +33,11 @@ vec2 align(vec2 st) {
 
 float draw_triangle(vec2 st)
 {
-    vec2 t = vec2(.5, triangle_size);
+    vec2 t = vec2(.5, triangle_size * 2.0);
 	vec2 l = t;
     vec2 r;
 
-	float s = softness * .01;
+	float s = softness * .001;
 
 	float a1 = radians(120.0);
 
@@ -55,6 +52,10 @@ float draw_triangle(vec2 st)
 
 	r.x = 1.0 - l.x;
 	r.y = l.y;
+
+	t += shape_offset;
+	l += shape_offset;
+	r += shape_offset;
 
     vec2 v0 = t - l;
     vec2 v1 = r - l;
@@ -95,17 +96,6 @@ float draw_triangle(vec2 st)
 			col = v;
 		}
 	} else {
-
-	/*
-	if (u < .1) {
-		col = .75;
-	} else if (v > -.1 && v < 0.0) {
-		col = .5;
-	} else if (u+v < 1.1 && u+v > 1.0) {
-		col = .25;
-	}
-	*/
-	
 		if (st.y <= t.y && st.x >= l.x && st.x < r.x) {
 
     		if (u >= 0.0 && v >= 0.0 && u + v <= 1.0) { // current uvs fall in between triangle's edges
@@ -127,7 +117,6 @@ float draw_triangle(vec2 st)
 			}
 		}
 
-
 		col = clamp(col, 0.0, 1.0);
 	}
 
@@ -139,6 +128,8 @@ float draw_circle(vec2 st)
 	st = align(st);
 	st.x /= aspect;
 	st += center;
+
+	st += shape_offset;
 
 	vec2 from_center = vec2(center.x, center.y + circle_size);
     float circle =  1.0 - smoothstep(
