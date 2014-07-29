@@ -1,0 +1,226 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+	<Uniform ResDependent="None" Max="100.0" Min="00000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="1" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
+      </Uniform>
+
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+      </Uniform>
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Contrast" Type="float" Name="contrast_all">
+      </Uniform>
+	<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Contrast RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="contrast">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+ 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Offset" Type="float" Name="offset_all">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="offset_">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Gamma" Type="float" Name="gamma_all">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="gamma">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="gain">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_NEAREST_MIPMAP_NEAREST" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Gain" Type="float" Name="gain_all">
+      </Uniform>
+	<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Look" Type="int" Name="look" ValueType="Popup"
+            UIConditionSource="process" UIConditionValue="5" UIConditionInvert="False" UIConditionType="Hide">
+            <PopupEntry Title="New" Value="0">
+            </PopupEntry>
+            <PopupEntry Title="Bleach Bypass" Value="1">
+            </PopupEntry>
+            <PopupEntry Title="Sepia" Value="2">
+            </PopupEntry>
+        </Uniform>
+
+   </Shader>
+	<Shader OutputBitDepth="Output" Index="4">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="000000.0" Default="50.0" Inc="1." Tooltip="" Row="1" Col="2" Page="1" DisplayName="Glow Width" Type="float" Name="blur_amount">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+
+	<Shader OutputBitDepth="Output" Index="6">
+
+	 <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="1" DisplayName="Post Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_offset">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+		 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="1" DisplayName="Post Offset" Type="float" Name="post_offset_all">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Post Gain" Type="float" Name="post_gain_all">
+      </Uniform>
+
+	 <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="1" DisplayName="Post Gain" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gain">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Post Gamma" Type="float" Name="post_gamma_all">
+      </Uniform>
+
+	<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Post Gamma" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gamma">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+	<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="1" DisplayName="Post Contrast" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_contrast">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="1" DisplayName="Post Contrast" Type="float" Name="post_contrast_all">
+      </Uniform>
+
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="1" DisplayName="Post Saturation" Type="float" Name="post_saturation">
+      </Uniform>
+
+
+	 <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Palette Position" IconType="Axis" Type="vec2" Name="palette_pos">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1">
+         </SubUniform>
+      </Uniform>
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="5.0" Inc="1." Tooltip="" Row="4" Col="2" Page="0" DisplayName="Palette Detail" Type="float" Name="palette_detail">
+      </Uniform>
+	<Uniform InputColor="67, 77, 83" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_NEAREST_MIPMAP_NEAREST" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+	<Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Show Palette" Type="bool" Name="show_palette">
+      </Uniform>
+	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.35" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Palette Size" Type="float" Name="palette_size">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="1" DisplayName="Intensity" Type="float" Name="glow_gamma_all">
+      </Uniform>
+
+	 <Uniform Row="4" Col="2" Page="1" Default="False" Tooltip="" DisplayName="Harsh Glow" Type="bool" Name="harsh_glow">
+      </Uniform>
+
+      <Uniform Type="int" Name="look">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="2" Page="1" DisplayName="Glow RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="glow_gamma">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+
+
+	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.7" Inc="0.01" Tooltip="" Row="0" Col="3" Page="1" DisplayName="vinette_width" Type="float" Name="vinette_width">
+      </Uniform>
+
+	<Uniform Inc="0.01" Tooltip="" Row="2" Col="3" Page="1" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gamma">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="1" DisplayName="Vinette Gamma" Type="float" Name="vinette_gamma_all">
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="4" Col="3" Page="1" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gain">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="1" DisplayName="Vinette Gain" Type="float" Name="vinette_gain_all">
+      </Uniform>
+
+   </Shader>
+
+   <Page Name="Grade" Page="0">
+      <Col Name="Grade RGB" Col="0" Page="0">
+      </Col>
+      <Col Name="Grade" Col="1" Page="0">
+      </Col>
+      <Col Name="Palette" Col="2" Page="0">
+      </Col>
+      <Col Name="Output" Col="3" Page="0">
+      </Col>
+   </Page>
+	 <Page Name="FX" Page="1">
+      <Col Name="Post Grade RGB" Col="0" Page="1">
+      </Col>
+      <Col Name="Post Grade" Col="1" Page="1">
+      </Col>
+      <Col Name="Glow" Col="2" Page="1">
+      </Col>
+      <Col Name="Vinette" Col="3" Page="1">
+      </Col>
+	</Page>
+</ShaderNodePreset>
