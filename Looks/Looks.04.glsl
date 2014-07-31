@@ -79,5 +79,4 @@ vec4 gblur()
 void main(void)
 {
     gl_FragColor = gblur();
-
 }

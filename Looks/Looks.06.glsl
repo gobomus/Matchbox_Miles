@@ -155,11 +155,12 @@ vec3 adjust_saturation(vec3 col, float sat)
 	return col;
 }
 
-vec3 adjust_glow(vec3 col, vec4 gamma, vec4 blur)
+vec3 adjust_glow(vec3 col, vec4 gamma, vec4 blur, bool glow_more)
 {
-	if (harsh_glow) {
+	if (glow_more) {
 		vec3 glow = adjust_gamma(blur.rgb, gamma);
-		col = sqrt(glow * glow + col * col);
+		vec3 tmp = sqrt(clamp(glow * glow,0.0, 1.0) + clamp(col * col,0.0, 1.0));
+		col = mix(col, tmp, blur.a);
 	} else {
 		vec3 glow = adjust_gamma(col, gamma);
 		col = mix(col, glow, blur.a);
@@ -192,10 +193,18 @@ void main(void)
 	vec3 col = source;
 
 	if (look == 1) {
+		i_post_gamma_all = 1.15;
+		i_post_gain_all = 1.15;
 	} else if (look == 2) {
 	      i_post_gamma_all = 1.84;
 	      i_post_gain_all = 1.25;
 	      i_post_saturation = .82;
+	} else if (look == 3) {
+		i_post_saturation = .85;
+		i_glow_gamma_all = 1.2;
+	} else if (look == 4) {
+		i_glow_gamma = vec3(1.0, .68, 1.562);
+		col = adjust_glow(col, vec4(i_glow_gamma, 1.0), blur, true);
 	}
 
 	float saturation_bundle = post_saturation * i_post_saturation;
@@ -203,7 +212,6 @@ void main(void)
 	vec4 gamma_bundle = vec4(post_gamma * i_post_gamma, post_gamma_all * i_post_gamma_all);
 	vec4 offset_bundle = vec4(post_offset * i_post_offset, post_offset_all * i_post_offset_all);
 	vec4 contrast_bundle = vec4(post_contrast * i_post_contrast, post_contrast_all * i_post_contrast_all);
-	vec4 glow_gamma_bundle = vec4(glow_gamma, glow_gamma_all);
 	vec4 vinette_gamma_bundle = vec4(vinette_gamma * i_vinette_gamma, vinette_gamma_all * i_vinette_gamma_all);
 	vec4 vinette_gain_bundle = vec4(vinette_gain * i_vinette_gain, vinette_gain_all * i_vinette_gain_all);
 
@@ -213,7 +221,6 @@ void main(void)
     col = adjust_offset(col, offset_bundle);
     col = adjust_contrast(col, contrast_bundle);
 
-	col = adjust_glow(col, glow_gamma_bundle, blur);
 	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
 
 
