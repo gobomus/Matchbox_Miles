@@ -7,10 +7,15 @@ SYNC_TO_DIR='/mnt/BACKUP/Matchbox/'
 DIRS_TO_SYNC=(
 	~/Matchbox/
 	~/Matchbox_Miles/
+	~/MatchboxShaders/
 )
+
+MX=`find ${DIRS_TO_SYNC[@]} -name "*mx"`
 
 for host in ${SYNC_TO_HOST}; do
 	rsync -av --delete ${DIRS_TO_SYNC[@]} ${host}:${SYNC_TO_DIR}
 done
+
+scp ${MX[@]} ${host}:${SYNC_TO_DIR}
 
 
