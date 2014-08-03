@@ -52,24 +52,6 @@ uniform float vinette_gamma_all;
 uniform vec3 vinette_gain;
 uniform float vinette_gain_all;
 
-vec3 i_glow_gamma = vec3(1.0);
-float i_glow_gamma_all = 1.0;
-
-vec3 i_post_gamma = vec3(1.0);
-float i_post_gamma_all = 1.0;
-vec3 i_post_gain = vec3(1.0);
-float i_post_gain_all = 1.0;
-vec3 i_post_contrast = vec3(1.0);
-float i_post_contrast_all = 1.0;
-vec3 i_post_offset = vec3(1.0);
-float i_post_offset_all = 1.0;
-float i_post_saturation = 1.0;
-
-vec3 i_vinette_gamma = vec3(1.0);
-float i_vinette_gamma_all = 1.0;
-vec3 i_vinette_gain = vec3(1.0);
-float i_vinette_gain_all = 1.0;
-
 bool isInTex( const vec2 coords )
 {
    return coords.x >= 0.0 && coords.x <= 1.0 &&
@@ -193,27 +175,27 @@ void main(void)
 	vec3 col = source;
 
 	if (look == 1) {
-		i_post_gamma_all = 1.15;
-		i_post_gain_all = 1.15;
+		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.15));
+		col = adjust_gain(col, vec4(vec3(1.0), 1.15));
 	} else if (look == 2) {
-	      i_post_gamma_all = 1.84;
-	      i_post_gain_all = 1.25;
-	      i_post_saturation = .82;
+		col = adjust_gamma(col, vec4(vec3(1.0), 1.84));
+		col = adjust_gain(col, vec4(vec3(1.0), 1.25));
+		col = adjust_saturation(col, .82);
 	} else if (look == 3) {
-		i_post_saturation = .85;
-		i_glow_gamma_all = 1.2;
+		col = adjust_saturation(col, .85);
+		col = adjust_glow(col, vec4(1.0, 1.0, 1.0, 1.2), blur, true);
 	} else if (look == 4) {
-		i_glow_gamma = vec3(1.0, .68, 1.562);
-		col = adjust_glow(col, vec4(i_glow_gamma, 1.0), blur, true);
+		col = adjust_glow(col, vec4(1.0, .68, 1.562, 1.0), blur, true);
 	}
 
-	float saturation_bundle = post_saturation * i_post_saturation;
-	vec4 gain_bundle = vec4(post_gain * i_post_gain, post_gain_all * i_post_gain_all);
-	vec4 gamma_bundle = vec4(post_gamma * i_post_gamma, post_gamma_all * i_post_gamma_all);
-	vec4 offset_bundle = vec4(post_offset * i_post_offset, post_offset_all * i_post_offset_all);
-	vec4 contrast_bundle = vec4(post_contrast * i_post_contrast, post_contrast_all * i_post_contrast_all);
-	vec4 vinette_gamma_bundle = vec4(vinette_gamma * i_vinette_gamma, vinette_gamma_all * i_vinette_gamma_all);
-	vec4 vinette_gain_bundle = vec4(vinette_gain * i_vinette_gain, vinette_gain_all * i_vinette_gain_all);
+	float saturation_bundle = post_saturation;
+	vec4 gain_bundle = vec4(post_gain, post_gain_all);
+	vec4 gamma_bundle = vec4(post_gamma, post_gamma_all);
+	vec4 offset_bundle = vec4(post_offset, post_offset_all);
+	vec4 contrast_bundle = vec4(post_contrast, post_contrast_all);
+	vec4 vinette_gamma_bundle = vec4(vinette_gamma, vinette_gamma_all);
+	vec4 vinette_gain_bundle = vec4(vinette_gain, vinette_gain_all);
+	vec4 glow_bundle = vec4(glow_gamma, glow_gamma_all);
 
 	col = adjust_saturation(col, saturation_bundle);
     col = adjust_gain(col, gain_bundle);
@@ -222,10 +204,9 @@ void main(void)
     col = adjust_contrast(col, contrast_bundle);
 
 	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
-
+	col = adjust_glow(col, glow_bundle, blur, harsh_glow);
 
 	col = make_palette(st, col);
-
 
 	gl_FragColor = vec4(col, matte);
 }

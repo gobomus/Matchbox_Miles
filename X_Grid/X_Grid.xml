@@ -1,4 +1,12 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="X Grid - miles@noesclavo.com" Name="X_Grid">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
+
+2015 Only
+Grid with comp modes
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+miles@noesclavo.com" Name="Grid">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Grid Size" Type="float" Name="u_grid_size"
 	  UIConditionSource="grid_size_uniform" UIConditionValue="False" UIConditionInvert="True" UIConditionType="Hide">

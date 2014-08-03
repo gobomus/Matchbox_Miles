@@ -6,7 +6,7 @@
    <Shader OutputBitDepth="Output" Index="2">
    </Shader>
    <Shader OutputBitDepth="Output" Index="3">
-	<Uniform ResDependent="None" Max="100.0" Min="00000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
+	<Uniform ResDependent="None" Max="100.0" Min="00000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
       </Uniform>
 
 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">

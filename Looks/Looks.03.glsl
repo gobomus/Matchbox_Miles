@@ -40,16 +40,6 @@ uniform vec3 contrast;
 uniform float contrast_all;
 uniform float saturation;
 
-vec3 i_gain = vec3(1.0);
-float i_gain_all = 1.0;
-vec3 i_gamma = vec3(1.0);
-float i_gamma_all = 1.0;
-vec3 i_offset = vec3(1.0);
-float i_offset_all = 1.0;
-vec3 i_contrast = vec3(1.0);
-float i_contrast_all = 1.0;
-float i_saturation = 1.0;
-
 // Hue Shifting
 uniform float red_shift;
 uniform float green_shift;
@@ -60,23 +50,10 @@ uniform float yellow_shift;
 uniform float falloff;
 uniform float saturation_clip;
 
-float i_red_shift = 1.0;
-float i_green_shift = 1.0;
-float i_blue_shift = 1.0;
-float i_cyan_shift = 1.0;
-float i_magenta_shift = 1.0;
-float i_yellow_shift = 1.0;
-float i_falloff = 1.0;
-float i_saturation_clip = 1.0;
-
-
-
 
 
 // FX
 uniform float glow_threshold;
-
-float i_glow_threshold = 1.0;
 
 bool isInTex( const vec2 coords )
 {
@@ -175,46 +152,42 @@ void main(void)
 	vec3 source = tex(INPUT, st);
 	vec3 col = source;
 
-	vec3 hsv = rgb2hsv(col);
+	float glow_t = glow_threshold;
+
+	vec3 hsv;
 
 	// Set Looks Grade
 	if (look == 1) {
 		// Bleach Bypass
-		adjust_saturation(col, .1);
-		adust_gamma(1.0, 1.0, 1.0, 1.5);
+		col = adjust_saturation(col, .1);
+		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.5));
 	} else if (look == 2) {
-		i_saturation = 0.0;
-		i_gain.gb = vec2(.713, .117);
-		i_gamma.rg = vec2(.833, .562);
+		col = adjust_saturation(col, 0.0);
+		col = adjust_gain(col, vec4(0.0, .713, .117, 1.0));
+		col = adjust_gamma(col, vec4(0.883, .562, 1.0, 1.0));
 	} else if (look == 3) {
-		col = adjust_gamma(col, vec4(1.031, 1.031, 1.109, 1.0);
-		col = adjust_contrast(col, vec4(1.0, 1.414, 2.148, .96);
-		col = adjust_offset(col, 1.0, 1.0, 1.0, 1.02);
+		col = adjust_gamma(col, vec4(1.031, 1.031, 1.109, 1.0));
+		col = adjust_contrast(col, vec4(1.0, 1.414, 2.148, .96));
+		col = adjust_offset(col, vec4(1.0, 1.0, 1.0, 1.02));
 		col = adjust_saturation(col, .77);
-		i_glow_threshold = .23;
+		glow_t *= .23;
 	} else if (look == 4) {
-		i_red_shift = -.02;
-		i_green_shift = .22;
-		i_blue_shift = -.1;
-		i_glow_threshold = .25;
+		glow_t *= .25;
 
-    	hsv = shift_col(hsv, rh, i_red_shift, 1.0);
-    	hsv = shift_col(hsv, gh, i_green_shift, 1.0);
-    	hsv = shift_col(hsv, bh, i_blue_shift, 1.0);
+		hsv = rgb2hsv(col);
+    	hsv = shift_col(hsv, rh, -.02, 1.0);
+    	hsv = shift_col(hsv, gh, .22, 1.0);
+    	hsv = shift_col(hsv, bh, -.1, 1.0);
+		col = hsv2rgb(hsv);
 	}
 
-	float saturation_bundle = saturation * i_saturation;
-	vec4 gain_bundle = vec4(gain * i_gain, gain_all * i_gain_all);
-	vec4 gamma_bundle = vec4(gamma, gamma_all);
-	vec4 offset_bundle = vec4(offset_, offset_all);
-	vec4 contrast_bundle = vec4(contrast, contrast_all);
+	col = adjust_saturation(col, saturation);
+	col = adjust_gain(col, vec4(gain, gain_all));
+	col = adjust_gamma(col, vec4(gamma, gamma_all));
+	col = adjust_offset(col, vec4(offset_, offset_all));
+	col = adjust_contrast(col, vec4(contrast, contrast_all));
 
-	col = adjust_saturation(col, saturation_bundle);
-	col = adjust_gain(col, gain_bundle);
-	col = adjust_gamma(col, gamma_bundle);
-	col = adjust_offset(col, offset_bundle);
-	col = adjust_contrast(col, contrast_bundle);
-
+	hsv = rgb2hsv(col);
 
     hsv = shift_col(hsv, rh, red_shift, 1.0);
     hsv = shift_col(hsv, yh, yellow_shift, 1.0);
@@ -225,7 +198,6 @@ void main(void)
 
     col = hsv2rgb(hsv);
 
-
 	//  Set Looks Transfer if any
 	if (look == 1) {
 		// Bleach Bypass
@@ -235,13 +207,8 @@ void main(void)
 	// Collect a matte to use in later passes for glows
 	float matte_out = 0.0;
 	float front_l = luma(col);
-	matte_out = smoothstep(glow_threshold, 1.0, front_l);
+	matte_out = smoothstep(glow_t, 1.0, front_l);
 	matte_out = sqrt(matte_out * matte_out + matte_out * matte_out);
-	if (front_l >= glow_threshold) {
-		//matte_out = 1.0;
-		//matte_out = front_l * 1.2;
-	}
-
 
 
 	gl_FragColor = vec4(col, matte_out);
