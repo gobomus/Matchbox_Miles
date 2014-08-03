@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PWD=`pwd`
+DIR=`basename ${PWD}`
+
+sconvert ${DIR}.01.glsl.tif ${DIR}.01.glsl.png
+flame_proxy_icon --from-png ${DIR}.01.glsl.png
+rm *.tif *.png

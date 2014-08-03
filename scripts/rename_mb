@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PWD=`pwd`
+DIR=`basename ${PWD}`
+LAST=${1}
+NEW=${2}
+
+CMD="rname -f 1 -l ${LAST} -p ${DIR}. -e .glsl -z 2 -P ${NEW}. -E .glsl -Z 2"
+
+echo ${CMD}
+
+mv ${DIR}.xml ${NEW}.xml
+
+exec ${CMD}
