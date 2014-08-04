@@ -1,4 +1,16 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
+
+2015 Only
+Quickly create looks. There's a couple of presets. 
+If you'd like A look you created with this shader, to be a preset.. Email me
+a still of the result, the saved shader setup, what you'd like
+to call the look, and if you'd prefer to be un-credited.
+I will put it in the next release
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+miles@noesclavo.com" Name="Looks">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
       </Uniform>

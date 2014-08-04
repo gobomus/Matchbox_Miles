@@ -1,0 +1,152 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
+
+2015 Only
+Idea from here: /http://john-chapman-graphics.blogspot.com/2013/02/pseudo-lens-flare.html
+Loops from here http://glsl.heroku.com/e#12897.0
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+miles@noesclavo.com" Name="X Glare Flare">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Back" InputType="Back" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Back">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="4">
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="MipMaps Lod" Type="float" Name="lod">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Source Offset" Type="float" Name="uBias">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_NEAREST_MIPMAP_NEAREST" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Source Gain" Type="float" Name="uScale">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Hue" Type="float" Name="ring_hue">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Radius" Type="float" Name="radius">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="20.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Number" Type="float" Name="ring">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="6">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="1.0" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Blur" Type="float" Name="blur_rings">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="7">
+      <Uniform Type="float" Name="blur_rings">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="8">
+      <Uniform Max="1000000" Min="0" Default="3" Inc="1" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Ghosts" Type="int" Name="ghosts_number">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Mix" Type="float" Name="color_mix">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Halo Width" Type="float" Name="halo_width">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Halo Gain" Type="float" Name="halo_brightness">
+      </Uniform>
+      <Uniform Row="3" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Only Sample Center" Type="bool" Name="onlySampleCenter">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Dispersal" Type="float" Name="ghosts_dispersal">
+      </Uniform>
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Noise" Type="float" Name="noise_mix">
+	         </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="9">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Chroma Warp" Type="float" Name="scale_amount">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+      </Uniform>
+      <Uniform Max="1000000" Min="0" Default="3" Inc="1" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Chroma Samples" Type="int" Name="chroma_samples">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="10">
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass9">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="1.0" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Blur Flare" Type="float" Name="blur_flare">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="11">
+      <Uniform Type="float" Name="blur_flare">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass10">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="12">
+	<Uniform ResDependent="None" Max="31.0" Min="-1.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+      </Uniform>
+	<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Output" Type="int" Name="end_result" ValueType="Popup">
+        <PopupEntry Title="Over Front" Value="0">
+            </PopupEntry>
+        <PopupEntry Title="Over Back" Value="1">
+            </PopupEntry>
+        <PopupEntry Title="Flare Only" Value="2">
+            </PopupEntry>
+        <PopupEntry Title="MipMaps" Value="3">
+            </PopupEntry>
+        <PopupEntry Title="Rings" Value="4">
+            </PopupEntry>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass11">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Input" Col="0" Page="0">
+      </Col>
+      <Col Name="Flare" Col="1" Page="0">
+      </Col>
+      <Col Name="Color Loops" Col="2" Page="0">
+      </Col>
+      <Col Name="Misc / Output" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
