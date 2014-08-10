@@ -16,6 +16,7 @@
 #define tex(col, coords) texture2D(col, coords).rgb
 #define mat(col, coords) texture2D(col, coords).r
 
+uniform float adsk_time;
 uniform sampler2D INPUT;
 uniform sampler2D ORIG;
 uniform sampler2D BLUR;
@@ -28,6 +29,8 @@ uniform float palette_detail;
 uniform bool show_palette;
 uniform float palette_size;
 uniform vec2 palette_pos;
+uniform int blend;
+uniform float mix_front;
 
 // FX
 
@@ -51,6 +54,12 @@ uniform vec3 vinette_gamma;
 uniform float vinette_gamma_all;
 uniform vec3 vinette_gain;
 uniform float vinette_gain_all;
+
+uniform vec3 grain_size;
+uniform float grain_size_all;
+uniform vec3 grain_brightness;
+uniform float grain_brightness_all;
+uniform float grain_saturation;
 
 bool isInTex( const vec2 coords )
 {
@@ -163,11 +172,82 @@ vec3 make_vinette(vec3 col, vec2 st, float width, vec4 gain, vec4 gamma)
     return col;
 }
 
+vec3 overlay(vec3 front, vec3 back) {
+    vec3 comp = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
+    vec3 c = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
+
+    if (back.r < .5) {
+        comp.r = 2.0 * front.r * back.r;
+    }
+
+    if (back.g < .5) {
+        comp.g = 2.0 * front.g * back.g;
+    }
+
+    if (back.b < .5) {
+        comp.b = 2.0 * front.b * back.b;
+    }
+
+    return comp;
+}
+
+float rand2(vec2 co)
+{
+    return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+vec3 make_noise(vec2 st, vec4 size) {
+    vec3 col = vec3(0.0);
+
+	size.rgb *= vec3(size.a * (res.x * .5));
+
+
+	/*
+    vec2 cr = (size.r / 100.0 * res.x) * vec2(1.0, res.y/res.x);
+    vec2 cg = (size.g / 100.0 * res.x) * vec2(1.0, res.y/res.x);
+    vec2 cb = (size.b / 100.0 * res.x) * vec2(1.0, res.y/res.x);
+	*/
+
+    vec2 cr = (size.r) * vec2(1.0, res.y/res.x);
+    vec2 cg = (size.g) * vec2(1.0, res.y/res.x);
+    vec2 cb = (size.b) * vec2(1.0, res.y/res.x);
+
+    float r = rand2(vec2((2.0 + adsk_time) * floor(st.x * cr.x) / cr.x, (2.0 + adsk_time) * floor(st.y * cr.y) / cr.y ));
+    float g = rand2(vec2((5.0 + adsk_time) * floor(st.x * cg.x) / cg.x, (5.0 + adsk_time) * floor(st.y * cg.y) / cg.y ));
+    float b = rand2(vec2((9.0 + adsk_time) * floor(st.x * cb.x) / cb.x, (9.0 + adsk_time) * floor(st.y * cb.y) / cb.y ));
+
+	col = vec3(r,g,b);
+
+    return col;
+}
+
+vec3 apply_grain(vec3 col, vec2 st, vec4 size, float saturation, vec4 brightness)
+{
+	vec3 noise = vec3(0.0);
+
+	noise = make_noise(st, size);
+
+	noise = adjust_saturation(noise, saturation);
+	noise = adjust_gain(noise, brightness);
+
+	noise *= noise;
+
+	noise += vec3(.5);
+
+	col = overlay(noise, col);
+	//col = mix(col, noise, luma(noise));
+
+	return col;
+	//return vec3(luma(noise));
+}
+
+
 void main(void)
 {
 	vec2 st = gl_FragCoord.xy / res;
 
 	vec3 source = tex(INPUT, st);
+	vec3 original = tex(ORIG, st);
 
 	vec4 blur = texture2D(BLUR, st);
 	float matte = blur.a;
@@ -175,17 +255,21 @@ void main(void)
 	vec3 col = source;
 
 	if (look == 1) {
+		//Bleach Bypass
 		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.15));
 		col = adjust_gain(col, vec4(vec3(1.0), 1.15));
 	} else if (look == 2) {
-		col = adjust_gamma(col, vec4(vec3(1.0), 1.84));
-		col = adjust_gain(col, vec4(vec3(1.0), 1.25));
-		col = adjust_saturation(col, .82);
+		//Sepia
+		col = adjust_saturation(col, .35);
+		col = adjust_gamma(col, vec4(vec3(1.0), 1.32));
+		col = adjust_contrast(col, vec4(vec3(1.0), 1.21));
+		col = make_vinette(col, st, vinette_width, vec4(1.0, 1.0, 1.0, .97), vec4(.307, .252, .217, 1.94));
 	} else if (look == 3) {
-		col = adjust_saturation(col, .85);
-		col = adjust_glow(col, vec4(1.0, 1.0, 1.0, 1.2), blur, true);
+		// Cross Processing 1
 	} else if (look == 4) {
 		col = adjust_glow(col, vec4(1.0, .68, 1.562, 1.0), blur, true);
+	} else if (look == 5) {
+		col = adjust_saturation(col, .85);
 	}
 
 	float saturation_bundle = post_saturation;
@@ -202,9 +286,25 @@ void main(void)
     col = adjust_gamma(col, gamma_bundle);
     col = adjust_offset(col, offset_bundle);
     col = adjust_contrast(col, contrast_bundle);
-
 	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
 	col = adjust_glow(col, glow_bundle, blur, harsh_glow);
+
+	col = apply_grain(col, st, vec4(grain_size, grain_size_all), grain_saturation, vec4(grain_brightness, grain_brightness_all));
+
+	if (blend == 1) {
+		col = mix(original, col, mix_front);
+	} else if (blend == 2) {
+		vec3 tmp = col + original;
+		col = mix(col, tmp, mix_front);
+	} else if (blend == 3) {
+		vec3 tmp = col * original;
+		col = mix(col, tmp, mix_front);
+	} else if (blend == 4) {
+		vec3 tmp = overlay(col, original);
+		col = mix(col, tmp, mix_front);
+	}
+
+
 
 	col = make_palette(st, col);
 
