@@ -145,6 +145,7 @@ vec3 shift_col(vec3 source, float target, float shift_amnt, float val)
     return col;
 }
 
+// Rob Moggach
 vec3 color_temp(vec3 col, float temp)
 {
 	float t = temp + 1.0;

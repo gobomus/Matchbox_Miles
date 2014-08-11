@@ -16,6 +16,7 @@ uniform float sharpness;
 uniform bool sharpen_image;
 vec2 texel = vec2(1.0) / res;
 
+// Sharpen from flame 2014 sharpen shader
 vec3 sharpen(vec2 coords)
 {
    	vec2 dp = texel;

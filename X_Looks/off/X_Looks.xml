@@ -18,7 +18,7 @@ miles@noesclavo.com" Name="Looks">
    <Shader OutputBitDepth="Output" Index="2">
    </Shader>
    <Shader OutputBitDepth="Output" Index="3">
-	<Uniform ResDependent="None" Max="1.0" Min="00000.0" Default=".5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
+	<Uniform ResDependent="None" Max="100.0" Min="00000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
       </Uniform>
 
 	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Tempurature" Type="float" Name="c_temp">
@@ -242,22 +242,7 @@ miles@noesclavo.com" Name="Looks">
       </Uniform>
    </Shader>
 
-	  <Shader OutputBitDepth="Output" Index="8">
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="3" DisplayName="Blur" Type="float" Name="post_blur">
-      </Uniform>
-      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
-      </Uniform>
-   </Shader>
-   <Shader OutputBitDepth="Output" Index="9">
-      <Uniform Type="float" Name="post_blur">
-         <Duplicate>
-         </Duplicate>
-      </Uniform>
-      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass9">
-      </Uniform>
-   </Shader>
-
-	 <Shader OutputBitDepth="Output" Index="10">
+	 <Shader OutputBitDepth="Output" Index="8">
       <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="4" DisplayName="Size RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="grain_size">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
          </SubUniform>
@@ -280,31 +265,29 @@ miles@noesclavo.com" Name="Looks">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="4" DisplayName="Saturation" Type="float" Name="grain_saturation">
       </Uniform>
-      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="4" DisplayName="Size" Type="float" Name="grain_size_all">
       </Uniform>
    </Shader>
 
 
-	  <Shader OutputBitDepth="Output" Index="11">
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="4" DisplayName="Softness" Type="float" Name="grain_blur">
+	  <Shader OutputBitDepth="Output" Index="9">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="3" DisplayName="Blur" Type="float" Name="post_blur">
       </Uniform>
-      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass10">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
       </Uniform>
    </Shader>
-   <Shader OutputBitDepth="Output" Index="12">
-      <Uniform Type="float" Name="grain_blur">
+   <Shader OutputBitDepth="Output" Index="10">
+      <Uniform Type="float" Name="post_blur">
          <Duplicate>
          </Duplicate>
       </Uniform>
-      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass11">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass9">
       </Uniform>
    </Shader>
 
-
-
-	<Shader OutputBitDepth="Output" Index="13">
+	<Shader OutputBitDepth="Output" Index="11">
       <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Position" IconType="Axis" Type="vec2" Name="palette_pos">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1">
          </SubUniform>
@@ -313,7 +296,7 @@ miles@noesclavo.com" Name="Looks">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Mix" Type="float" Name="mix_front">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="00000.0" Default="6.0" Inc="1.0" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Detail" Type="float" Name="palette_detail">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="palette_detail" Type="float" Name="palette_detail">
       </Uniform>
 
 		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Over Front" Type="int" Name="blend" ValueType="Popup">
@@ -327,13 +310,6 @@ miles@noesclavo.com" Name="Looks">
             </PopupEntry>
             <PopupEntry Title="Overlay" Value="4">
             </PopupEntry>
-            <PopupEntry Title="Softlight" Value="5">
-            </PopupEntry>
-            <PopupEntry Title="Hypot" Value="6">
-            </PopupEntry>
-      </Uniform>
-
-		     <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass12">
       </Uniform>
 
       <Uniform InputColor="67, 77, 83" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_NEAREST_MIPMAP_NEAREST" Type="sampler2D" Name="adsk_results_pass2">
@@ -346,67 +322,10 @@ miles@noesclavo.com" Name="Looks">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.35" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Size" Type="float" Name="palette_size">
       </Uniform>
-
-
-
-	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="5" DisplayName="Gamma" Type="float" Name="pgamma_all">
-      </Uniform>
-
-      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="5" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pgamma">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-      </Uniform>
-
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="5" DisplayName="Offset" Type="float" Name="poffset_all">
-      </Uniform>
-
-      <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="5" DisplayName="Offset" IconType="Pick" ValueType="Colour" Type="vec3" Name="poffset">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-      </Uniform>
-
-
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="5" DisplayName="Saturation" Type="float" Name="psaturation">
-      </Uniform>
-
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="5" DisplayName="Contrast" Type="float" Name="pcontrast_all">
-      </Uniform>
-
-      <Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="5" DisplayName="Contrast RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pcontrast">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-      </Uniform>
-
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="5" DisplayName="Tempurature" Type="float" Name="pc_temp">
-      </Uniform>
-
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="5" DisplayName="Gain" Type="float" Name="pgain_all">
-      </Uniform>
-
-	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="5" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pgain">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-      </Uniform>
    </Shader>
 
 
-   <Page Name="Primary Grade" Page="0">
+   <Page Name="Grade" Page="0">
       <Col Name="Grade RGB" Col="0" Page="0">
       </Col>
       <Col Name="Grade" Col="1" Page="0">
@@ -422,10 +341,10 @@ miles@noesclavo.com" Name="Looks">
       <Col Name="CMY" Col="1" Page="1">
       </Col>
    </Page>
-	 <Page Name="Grade / Glow / Vinette" Page="2">
-      <Col Name="Secondary Grade RGB" Col="0" Page="2">
+	 <Page Name="FX" Page="2">
+      <Col Name="Post Grade RGB" Col="0" Page="2">
       </Col>
-      <Col Name="Secondary Grade" Col="1" Page="2">
+      <Col Name="Post Grade" Col="1" Page="2">
       </Col>
       <Col Name="Glow" Col="2" Page="2">
       </Col>
@@ -443,14 +362,5 @@ miles@noesclavo.com" Name="Looks">
       </Col>
       <Col Name="Grain" Col="1" Page="4">
       </Col>
-      <Col Name="Blur Grain" Col="2" Page="4">
-      </Col>
    </Page>
-   <Page Name="Post Grade" Page="5">
-      <Col Name="Post Grade RGB" Col="0" Page="5">
-      </Col>
-      <Col Name="Post Grade" Col="1" Page="5">
-      </Col>
-   </Page>
- 
 </ShaderNodePreset>

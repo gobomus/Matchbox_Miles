@@ -1,24 +1,23 @@
 #version 120
 
 // Change the folling 4 lines to suite
-#define INPUT adsk_results_pass4
-#define STRENGTH adsk_results_pass4
-#define AMT blur_amount
-//#define VERTICAL 
+#define INPUT adsk_results_pass10
+#define STRENGTH adsk_results_pass7
+#define AMT grain_blur
+#define VERTICAL 
 //#define STRENGTH_CHANNEL 
 
 #define X adsk_result_w
 #define Y adsk_result_h
 #define ratio adsk_result_frameratio
-#define center vec2(.5)
 #define PI 3.141592653589793238462643383279502884197969
 
 float bias = 1.0;
 
 #ifndef VERTICAL
-	int dir = 1;
+    int dir = 1;
 #else
-	int dir = 0;
+    int dir = 0;
 #endif
 
 uniform sampler2D INPUT;
@@ -30,6 +29,7 @@ uniform sampler2D INPUT;
 uniform float AMT;
 uniform float X, Y, ratio;
 vec2 res = vec2(X, Y);
+vec2 texel  = vec2(1.0) / res;
 
 vec4 gblur()
 {
@@ -71,11 +71,10 @@ vec4 gblur()
 	}
 	a /= energy;
 
-
 	return vec4(a);
 }
 
 void main(void)
 {
-	gl_FragColor = gblur();
+    gl_FragColor = gblur();
 }

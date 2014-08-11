@@ -1,9 +1,9 @@
 #version 120
 
 // Change the folling 4 lines to suite
-#define INPUT adsk_results_pass4
-#define STRENGTH adsk_results_pass4
-#define AMT blur_amount
+#define INPUT adsk_results_pass11
+#define STRENGTH adsk_results_pass8
+#define AMT grain_blur
 //#define VERTICAL 
 //#define STRENGTH_CHANNEL 
 
@@ -12,11 +12,12 @@
 #define ratio adsk_result_frameratio
 #define center vec2(.5)
 #define PI 3.141592653589793238462643383279502884197969
+#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
 
 float bias = 1.0;
 
 #ifndef VERTICAL
-	int dir = 1;
+    int dir = 1;
 #else
 	int dir = 0;
 #endif
@@ -70,7 +71,6 @@ vec4 gblur()
 		g.xy *= g.yz;
 	}
 	a /= energy;
-
 
 	return vec4(a);
 }

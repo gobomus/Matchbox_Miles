@@ -10,15 +10,13 @@
 #define X adsk_result_w
 #define Y adsk_result_h
 #define ratio adsk_result_frameratio
-#define center vec2(.5)
 #define PI 3.141592653589793238462643383279502884197969
 
-#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
 
 float bias = 1.0;
 
 #ifndef VERTICAL
-	int dir = 1;
+    int dir = 1;
 #else
 	int dir = 0;
 #endif
@@ -44,8 +42,9 @@ vec4 gblur()
 
 	float strength = 1.0;
 
-	//Optional texture used to weight amount of blur
-	//strength = texture2D(STRENGTH, gl_FragCoord.xy / res).r;
+	#ifdef STRENGTH_CHANNEL
+		strength = texture2D(STRENGTH, gl_FragCoord.xy / res).r;
+	#endif
 
 	float sigma = AMT * bias * strength + .001;
    

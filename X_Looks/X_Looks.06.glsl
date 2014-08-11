@@ -25,12 +25,6 @@ uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 uniform int look;
-uniform float palette_detail;
-uniform bool show_palette;
-uniform float palette_size;
-uniform vec2 palette_pos;
-uniform int blend;
-uniform float mix_front;
 
 // FX
 
@@ -54,56 +48,6 @@ uniform vec3 vinette_gamma;
 uniform float vinette_gamma_all;
 uniform vec3 vinette_gain;
 uniform float vinette_gain_all;
-
-uniform vec3 grain_size;
-uniform float grain_size_all;
-uniform vec3 grain_brightness;
-uniform float grain_brightness_all;
-uniform float grain_saturation;
-
-bool isInTex( const vec2 coords )
-{
-   return coords.x >= 0.0 && coords.x <= 1.0 &&
-          coords.y >= 0.0 && coords.y <= 1.0;
-}
-
-//PALETTE
-vec3 make_palette(vec2 st, vec3 col)
-{
-    vec4 palette = vec4(0.0);
-    vec2 coords = st;
-
-    if (show_palette) {
-        vec2 coords = st;
-        coords -= palette_pos;
-        coords /= vec2(palette_size);
-
-        if (isInTex(coords)) {
-            palette = texture2DLod(PALETTE, coords , palette_detail);
-
-            float thresh = .009;
-            if (palette.r < thresh && palette.g < thresh && palette.b < thresh) {
-                palette.rgb = black.rgb;
-            }
-
-            thresh = .93;
-            if (palette.r > thresh && palette.g > thresh && palette.b > thresh) {
-                palette.rgb = white.rgb;
-            }
-
-            palette = clamp(palette, 0.0, 1.0);
-            palette.a = 1.0;
-        }
-
-    }
-
-	col = clamp(col, 0.0, 1.0);
-	col = mix(col, palette.rgb, palette.a);
-
-
-    return col;
-}
-
 
 
 vec3 adjust_gain(vec3 col, vec4 ga)
@@ -191,57 +135,6 @@ vec3 overlay(vec3 front, vec3 back) {
     return comp;
 }
 
-float rand2(vec2 co)
-{
-    return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);
-}
-
-vec3 make_noise(vec2 st, vec4 size) {
-    vec3 col = vec3(0.0);
-
-	size.rgb *= vec3(size.a * (res.x * .5));
-
-
-	/*
-    vec2 cr = (size.r / 100.0 * res.x) * vec2(1.0, res.y/res.x);
-    vec2 cg = (size.g / 100.0 * res.x) * vec2(1.0, res.y/res.x);
-    vec2 cb = (size.b / 100.0 * res.x) * vec2(1.0, res.y/res.x);
-	*/
-
-    vec2 cr = (size.r) * vec2(1.0, res.y/res.x);
-    vec2 cg = (size.g) * vec2(1.0, res.y/res.x);
-    vec2 cb = (size.b) * vec2(1.0, res.y/res.x);
-
-    float r = rand2(vec2((2.0 + adsk_time) * floor(st.x * cr.x) / cr.x, (2.0 + adsk_time) * floor(st.y * cr.y) / cr.y ));
-    float g = rand2(vec2((5.0 + adsk_time) * floor(st.x * cg.x) / cg.x, (5.0 + adsk_time) * floor(st.y * cg.y) / cg.y ));
-    float b = rand2(vec2((9.0 + adsk_time) * floor(st.x * cb.x) / cb.x, (9.0 + adsk_time) * floor(st.y * cb.y) / cb.y ));
-
-	col = vec3(r,g,b);
-
-    return col;
-}
-
-vec3 apply_grain(vec3 col, vec2 st, vec4 size, float saturation, vec4 brightness)
-{
-	vec3 noise = vec3(0.0);
-
-	noise = make_noise(st, size);
-
-	noise = adjust_saturation(noise, saturation);
-	noise = adjust_gain(noise, brightness);
-
-	noise *= noise;
-
-	noise += vec3(.5);
-
-	col = overlay(noise, col);
-	//col = mix(col, noise, luma(noise));
-
-	return col;
-	//return vec3(luma(noise));
-}
-
-
 void main(void)
 {
 	vec2 st = gl_FragCoord.xy / res;
@@ -281,32 +174,14 @@ void main(void)
 	vec4 vinette_gain_bundle = vec4(vinette_gain, vinette_gain_all);
 	vec4 glow_bundle = vec4(glow_gamma, glow_gamma_all);
 
+	col = adjust_glow(col, glow_bundle, blur, harsh_glow);
+	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
+
 	col = adjust_saturation(col, saturation_bundle);
     col = adjust_gain(col, gain_bundle);
     col = adjust_gamma(col, gamma_bundle);
     col = adjust_offset(col, offset_bundle);
     col = adjust_contrast(col, contrast_bundle);
-	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
-	col = adjust_glow(col, glow_bundle, blur, harsh_glow);
-
-	col = apply_grain(col, st, vec4(grain_size, grain_size_all), grain_saturation, vec4(grain_brightness, grain_brightness_all));
-
-	if (blend == 1) {
-		col = mix(original, col, mix_front);
-	} else if (blend == 2) {
-		vec3 tmp = col + original;
-		col = mix(col, tmp, mix_front);
-	} else if (blend == 3) {
-		vec3 tmp = col * original;
-		col = mix(col, tmp, mix_front);
-	} else if (blend == 4) {
-		vec3 tmp = overlay(col, original);
-		col = mix(col, tmp, mix_front);
-	}
-
-
-
-	col = make_palette(st, col);
 
 	gl_FragColor = vec4(col, matte);
 }
