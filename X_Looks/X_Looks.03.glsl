@@ -2,7 +2,6 @@
 #extension GL_ARB_shader_texture_lod : enable
 
 #define INPUT adsk_results_pass1
-#define PALETTE adsk_results_pass2
 #define ratio adsk_result_frameratio
 #define center vec2(.5)
 
@@ -23,7 +22,6 @@
 
 
 uniform sampler2D INPUT;
-uniform sampler2D PALETTE;
 uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 

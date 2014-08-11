@@ -1,16 +1,14 @@
 #version 120
 #extension GL_ARB_shader_texture_lod : enable
 
-#define INPUT adsk_results_pass9
-#define PALETTE adsk_results_pass2
-#define GRAIN adsk_results_pass12
 #define ORIG adsk_results_pass1
-#define BLUR adsk_results_pass5
-#define ratio adsk_result_frameratio
-#define center vec2(.5)
+#define PALETTE adsk_results_pass2
+#define INPUT adsk_results_pass9 
+#define GRAIN adsk_results_pass12
+#define GLOWMATTE adsk_results_pass5
+
 #define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
 #define tex(col, coords) texture2D(col, coords).rgb
-#define mat(col, coords) texture2D(col, coords).r
 
 #define white vec4(1.0)
 #define black vec4(0.0)
@@ -20,12 +18,10 @@
 uniform sampler2D INPUT;
 uniform sampler2D PALETTE;
 uniform sampler2D ORIG;
-uniform sampler2D BLUR;
+uniform sampler2D GLOWMATTE;
 uniform sampler2D GRAIN;
 uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-
-vec2 texel = vec2(1.0) / res;
 
 uniform float palette_detail;
 uniform bool show_palette;
@@ -45,8 +41,6 @@ uniform vec3 poffset;
 uniform float poffset_all;
 uniform vec3 pcontrast;
 uniform float pcontrast_all;
-
-
 
 
 bool isInTex( const vec2 coords )
@@ -201,7 +195,7 @@ void main(void)
 
 	vec3 col = tex(INPUT,st);
 	vec3 original = tex(ORIG, st);
-	float matte = texture2D(BLUR, st).a;
+	float matte = texture2D(GLOWMATTE, st).a;
 
 	 if (blend == 1) {
         col = mix(original, col, mix_front);
