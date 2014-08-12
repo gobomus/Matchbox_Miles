@@ -27,11 +27,14 @@ miles@noesclavo.com" Name="Looks">
       	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" 
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       	</Uniform>
+
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.2" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Input Gamma" Type="float" Name="GAMMA">
+      	</Uniform>
 	
 		<Uniform ResDependent="None" Max="1.0" Min="00000.0" Default=".5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
 		</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Tempurature" Type="float" Name="c_temp">
+		<Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Tempurature" Type="float" Name="c_temp">
   		</Uniform>
 
 		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
@@ -371,6 +374,11 @@ miles@noesclavo.com" Name="Looks">
 		<!-- BLURRED GRAIN TEXTURE -->
 		<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" 
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass12">
+      	</Uniform>
+
+		<Uniform Type="float" Name="GAMMA">
+         	<Duplicate>
+         	</Duplicate>
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Position" IconType="Axis" Type="vec2" Name="palette_pos">

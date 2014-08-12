@@ -14,28 +14,10 @@ uniform vec3 grain_brightness;
 uniform float grain_brightness_all;
 uniform float grain_saturation;
 
-vec3 overlay(vec3 front, vec3 back) {
-    vec3 comp = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-    vec3 c = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-
-    if (back.r < .5) {
-        comp.r = 2.0 * front.r * back.r;
-    }
-
-    if (back.g < .5) {
-        comp.g = 2.0 * front.g * back.g;
-    }
-
-    if (back.b < .5) {
-        comp.b = 2.0 * front.b * back.b;
-    }
-
-    return comp;
-}
-
 vec3 adjust_saturation(vec3 col, float sat)
 {
-    col = mix(col, vec3(luma(col)), 1.0-sat);
+	vec3 intensity = vec3(luma(col));
+    col = abs(mix(intensity, col, sat));
     return col;
 }
 
@@ -82,11 +64,6 @@ vec3 apply_grain(vec3 col, vec2 st, vec4 size, float saturation, vec4 brightness
 
     noise *= noise;
 
-    //noise += vec3(.5);
-
-    //col = overlay(noise, col);
-
-    //return col;
     return noise;
 }
 

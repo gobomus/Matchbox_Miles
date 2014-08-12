@@ -2,10 +2,7 @@
 
 #define INPUT adsk_results_pass6
 #define ratio adsk_result_frameratio
-#define center vec2(.5)
-#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
 #define tex(col, coords) texture2D(col, coords).rgb
-#define mat(col, coords) texture2D(col, coords).r
 
 
 uniform sampler2D INPUT;
@@ -20,7 +17,7 @@ vec2 texel = vec2(1.0) / res;
 vec3 sharpen(vec2 coords)
 {
    	vec2 dp = texel;
-   	vec3 val = tex(INPUT, coords) ;
+	vec3 val = vec3(0.0);
 
    	if(sharpen_image) {
       	val = -texture2D(INPUT, coords - dp).rgb;
@@ -33,8 +30,14 @@ vec3 sharpen(vec2 coords)
       	val += -texture2D(INPUT, coords + vec2(0.0, dp.y)).rgb;
       	val += -texture2D(INPUT, coords + dp).rgb;
 
+
    		val = val*(1.0/sharpness);
+
+	} else {
+   		val = tex(INPUT, coords) ;
 	}
+
+	val = clamp(val, 0.0, 1.0);
 
 	return val;
 }
@@ -45,6 +48,8 @@ void main(void)
 	vec2 st = gl_FragCoord.xy / res;
 
 	vec3 col = sharpen(st);
+
+	//col = pow(col, vec3(1.0/2.2));
 
 	gl_FragColor = vec4(col, 0.0);
 }

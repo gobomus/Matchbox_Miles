@@ -2,9 +2,7 @@
 #extension GL_ARB_shader_texture_lod : enable
 
 #define INPUT adsk_results_pass3
-#define PALETTE adsk_results_pass2
 #define BLUR adsk_results_pass5
-#define ORIG adsk_results_pass1
 #define ratio adsk_result_frameratio
 #define center vec2(.5)
 
@@ -18,9 +16,7 @@
 
 uniform float adsk_time;
 uniform sampler2D INPUT;
-uniform sampler2D ORIG;
 uniform sampler2D BLUR;
-uniform sampler2D PALETTE;
 uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
@@ -49,7 +45,6 @@ uniform float vinette_gamma_all;
 uniform vec3 vinette_gain;
 uniform float vinette_gain_all;
 
-
 vec3 adjust_gain(vec3 col, vec4 ga)
 {
 	col *= ga.rgb;
@@ -76,17 +71,19 @@ vec3 adjust_offset(vec3 col, vec4 offs)
 
 vec3 adjust_contrast(vec3 col, vec4 con)
 {
-	col.r = mix(col.r, gray.r, 1.0-con.r);
-	col.g = mix(col.g, gray.r, 1.0-con.g);
-	col.b = mix(col.b, gray.r, 1.0-con.b);
-	col = mix(col, gray.rgb, 1.0-con.a);
+	col.r = mix(gray.r, col.r, con.r);
+    col.g = mix(gray.r, col.g, con.g);
+    col.b = mix(gray.r, col.b, con.b);
+    col = mix(gray.rgb, col, con.a);
 
 	return col;
 }
 
 vec3 adjust_saturation(vec3 col, float sat)
 {
-	col = mix(col, vec3(luma(col)), 1.0-sat);
+	vec3 intensity = vec3(luma(col));
+    col = (mix(intensity, col, sat));
+
 	return col;
 }
 
@@ -94,7 +91,7 @@ vec3 adjust_glow(vec3 col, vec4 gamma, vec4 blur, bool glow_more)
 {
 	if (glow_more) {
 		vec3 glow = adjust_gamma(blur.rgb, gamma);
-		vec3 tmp = sqrt(clamp(glow * glow,0.0, 1.0) + clamp(col * col,0.0, 1.0));
+		vec3 tmp = sqrt(glow * glow + col * col);
 		col = mix(col, tmp, blur.a);
 	} else {
 		vec3 glow = adjust_gamma(col, gamma);
@@ -140,7 +137,6 @@ void main(void)
 	vec2 st = gl_FragCoord.xy / res;
 
 	vec3 source = tex(INPUT, st);
-	vec3 original = tex(ORIG, st);
 
 	vec4 blur = texture2D(BLUR, st);
 	float matte = blur.a;
@@ -165,23 +161,16 @@ void main(void)
 		col = adjust_saturation(col, .85);
 	}
 
-	float saturation_bundle = post_saturation;
-	vec4 gain_bundle = vec4(post_gain, post_gain_all);
-	vec4 gamma_bundle = vec4(post_gamma, post_gamma_all);
-	vec4 offset_bundle = vec4(post_offset, post_offset_all);
-	vec4 contrast_bundle = vec4(post_contrast, post_contrast_all);
-	vec4 vinette_gamma_bundle = vec4(vinette_gamma, vinette_gamma_all);
-	vec4 vinette_gain_bundle = vec4(vinette_gain, vinette_gain_all);
-	vec4 glow_bundle = vec4(glow_gamma, glow_gamma_all);
+	col = adjust_saturation(col, post_saturation);
+    col = adjust_gain(col, vec4(post_gain, post_gain_all));
+    col = adjust_gamma(col, vec4(post_gamma, post_gamma_all));
+    col = adjust_offset(col, vec4(post_offset, post_offset_all));
+    col = adjust_contrast(col, vec4(post_contrast, post_contrast_all));
 
-	col = adjust_glow(col, glow_bundle, blur, harsh_glow);
-	col = make_vinette(col, st, vinette_width, vinette_gain_bundle, vinette_gamma_bundle);
+	col = adjust_glow(col, vec4(glow_gamma, glow_gamma_all), blur, harsh_glow);
+	col = make_vinette(col, st, vinette_width, vec4(vinette_gain, vinette_gain_all), vec4(vinette_gamma, vinette_gamma_all));
 
-	col = adjust_saturation(col, saturation_bundle);
-    col = adjust_gain(col, gain_bundle);
-    col = adjust_gamma(col, gamma_bundle);
-    col = adjust_offset(col, offset_bundle);
-    col = adjust_contrast(col, contrast_bundle);
+	//col = pow(col, vec3(1.0/2.2));
 
 	gl_FragColor = vec4(col, matte);
 }

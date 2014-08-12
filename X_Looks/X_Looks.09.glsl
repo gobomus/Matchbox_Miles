@@ -72,6 +72,8 @@ vec4 gblur()
 	}
 	a /= energy;
 
+	//a = pow(a, vec4(1.0/2.2));
+
 	return vec4(a);
 }
 

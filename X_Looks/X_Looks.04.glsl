@@ -69,8 +69,11 @@ vec4 gblur()
 		a += g.x * texture2D(INPUT, (xy + tmp) * px);
 		energy += 2.0 * g.x;
 		g.xy *= g.yz;
+
 	}
 	a /= energy;
+
+	//a = pow(a, vec4(1.0/2.2));
 
 	return vec4(a);
 }

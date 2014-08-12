@@ -14,6 +14,8 @@
 #define black vec4(0.0)
 #define gray vec4(0.5)
 
+uniform float GAMMA;
+
 
 uniform sampler2D INPUT;
 uniform sampler2D PALETTE;
@@ -76,17 +78,18 @@ vec3 adjust_offset(vec3 col, vec4 offs)
 
 vec3 adjust_contrast(vec3 col, vec4 con)
 {
-    col.r = mix(col.r, gray.r, 1.0-con.r);
-    col.g = mix(col.g, gray.r, 1.0-con.g);
-    col.b = mix(col.b, gray.r, 1.0-con.b);
-    col = mix(col, gray.rgb, 1.0-con.a);
+	col.r = mix(gray.r, col.r, con.r);
+    col.g = mix(gray.r, col.g, con.g);
+    col.b = mix(gray.r, col.b, con.b);
+    col = mix(gray.rgb, col, con.a);
 
     return col;
 }
 
 vec3 adjust_saturation(vec3 col, float sat)
 {
-    col = mix(col, vec3(luma(col)), 1.0-sat);
+	vec3 intensity = vec3(luma(col));
+    col = abs(mix(intensity, col, sat));
     return col;
 }
 
@@ -226,6 +229,8 @@ void main(void)
     col = adjust_gamma(col, vec4(pgamma, pgamma_all));
     col = adjust_offset(col, vec4(poffset, poffset_all));
     col = adjust_contrast(col, vec4(pcontrast, pcontrast_all));
+
+	col = pow(col, vec3(1.0/GAMMA));
 
 	col = make_palette(st, col);
 
