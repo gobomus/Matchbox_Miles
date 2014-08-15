@@ -31,11 +31,13 @@
       </Uniform>
    </Shader>
    <Page Name="Page 1" Page="0">
-      <Col Name="Column 1" Col="0" Page="0">
+      <Col Name="Shift RGB" Col="0" Page="0">
       </Col>
-      <Col Name="Column 2" Col="1" Page="0">
+      <Col Name="Falloff RGB" Col="1" Page="0">
       </Col>
-      <Col Name="Column 3" Col="2" Page="0">
+      <Col Name="Shift CMY" Col="2" Page="0">
+      </Col>
+      <Col Name="Falloff CMY" Col="3" Page="0">
       </Col>
    </Page>
 </ShaderNodePreset>
