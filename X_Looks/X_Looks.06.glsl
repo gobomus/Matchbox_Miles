@@ -143,32 +143,47 @@ void main(void)
 
 	vec3 col = source;
 
+	float i_saturation = 1.0;
+	vec4 i_gamma = vec4(1.0);
+	vec4 i_gain = vec4(1.0);
+	vec4 i_offset = vec4(1.0);
+	vec4 i_contrast = vec4(1.0);
+	float i_vin_width = 1.0;
+	vec4 i_vin_gamma = vec4(1.0);
+	vec4 i_vin_gain = vec4(1.0);
+
 	if (look == 1) {
 		//Bleach Bypass
-		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.15));
-		col = adjust_gain(col, vec4(vec3(1.0), 1.15));
 	} else if (look == 2) {
 		//Sepia
-		col = adjust_saturation(col, .35);
-		col = adjust_gamma(col, vec4(vec3(1.0), 1.32));
-		col = adjust_contrast(col, vec4(vec3(1.0), 1.21));
-		col = make_vinette(col, st, vinette_width, vec4(1.0, 1.0, 1.0, .97), vec4(.307, .252, .217, 1.94));
+		i_saturation = .75 * .61;
+        i_gamma.w = 1.25 * 1.31;
+		i_gain.r = 1.266;
+        i_contrast.w = 1.02;
+		i_vin_width = .7;
+		i_vin_gamma.w = .5;
 	} else if (look == 3) {
-		// Cross Processing 1
+		// Sepia 2
+		i_saturation = .75 * .57;
+        i_gamma.w = 1.25;
+		i_gain.r = 1.266;
+        i_contrast.w = 1.02;
+		i_vin_width = .7;
+		i_vin_gamma.w = .5;
 	} else if (look == 4) {
 		col = adjust_glow(col, vec4(1.0, .68, 1.562, 1.0), blur, true);
 	} else if (look == 5) {
 		col = adjust_saturation(col, .85);
 	}
 
-	col = adjust_saturation(col, post_saturation);
-    col = adjust_gain(col, vec4(post_gain, post_gain_all));
-    col = adjust_gamma(col, vec4(post_gamma, post_gamma_all));
-    col = adjust_offset(col, vec4(post_offset, post_offset_all));
-    col = adjust_contrast(col, vec4(post_contrast, post_contrast_all));
+	col = adjust_saturation(col, post_saturation * i_saturation);
+    col = adjust_gamma(col, vec4(post_gamma, post_gamma_all) * i_gamma);
+    col = adjust_gain(col, vec4(post_gain, post_gain_all) * i_gain);
+    col = adjust_offset(col, vec4(post_offset, post_offset_all) * i_offset);
+    col = adjust_contrast(col, vec4(post_contrast, post_contrast_all) * i_contrast);
 
 	col = adjust_glow(col, vec4(glow_gamma, glow_gamma_all), blur, harsh_glow);
-	col = make_vinette(col, st, vinette_width, vec4(vinette_gain, vinette_gain_all), vec4(vinette_gamma, vinette_gamma_all));
+	col = make_vinette(col, st, vinette_width * i_vin_width, vec4(vinette_gain, vinette_gain_all) * i_vin_gain, vec4(vinette_gamma, vinette_gamma_all) * i_vin_gamma);
 
 	//col = pow(col, vec3(1.0/2.2));
 

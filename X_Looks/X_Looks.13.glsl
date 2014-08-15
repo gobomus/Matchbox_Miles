@@ -16,6 +16,7 @@
 
 uniform float GAMMA;
 
+uniform int look;
 
 uniform sampler2D INPUT;
 uniform sampler2D PALETTE;
@@ -43,7 +44,6 @@ uniform vec3 poffset;
 uniform float poffset_all;
 uniform vec3 pcontrast;
 uniform float pcontrast_all;
-
 
 bool isInTex( const vec2 coords )
 {
@@ -102,24 +102,6 @@ vec3 color_temp(vec3 col, float temp)
     return col;
 }
 
-vec3 overlay(vec3 front, vec3 back) {
-    vec3 comp = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-    vec3 c = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-
-    if (back.r < .5) {
-        comp.r = 2.0 * front.r * back.r;
-    }
-
-    if (back.g < .5) {
-        comp.g = 2.0 * front.g * back.g;
-    }
-
-    if (back.b < .5) {
-        comp.b = 2.0 * front.b * back.b;
-    }
-
-    return comp;
-}
 
 vec3 make_palette(vec2 st, vec3 col)
 {
@@ -157,40 +139,11 @@ vec3 make_palette(vec2 st, vec3 col)
     return col;
 }
 
-vec3 softlight(vec3 front, vec3 back) {
-    bvec3 f = greaterThanEqual(front, vec3(.5));
-    bvec3 b = lessThan(back, vec3(.25));
-
-    vec3 comp = back - (1.0 - 2.0 * front) * back * (1.0 - back);
-    vec3 bcomp2 = back + (2.0 * front - 1.0) * back * ((16.0 * back - 12.0) * back + 3.0);
-    vec3 bcomp1 = back + (2.0 * front - 1.0) * (sqrt(back) - back);
-
-    if (f.r) {
-        comp.r = bcomp1.r;
-        if (b.r) {
-            comp.r = bcomp2.r;
-        }
-    }
-   
-    if (f.g) {
-        comp.g = bcomp1.g;
-        if (b.g) {
-            comp.g = bcomp2.g;
-        }
-    }
-
-    if (f.b) {
-        comp.b = bcomp1.b;
-        if (b.b) {
-            comp.b = bcomp2.b;
-        }
-    }
-
-
-    return comp;
-}
-
-
+//http://www.ananasmurska.org/tools/PhotoshopMathFP.glsl
+#define BlendOverlayf(base, blend) 	(base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend)))
+#define BlendSoftLightf(base, blend) 	((blend < 0.5) ? (2.0 * base * blend + base * base * (1.0 - 2.0 * blend)) : (sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend)))
+#define BlendHypot(base, blend) (sqrt(base * base + blend * blend))
+#define BlendScreenf(base, blend) 		(1.0 - ((1.0 - base) * (1.0 - blend)))
 
 void main(void)
 {
@@ -200,40 +153,56 @@ void main(void)
 	vec3 original = tex(ORIG, st);
 	float matte = texture2D(GLOWMATTE, st).a;
 
-	 if (blend == 1) {
-        col = mix(original, col, mix_front);
-    } else if (blend == 2) {
-        vec3 tmp = col + original;
-        col = mix(col, tmp, mix_front);
-    } else if (blend == 3) {
-        vec3 tmp = col * original;
-        col = mix(col, tmp, mix_front);
-    } else if (blend == 4) {
-        vec3 tmp = overlay(col, original);
-        col = mix(col, tmp, mix_front);
-    } else if (blend == 5) {
-        vec3 tmp = softlight(col, original);
-        col = mix(col, tmp, mix_front);
-    } else if (blend == 6) {
-        vec3 tmp = sqrt(col * col + original * original);
-        col = mix(col, tmp, mix_front);
-    }
-
 	vec4 grain = texture2D(GRAIN, st);
 
 	col += grain.rgb;
 
-	col = color_temp(col, pc_temp);
-    col = adjust_saturation(col, psaturation);
-    col = adjust_gain(col, vec4(pgain, pgain_all));
-    col = adjust_gamma(col, vec4(pgamma, pgamma_all));
-    col = adjust_offset(col, vec4(poffset, poffset_all));
-    col = adjust_contrast(col, vec4(pcontrast, pcontrast_all));
+	float i_pc_temp = 1.0;
+	float i_saturation = 1.0;
+    vec4 i_gamma = vec4(1.0);
+    vec4 i_gain = vec4(1.0);
+    vec4 i_offset = vec4(1.0);
+    vec4 i_contrast = vec4(1.0);
+
+    if (look == 1) {
+	} else if (look == 2) {
+		col *= original;
+	} else if (look == 3) {
+        col.r = BlendOverlayf(col.r, original.r);
+        col.g = BlendOverlayf(col.g, original.g);
+        col.b = BlendOverlayf(col.b, original.b);
+	}
+
+	if (blend == 1) {
+        col = mix(original, col, mix_front);
+    } else if (blend == 2) {
+        col = col + original;
+    } else if (blend == 3) {
+        col = col * original;
+    } else if (blend == 4) {
+        col.r = BlendOverlayf(col.r, original.r);
+        col.g = BlendOverlayf(col.g, original.g);
+        col.b = BlendOverlayf(col.b, original.b);
+    } else if (blend == 5) {
+        col.r = BlendSoftLightf(col.r, original.r);
+        col.g = BlendSoftLightf(col.g, original.g);
+        col.b = BlendSoftLightf(col.b, original.b);
+    } else if (blend == 6) {
+        col.r = BlendHypot(col.r, original.r);
+        col.g = BlendHypot(col.g, original.g);
+        col.b = BlendHypot(col.b, original.b);
+    }
+
+	col = color_temp(col, pc_temp * i_pc_temp);
+    col = adjust_saturation(col, psaturation * i_saturation);
+    col = adjust_gamma(col, vec4(pgamma, pgamma_all) * i_gamma);
+    col = adjust_gain(col, vec4(pgain, pgain_all) * i_gain);
+    col = adjust_offset(col, vec4(poffset, poffset_all) * i_offset);
+    col = adjust_contrast(col, vec4(pcontrast, pcontrast_all) * i_contrast);
 
 	col = pow(col, vec3(1.0/GAMMA));
 
 	col = make_palette(st, col);
-
 
 	gl_FragColor = vec4(col, matte);
 }

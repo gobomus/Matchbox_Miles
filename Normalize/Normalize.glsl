@@ -1,3 +1,5 @@
+//Idea from here: http://www.catalinzima.com/2008/01/converting-displacement-maps-into-normal-maps/
+
 #version 120
 
 #define INPUT Front
@@ -18,11 +20,6 @@ uniform	float width;
 uniform float sobel_width;
 uniform int times;
 uniform bool keep_between_0_and_1;
-
-uniform vec3 color;
-uniform vec2 delta;
-uniform vec2 light;
-
 
 void main(void)
 {
@@ -51,22 +48,10 @@ void main(void)
  
     	// Build the normalized normal
     	N += vec4(normalize(vec3(dX, 1.0f / normalStrength, dY)), 1.0f);
-		Q += vec2(dX, dY);
-
 	}
 
 	N /= times;
-	Q /= times;
 
-	vec2 gradient = Q;
-    float brightness = dot(gradient, light);
-
-	vec3 tmp = color * (1.0 - brightness);
-
-    //gl_FragColor = vec4(tmp + col.rgb, 1.0);
-
- 
- 
     //convert (-1.0 , 1.0) to (0.0 , 1.0)
     N =  N * 0.5 + 0.5;
 

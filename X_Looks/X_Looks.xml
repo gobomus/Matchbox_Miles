@@ -95,7 +95,7 @@ miles@noesclavo.com" Name="Looks">
             </PopupEntry>
             <PopupEntry Title="Sepia" Value="2">
             </PopupEntry>
-            <PopupEntry Title="Cross Process 1" Value="3">
+            <PopupEntry Title="Sepia 2" Value="3">
             </PopupEntry>
             <PopupEntry Title="Purple Haze" Value="4">
             </PopupEntry>
@@ -374,6 +374,11 @@ miles@noesclavo.com" Name="Looks">
 		<!-- BLURRED GRAIN TEXTURE -->
 		<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" 
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass12">
+      	</Uniform>
+
+		<Uniform Type="int" Name="look">
+         	<Duplicate>
+         	</Duplicate>
       	</Uniform>
 
 		<Uniform Type="float" Name="GAMMA">

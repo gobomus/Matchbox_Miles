@@ -9,7 +9,7 @@
 #define black vec4(0.0)
 #define gray vec4(0.5)
 
-#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
+#define luma(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
 #define tex(col, coords) texture2D(col, coords).rgb
 #define mat(col, coords) texture2D(col, coords).r
 
@@ -78,34 +78,32 @@ bool isInTex( const vec2 coords )
 
 vec3 adjust_gain(vec3 col, vec4 ga)
 {
-	col *= ga.rgb;
 	col *= ga.a;
+	col *= ga.rgb;
 
 	return col;
 }
 
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
-	col = pow(col, 1.0 / gam.rgb);
 	col = pow(col, vec3(1.0 / gam.a));
+	col = pow(col, 1.0 / gam.rgb);
 
 	return col;
 }
 
 vec3 adjust_offset(vec3 col, vec4 offs)
 {
-	col += offs.rgb - 1.0;
 	col += offs.a - 1.0;
+	col += offs.rgb - 1.0;
 
 	return col;
 }
 
 vec3 adjust_contrast(vec3 col, vec4 con)
 {
-	col.r = mix(gray.r, col.r, con.r);
-	col.g = mix(gray.r, col.g, con.g);
-	col.b = mix(gray.r, col.b, con.b);
-	col = mix(gray.rgb, col, con.a);
+	col = (1.0 - con.rgb) * 0.5 + con.rgb * col;
+	col = (1.0 - con.a) * 0.5 + con.a * col;
 
 	return col;
 }
@@ -262,59 +260,36 @@ void main(void)
 
 	float glow_t = glow_threshold;
 
+	float i_saturation = 1.0;
+	vec4 i_gamma = vec4(1.0);
+	vec4 i_gain = vec4(1.0);
+	vec4 i_contrast = vec4(1.0);
+
 	if (look == 1) {
 		// Bleach Bypass
-		col = adjust_saturation(col, .1);
-		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.5));
-		col = adjust_contrast(col, vec4(1.0, 1.0, 1.0, 1.2));
+		i_saturation = .5;
+		i_gamma = vec4(1.0, 1.0, 1.0, 1.7);
+		i_gain = vec4(1.0, 1.0, 1.0, .9);
+		i_contrast = vec4(1.0, 1.0, 1.0, 1.65);
 	} else if (look == 2) {
-		// Sepia
-		col = adjust_saturation(col, 0.0);
-		col = adjust_gain(col, vec4(.825, .768, .590, 1.14));
-		col = adjust_gamma(col, vec4(.999, .479, .283, 1.67));
-		col = adjust_contrast(col, vec4(1.0, 1.0, 1.0, 1.18));
+		// Sepia 
+		i_saturation = 0.0;
+		i_gamma = vec4(1.0, .627, .329, 1.28);
+		i_gain = vec4(.98, .992, .729, 1.77);
+		i_contrast.w = 1.16;
 	} else if (look == 3) {
-		// Cross Process 1
-		hsl = rgb2hsl(col);
-    	hsl = shift_col(hsl, rh, .035, 1.0);
-		col = hsl2rgb(hsl);
-		col = adjust_saturation(col, 1.4);
-		col = adjust_gain(col, vec4(.961, 1.0, 1.0, .71));
-		col = adjust_gamma(col, vec4(.961, 1.0, 1.0, 1.37));
-		col = adjust_offset(col, vec4(1.0, 1.0, 1.0, 1.02));
-		col = adjust_contrast(col, vec4(1.914, 1.922, 1.0, 1.05));
-		glow_t *= .23;
-	} else if (look == 4) {
-		// Purple Haze
-		glow_t *= .25;
-		/*
-		hsv = rgb2hsv(col);
-    	hsv = shift_col(hsv, rh, -.02, 1.0);
-    	hsv = shift_col(hsv, gh, .22, 1.0);
-    	hsv = shift_col(hsv, bh, -.1, 1.0);
-		col = hsv2rgb(hsv);
-		*/
-	} else if (look == 5) {
-		// Polaroid 669 - Yellow
-		col = adjust_saturation(col, .8);
-		col = adjust_gain(col, vec4(0.949, .906, .831, 1.15));
-		col = adjust_gamma(col, vec4(0.979, .899, .899, 1.31));
-		col = adjust_contrast(col, vec4(.925, .879, 1.0, 1.75));
-		/*
-		hsv = rgb2hsv(col);
-    	hsv = shift_col(hsv, rh, -.01, 1.0);
-    	hsv = shift_col(hsv, gh, .04, 1.0);
-    	hsv = shift_col(hsv, bh, -.02, 1.0);
-		col = hsv2rgb(hsv);
-		*/
+		// Sepia 2
+		i_saturation = 0.0;
+		i_gamma = vec4(1.0, .627, .329, 1.28);
+		i_gain = vec4(.98, .992, .729, 1.77);
+		i_contrast.w = 1.16;
 	} else if (look == 6) {
-		// 2 strip
 		vec3 red = vec3(col.r) * vec3(1.0, 0.0, 0.0);
 		vec3 green = vec3(col.g) * vec3(0.0, 1.0, 0.0);
 		vec3 blue = vec3(col.g) * vec3(0.0, 0.0, 1.0);
 
 		col = red + green + blue;
-		col = adjust_saturation(col, 1.4);
+		i_saturation = 1.4;
 	} else if (look == 7) {
 		// Infrared
 		vec3 red = vec3(0.0);
@@ -323,26 +298,25 @@ void main(void)
 
 		blue = vec3(col.bbb);
 
-		col = adjust_gamma(col, vec4(1.0, 1.0, 1.0, 1.5));
-		col = adjust_contrast(col, vec4(1.0, 1.0, 1.0, 2.0));
+		//i_gamma.w = 1.5;
+		//i_contrast.w = 2.0;
 
 		red = vec3(col.rrr);
 
 		vec3 minusblue = red - blue;
 
 		col = minusblue;
-	} else if (look == 8) {
-		// Light Yellow
-		col = adjust_gain(col, vec4(1.0, 1.0, .719, 1.0));
-		col = adjust_gamma(col, vec4(1.0, 1.0, 1.234, 1.0));
+	
 	}
 
 	col = color_temp(col, c_temp);
-	col = adjust_saturation(col, saturation);
-	col = adjust_gamma(col, vec4(gamma, gamma_all));
-	col = adjust_gain(col, vec4(gain, gain_all));
+	col = adjust_saturation(col, saturation * i_saturation);
+	col = adjust_gamma(col, vec4(gamma, gamma_all) * i_gamma);
+
+
+	col = adjust_gain(col, vec4(gain, gain_all) * i_gain);
 	col = adjust_offset(col, vec4(offset_, offset_all));
-	col = adjust_contrast(col, vec4(contrast, contrast_all));
+	col = adjust_contrast(col, vec4(contrast, contrast_all) * i_contrast);
 
 	hsl = rgb2hsl(col);
 
@@ -355,11 +329,6 @@ void main(void)
 
 	col = hsl2rgb(hsl);
 
-	//  Set Looks Transfer if any
-	if (look == 1) {
-		// Bleach Bypass
-		col *= source;
-	}
 
 	// Collect a matte to use in later passes for glows
 	float matte_out = 0.0;
