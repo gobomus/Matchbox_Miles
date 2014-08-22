@@ -105,12 +105,21 @@ vec3 adjust_gain(vec3 col, vec4 gai)
     return col;
 }
 
+
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
     vec3 g = gam.rgb * vec3(gam.a);
-    col.r = pow(col.r, 1.0 / g.r);
-    col.g = pow(col.g, 1.0 / g.g);
-    col.b = pow(col.b, 1.0 / g.b);
+    if (col.r >= 0.0) {
+        col.r = pow(col.r, 1.0 / g.r);
+    }
+
+    if (col.g >= 0.0) {
+        col.g = pow(col.g, 1.0 / g.g);
+    }
+
+    if (col.b >= 0.0) {
+        col.b = pow(col.b, 1.0 / g.b);
+    }
 
     return col;
 }
@@ -236,36 +245,6 @@ void main(void)
     vec4 i_offset = vec4(1.0);
     vec4 i_contrast = vec4(1.0);
 
-    if (look == 1) {
-		col *= original;
-	} else if (look == 2) {
-		col *= original;
-	} else if (look == 3) {
-        col.r = BlendOverlayf(col.r, original.r);
-        col.g = BlendOverlayf(col.g, original.g);
-        col.b = BlendOverlayf(col.b, original.b);
-	}
-
-	if (blend == 1) {
-        col = mix(original, col, mix_front);
-    } else if (blend == 2) {
-        col = col + original;
-    } else if (blend == 3) {
-        col = col * original;
-    } else if (blend == 4) {
-        col.r = BlendOverlayf(col.r, original.r);
-        col.g = BlendOverlayf(col.g, original.g);
-        col.b = BlendOverlayf(col.b, original.b);
-    } else if (blend == 5) {
-        col.r = BlendSoftLightf(col.r, original.r);
-        col.g = BlendSoftLightf(col.g, original.g);
-        col.b = BlendSoftLightf(col.b, original.b);
-    } else if (blend == 6) {
-        col.r = BlendHypot(col.r, original.r);
-        col.g = BlendHypot(col.g, original.g);
-        col.b = BlendHypot(col.b, original.b);
-    }
-
 	col = color_temp(col, pc_temp * i_pc_temp);
     col = adjust_saturation(col, psaturation * i_saturation);
     col = adjust_gamma(col, vec4(pgamma, pgamma_all) * i_gamma);
@@ -278,9 +257,9 @@ void main(void)
 	} else if (i_colorspace == 1) {
 		col = to_sRGB(col);
 	} else if (i_colorspace == 2) {
-		col = adjust_cgamma(col, 1.0);
+		//linear
 	} else if (i_colorspace == 3) {
-		col = adjust_cgamma(col, 2.222222222);
+		col = adjust_cgamma(col, 2.2);
 	} else if (i_colorspace == 4) {
 		col = adjust_cgamma(col, 1.8);
 	}

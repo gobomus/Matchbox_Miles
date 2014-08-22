@@ -47,9 +47,17 @@ vec3 adjust_gain(vec3 col, vec4 gai)
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
     vec3 g = gam.rgb * vec3(gam.a);
-    col.r = pow(col.r, 1.0 / g.r);
-    col.g = pow(col.g, 1.0 / g.g);
-    col.b = pow(col.b, 1.0 / g.b);
+	if (col.r >= 0.0) {
+    	col.r = pow(col.r, 1.0 / g.r);
+	}
+
+	if (col.g >= 0.0) {
+    	col.g = pow(col.g, 1.0 / g.g);
+	}
+
+	if (col.b >= 0.0) {
+    	col.b = pow(col.b, 1.0 / g.b);
+	}
 
     return col;
 }
@@ -133,32 +141,6 @@ void main(void)
 	vec4 i_vin_gamma = vec4(1.0);
 	vec4 i_vin_gain = vec4(1.0);
 
-	if (look == 1) {
-		//Bleach Bypass
-        i_gamma.w = 2.0;
-        i_gain.w = 1.15;
-	} else if (look == 2) {
-		//Sepia
-		i_saturation = .75 * .61;
-        i_gamma.w = 1.25 * 1.31;
-		i_gain.r = 1.266;
-        i_contrast.w = 1.02;
-		i_vin_width = .7;
-		i_vin_gamma.w = .5;
-	} else if (look == 3) {
-		// Sepia 2
-		i_saturation = .75 * .57;
-        i_gamma.w = 1.25;
-		i_gain.r = 1.266;
-        i_contrast.w = 1.02;
-		i_vin_width = .7;
-		i_vin_gamma.w = .5;
-	} else if (look == 4) {
-		col = adjust_glow(col, vec4(1.0, .68, 1.562, 1.0), blur, true);
-	} else if (look == 5) {
-		col = adjust_saturation(col, .85);
-	}
-
 	col = adjust_saturation(col, post_saturation * i_saturation);
     col = adjust_gamma(col, vec4(post_gamma, post_gamma_all) * i_gamma);
     col = adjust_gain(col, vec4(post_gain, post_gain_all) * i_gain);
@@ -166,8 +148,6 @@ void main(void)
     col = adjust_contrast(col, vec4(post_contrast, post_contrast_all) * i_contrast);
 	col = adjust_glow(col, vec4(glow_gamma, glow_gamma_all), blur, harsh_glow);
 	col = make_vinette(col, st, vinette_width * i_vin_width, vec4(vinette_gain, vinette_gain_all) * i_vin_gain, vec4(vinette_gamma, vinette_gamma_all) * i_vin_gamma);
-
-	//col = pow(col, vec3(1.0/2.2));
 
 	gl_FragColor = vec4(col, matte);
 }

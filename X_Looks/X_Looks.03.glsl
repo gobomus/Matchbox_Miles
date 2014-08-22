@@ -11,9 +11,6 @@ uniform sampler2D INPUT;
 uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
-//Input Image's gamma
-uniform float GAMMA;
-
 uniform int look;
 
 // Grading
@@ -49,13 +46,22 @@ vec3 adjust_gain(vec3 col, vec4 gai)
 
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
-	vec3 g = gam.rgb * vec3(gam.a);
-	col.r = pow(col.r, 1.0 / g.r);
-	col.g = pow(col.g, 1.0 / g.g);
-	col.b = pow(col.b, 1.0 / g.b);
+    vec3 g = gam.rgb * vec3(gam.a);
+    if (col.r >= 0.0) {
+        col.r = pow(col.r, 1.0 / g.r);
+    }
 
-	return col;
+    if (col.g >= 0.0) {
+        col.g = pow(col.g, 1.0 / g.g);
+    }
+
+    if (col.b >= 0.0) {
+        col.b = pow(col.b, 1.0 / g.b);
+    }
+
+    return col;
 }
+
 
 vec3 adjust_offset(vec3 col, vec4 offs)
 {
@@ -210,8 +216,6 @@ void main(void)
 	vec3 source = tex(INPUT, st);
 	vec3 col = source;
 	
-	//col = pow(col, vec3(GAMMA));
-
 	float glow_t = glow_threshold;
 
 	float i_saturation = 1.0;
@@ -219,51 +223,15 @@ void main(void)
 	vec4 i_gain = vec4(1.0);
 	vec4 i_contrast = vec4(1.0);
 
-	if (look == 1) {
-		// Bleach Bypass
-		i_saturation = .3;
-		i_gamma = vec4(1.0, 1.0, 1.0, .4);
-		i_gain = vec4(1.0, 1.0, 1.0, 1.1);
-	} else if (look == 2) {
-		// Sepia 
-		i_saturation = 0.0;
-		i_gamma = vec4(1.0, .627, .329, 1.28);
-		i_gain = vec4(.98, .992, .729, 1.77);
-		i_contrast.w = 1.16;
-	} else if (look == 3) {
-		// Sepia 2
-		i_saturation = 0.0;
-		i_gamma = vec4(1.0, .627, .329, 1.28);
-		i_gain = vec4(.98, .992, .729, 1.77);
-		i_contrast.w = 1.16;
-	} else if (look == 6) {
+	/*
 		vec3 red = vec3(col.r) * vec3(1.0, 0.0, 0.0);
 		vec3 green = vec3(col.g) * vec3(0.0, 1.0, 0.0);
 		vec3 blue = vec3(col.g) * vec3(0.0, 0.0, 1.0);
-
-		col = red + green + blue;
-		i_saturation = 1.4;
-	} else if (look == 7) {
-		// Infrared
-		vec3 red = vec3(0.0);
-		vec3 green = vec3(0.0);
-		vec3 blue = vec3(0.0);
-
-		blue = vec3(col.bbb);
-
-		//i_gamma.w = 1.5;
-		//i_contrast.w = 2.0;
-
-		red = vec3(col.rrr);
-
-		vec3 minusblue = red - blue;
-
-		col = minusblue;
-	}
+	*/
 
 	col = color_temp(col, c_temp);
-	col = adjust_gamma(col, vec4(gamma, gamma_all) * i_gamma);
 	col = adjust_saturation(col, saturation * i_saturation);
+	col = adjust_gamma(col, vec4(gamma, gamma_all) * i_gamma);
 	col = adjust_gain(col, vec4(gain, gain_all) * i_gain);
 	col = adjust_offset(col, vec4(offset_, offset_all));
 	col = adjust_contrast(col, vec4(contrast, contrast_all) * i_contrast);

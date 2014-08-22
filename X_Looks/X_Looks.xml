@@ -19,13 +19,13 @@ miles@noesclavo.com" Name="Looks">
 		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Input Gamma" Type="int" Name="i_colorspace" ValueType="Popup">
             <PopupEntry Title="Rec 709" Value="0">
             </PopupEntry>
-            <PopupEntry Title="SRGB" Value="0">
+            <PopupEntry Title="SRGB" Value="1">
             </PopupEntry>
-            <PopupEntry Title="Linear" Value="0">
+            <PopupEntry Title="Linear" Value="2">
             </PopupEntry>
-            <PopupEntry Title="Gamma 2.2" Value="0">
+            <PopupEntry Title="Gamma 2.2" Value="3">
             </PopupEntry>
-            <PopupEntry Title="Gamma 1.8" Value="0">
+            <PopupEntry Title="Gamma 1.8" Value="4">
             </PopupEntry>
       	</Uniform>
 	</Shader>
@@ -101,22 +101,6 @@ miles@noesclavo.com" Name="Looks">
 		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Look" Type="int" Name="look" ValueType="Popup">
             <PopupEntry Title="New" Value="0">
             </PopupEntry>
-            <PopupEntry Title="Bleach Bypass" Value="1">
-            </PopupEntry>
-            <PopupEntry Title="Sepia" Value="2">
-            </PopupEntry>
-            <PopupEntry Title="Sepia 2" Value="3">
-            </PopupEntry>
-            <PopupEntry Title="Purple Haze" Value="4">
-            </PopupEntry>
-            <PopupEntry Title="Polaroid 669 - Yellow" Value="5">
-            </PopupEntry>
-            <PopupEntry Title="2 Strip" Value="6">
-            </PopupEntry>
-            <PopupEntry Title="Infrared" Value="7">
-            </PopupEntry>
-            <PopupEntry Title="Light Yellow" Value="8">
-            </PopupEntry>
         </Uniform>
 
 		<!-- HUE SHIFT -->
@@ -185,22 +169,10 @@ miles@noesclavo.com" Name="Looks">
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="2" DisplayName="Post Offset" Type="float" Name="post_offset_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="2" DisplayName="Offset" Type="float" Name="post_offset_all">
       	</Uniform>
 
-	 	<Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Post Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_offset">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-      	</Uniform>
-
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="2" DisplayName="Post Gain" Type="float" Name="post_gain_all">
-      	</Uniform>
-
-	 	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="2" DisplayName="Post Gain" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gain">
+	 	<Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_offset">
          	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
          	</SubUniform>
          	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
@@ -209,22 +181,10 @@ miles@noesclavo.com" Name="Looks">
          	</SubUniform>
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="2" DisplayName="Post Gamma" Type="float" Name="post_gamma_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="2" DisplayName="Gain" Type="float" Name="post_gain_all">
       	</Uniform>
 
-		<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Post Gamma" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         	</SubUniform>
-      	</Uniform>
-
-	 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="2" DisplayName="Post Contrast" Type="float" Name="post_contrast_all">
-      	</Uniform>
-
-		<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="2" DisplayName="Post Contrast" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_contrast">
+	 	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="2" DisplayName="Gain" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gain">
          	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
          	</SubUniform>
          	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
@@ -233,7 +193,31 @@ miles@noesclavo.com" Name="Looks">
          	</SubUniform>
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="2" DisplayName="Post Saturation" Type="float" Name="post_saturation">
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="2" DisplayName="Gamma" Type="float" Name="post_gamma_all">
+      	</Uniform>
+
+		<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Gamma" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gamma">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+      	</Uniform>
+
+	 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="2" DisplayName="Contrast" Type="float" Name="post_contrast_all">
+      	</Uniform>
+
+		<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="2" DisplayName="Contrast" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_contrast">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+      	</Uniform>
+
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="2" DisplayName="Saturation" Type="float" Name="post_saturation">
       	</Uniform>
 
 		<!-- GLOW -->
@@ -403,7 +387,7 @@ miles@noesclavo.com" Name="Looks">
 		<!-- GRAIN RESPONSE -->
 		<Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="4" DisplayName="Shadows" Type="float" Name="grain_low">
       	</Uniform>
-		<Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="-1.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="4" DisplayName="Highlights" Type="float" Name="grain_hi">
+		<Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="4" DisplayName="Highlights" Type="float" Name="grain_hi">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Position" IconType="Axis" Type="vec2" Name="palette_pos">
