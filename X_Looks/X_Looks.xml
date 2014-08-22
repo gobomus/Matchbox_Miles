@@ -1,8 +1,10 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
-Latest binaries here: https://github.com/noesclavo/Matchbox_Miles/releases/
 
-2015 Only
 Quickly create looks. There's a couple of presets. 
+
+Make sure to select the correct input gamma for your source footage as all
+adjustments are made in linear space.
+
 If you'd like A look you created with this shader, to be a preset.. Email me
 a still of the result, the saved shader setup, what you'd like
 to call the look, and if you'd prefer to be un-credited.
@@ -16,7 +18,7 @@ miles@noesclavo.com" Name="Looks">
 	  	GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
 		</Uniform>
 
-		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Input Gamma" Type="int" Name="i_colorspace" ValueType="Popup">
+		<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Input Gamma" Type="int" Name="i_colorspace" ValueType="Popup">
             <PopupEntry Title="Rec 709" Value="0">
             </PopupEntry>
             <PopupEntry Title="SRGB" Value="1">
@@ -47,58 +49,58 @@ miles@noesclavo.com" Name="Looks">
 		<Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Tempurature" Type="float" Name="c_temp">
   		</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
      	</Uniform>
 		
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Contrast" Type="float" Name="contrast_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Contrast" Type="float" Name="contrast_all">
       	</Uniform>
 
 		<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Contrast RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="contrast">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
- 		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Offset" Type="float" Name="offset_all">
+ 		<Uniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Offset" Type="float" Name="offset_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="offset_">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Gamma" Type="float" Name="gamma_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Gamma" Type="float" Name="gamma_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="gamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Gain" Type="float" Name="gain_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Gain" Type="float" Name="gain_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="gain">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 		<!-- PRESETS -->
-		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Look" Type="int" Name="look" ValueType="Popup">
+		<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Look" Type="int" Name="look" ValueType="Popup">
             <PopupEntry Title="New" Value="0">
             </PopupEntry>
             <PopupEntry Title="Bleach Bypass" Value="1">
@@ -177,55 +179,55 @@ miles@noesclavo.com" Name="Looks">
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="2" DisplayName="Offset" Type="float" Name="post_offset_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="2" DisplayName="Offset" Type="float" Name="post_offset_all">
       	</Uniform>
 
 	 	<Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Offset RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_offset">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="2" DisplayName="Gain" Type="float" Name="post_gain_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="2" DisplayName="Gain" Type="float" Name="post_gain_all">
       	</Uniform>
 
 	 	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="2" DisplayName="Gain" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gain">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="2" DisplayName="Gamma" Type="float" Name="post_gamma_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="2" DisplayName="Gamma" Type="float" Name="post_gamma_all">
       	</Uniform>
 
 		<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Gamma" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_gamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-	 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="2" DisplayName="Contrast" Type="float" Name="post_contrast_all">
+	 	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="2" DisplayName="Contrast" Type="float" Name="post_contrast_all">
       	</Uniform>
 
 		<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="2" DisplayName="Contrast" IconType="Pick" ValueType="Colour" Type="vec3" Name="post_contrast">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="2" DisplayName="Saturation" Type="float" Name="post_saturation">
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="2" DisplayName="Saturation" Type="float" Name="post_saturation">
       	</Uniform>
 
 		<!-- GLOW -->
@@ -237,45 +239,47 @@ miles@noesclavo.com" Name="Looks">
          	</Duplicate>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="2" DisplayName="Intensity" Type="float" Name="glow_gamma_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="2" DisplayName="Intensity" Type="float" Name="glow_gamma_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="2" Col="2" Page="2" DisplayName="Glow RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="glow_gamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
 		<!-- VINETTE -->
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.7" Inc="0.01" Tooltip="" Row="0" Col="3" Page="2" DisplayName="Width" Type="float" Name="vinette_width">
+
+	 	<Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="2" DisplayName="Gamma" Type="float" Name="vinette_gamma_all">
       	</Uniform>
 
-		<Uniform Inc="0.01" Tooltip="" Row="2" Col="3" Page="2" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+		<Uniform Inc="0.01" Tooltip="" Row="1" Col="3" Page="2" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gamma">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 	
-	 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="2" DisplayName="Gamma" Type="float" Name="vinette_gamma_all">
+	 	<Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="2" DisplayName="Gain" Type="float" Name="vinette_gain_all">
       	</Uniform>
 	
-      	<Uniform Inc="0.01" Tooltip="" Row="4" Col="3" Page="2" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gain">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+      	<Uniform Inc="0.01" Tooltip="" Row="3" Col="3" Page="2" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="vinette_gain">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-	 	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="2" DisplayName="Gain" Type="float" Name="vinette_gain_all">
+		<Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.7" Inc="0.01" Tooltip="" Row="4" Col="3" Page="2" DisplayName="Width" Type="float" Name="vinette_width">
       	</Uniform>
+
    </Shader>
 
 	<!-- SHARPEN -->
@@ -284,7 +288,7 @@ miles@noesclavo.com" Name="Looks">
 			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="5.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="3" DisplayName="Sharpness" Type="float" Name="sharpness">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="3" DisplayName="Sharpness" Type="float" Name="sharpness">
       	</Uniform>
 
       	<Uniform Row="1" Col="0" Page="3" Default="False" Tooltip="" DisplayName="Sharpen" Type="bool" Name="sharpen_image">
@@ -293,7 +297,7 @@ miles@noesclavo.com" Name="Looks">
 
 	<!-- POST BLUR -->
 	<Shader OutputBitDepth="Output" Index="8">
-   	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="3" DisplayName="Blur" Type="float" Name="post_blur">
+   	   <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="3" DisplayName="Blur" Type="float" Name="post_blur">
    	   </Uniform>
 
    	   <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" 
@@ -314,19 +318,19 @@ miles@noesclavo.com" Name="Looks">
 
 	<!-- GRAIN -->
 	<Shader OutputBitDepth="Output" Index="10">
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="4" DisplayName="Grain" Type="float" Name="grain_brightness_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="4" DisplayName="Grain" Type="float" Name="grain_brightness_all">
    		</Uniform>
 
  		<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="4" DisplayName="Grain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="grain_brightness">
-			<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+			<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
 			</SubUniform>
-			<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+			<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
 			</SubUniform>
-			<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+			<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
 			</SubUniform>
 		</Uniform>
 
-   		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="4" DisplayName="Saturation" Type="float" Name="grain_saturation">
+   		<Uniform ResDependent="None" Max="3.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="4" DisplayName="Saturation" Type="float" Name="grain_saturation">
    		</Uniform>
 
    		<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" 
@@ -339,7 +343,7 @@ miles@noesclavo.com" Name="Looks">
       	<Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="4" DisplayName="Softness" Type="float" Name="grain_blur">
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="4" DisplayName="Size" Type="float" Name="grain_size_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="4" DisplayName="Size" Type="float" Name="grain_size_all">
       	</Uniform>
 
       	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" 
@@ -405,13 +409,13 @@ miles@noesclavo.com" Name="Looks">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Mix" Type="float" Name="mix_front">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Mix" Type="float" Name="mix_front">
       	</Uniform>
 
       	<Uniform ResDependent="None" Max="10.0" Min="00000.0" Default="6.0" Inc="1.0" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Detail" Type="float" Name="palette_detail">
       	</Uniform>
 
-		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Over Front" Type="int" Name="blend" ValueType="Popup">
+		<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Over Front" Type="int" Name="blend" ValueType="Popup">
             <PopupEntry Title="No" Value="0">
             </PopupEntry>
             <PopupEntry Title="Mix" Value="1">
@@ -431,60 +435,60 @@ miles@noesclavo.com" Name="Looks">
       	<Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Palette" Type="bool" Name="show_palette">
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.35" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Size" Type="float" Name="palette_size">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.35" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Size" Type="float" Name="palette_size">
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="5" DisplayName="Saturation" Type="float" Name="psaturation">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-1.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="5" DisplayName="Saturation" Type="float" Name="psaturation">
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="5" DisplayName="Tempurature" Type="float" Name="pc_temp">
+		<Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="5" DisplayName="Tempurature" Type="float" Name="pc_temp">
       	</Uniform>
 
-		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="5" DisplayName="Gamma" Type="float" Name="pgamma_all">
+		<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="5" DisplayName="Gamma" Type="float" Name="pgamma_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="5" DisplayName="Gamma RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pgamma">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="5" DisplayName="Offset" Type="float" Name="poffset_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="5" DisplayName="Offset" Type="float" Name="poffset_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="5" DisplayName="Offset" IconType="Pick" ValueType="Colour" Type="vec3" Name="poffset">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-10.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="5" DisplayName="Contrast" Type="float" Name="pcontrast_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="5" DisplayName="Contrast" Type="float" Name="pcontrast_all">
       	</Uniform>
 
       	<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="5" DisplayName="Contrast RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pcontrast">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
 
-      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="5" DisplayName="Gain" Type="float" Name="pgain_all">
+      	<Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="5" DisplayName="Gain" Type="float" Name="pgain_all">
       	</Uniform>
 
 		<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="5" DisplayName="Gain RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="pgain">
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
-         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0">
          	</SubUniform>
       	</Uniform>
    	</Shader>
