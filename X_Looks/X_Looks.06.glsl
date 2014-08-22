@@ -14,7 +14,6 @@ vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform int look;
 
 // FX
-
 uniform vec3 glow_gamma;
 uniform float glow_gamma_all;
 uniform bool harsh_glow;
@@ -140,14 +139,32 @@ void main(void)
 	float i_vin_width = 1.0;
 	vec4 i_vin_gamma = vec4(1.0);
 	vec4 i_vin_gain = vec4(1.0);
+	vec4 i_glow_gamma = vec4(1.0);
 
-	col = adjust_saturation(col, post_saturation * i_saturation);
-    col = adjust_gamma(col, vec4(post_gamma, post_gamma_all) * i_gamma);
-    col = adjust_gain(col, vec4(post_gain, post_gain_all) * i_gain);
-    col = adjust_offset(col, vec4(post_offset, post_offset_all) * i_offset);
-    col = adjust_contrast(col, vec4(post_contrast, post_contrast_all) * i_contrast);
+	if (look == 1) {
+		//bleach bypass
+	} else if (look == 2) {
+		//sepia
+		i_saturation = .9;
+		i_vin_gamma.a = .5;
+		i_vin_gain.a = .75;
+	}
+
+	col = adjust_saturation(col, i_saturation);
+    col = adjust_gamma(col, i_gamma);
+    col = adjust_gain(col, i_gain);
+    col = adjust_offset(col, i_offset);
+    col = adjust_contrast(col, i_contrast);
+	col = adjust_glow(col, i_glow_gamma, blur, harsh_glow);
+	col = make_vinette(col, st, vinette_width * i_vin_width, i_vin_gain, i_vin_gamma);
+
+	col = adjust_saturation(col, post_saturation);
+    col = adjust_gamma(col, vec4(post_gamma, post_gamma_all));
+    col = adjust_gain(col, vec4(post_gain, post_gain_all));
+    col = adjust_offset(col, vec4(post_offset, post_offset_all));
+    col = adjust_contrast(col, vec4(post_contrast, post_contrast_all));
 	col = adjust_glow(col, vec4(glow_gamma, glow_gamma_all), blur, harsh_glow);
-	col = make_vinette(col, st, vinette_width * i_vin_width, vec4(vinette_gain, vinette_gain_all) * i_vin_gain, vec4(vinette_gamma, vinette_gamma_all) * i_vin_gamma);
+	col = make_vinette(col, st, vinette_width , vec4(vinette_gain, vinette_gain_all), vec4(vinette_gamma, vinette_gamma_all));
 
 	gl_FragColor = vec4(col, matte);
 }

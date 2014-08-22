@@ -222,19 +222,56 @@ void main(void)
 	vec4 i_gamma = vec4(1.0);
 	vec4 i_gain = vec4(1.0);
 	vec4 i_contrast = vec4(1.0);
+	vec4 i_offset = vec4(1.0);
+	float i_shiftr = 0.0;
+	float i_shifty = 0.0;
+	float i_shiftg = 0.0;
+	float i_shiftc = 0.0;
+	float i_shiftb = 0.0;
+	float i_shiftm = 0.0;
+	float i_rfo = 90.0;
+	float i_yfo = 90.0;
+	float i_gfo = 90.0;
+	float i_cfo = 90.0;
+	float i_bfo = 90.0;
+	float i_mfo = 90.0;
 
-	/*
+	if (look == 1) {
+		//bleach bypass
+		i_gamma.a = 1.2;
+		i_saturation = .2;
+	} else if (look == 2) {
+		//sepia
+		i_gain = vec4(1.0, .9, .6, 1.0);
+		i_gamma = vec4(1.0, .67, .40, 1.8);
+		i_offset = vec4(1.0, .915, .9, 1.05);
+		i_saturation = 0.0;
+	} else if (look == 3) {
+		//2 pass;
 		vec3 red = vec3(col.r) * vec3(1.0, 0.0, 0.0);
 		vec3 green = vec3(col.g) * vec3(0.0, 1.0, 0.0);
 		vec3 blue = vec3(col.g) * vec3(0.0, 0.0, 1.0);
-	*/
+
+		col = red + green + blue;
+	} else if (look == 4) {
+		//cross process 1
+		i_contrast = vec4(1.695, 1.266, .820, 1.15);
+		i_shiftb = -60.0;
+	}
+
+	col = adjust_saturation(col, i_saturation);
+	col = adjust_gamma(col, i_gamma);
+	col = adjust_gain(col, i_gain);
+	col = adjust_offset(col, i_offset);
+	col = adjust_contrast(col, i_contrast);
+	col = shift_hue(col, i_shiftr, i_shifty, i_shiftg, i_shiftc, i_shiftb, i_shiftm, i_rfo, i_yfo, i_gfo, i_cfo, i_bfo, i_mfo);
 
 	col = color_temp(col, c_temp);
-	col = adjust_saturation(col, saturation * i_saturation);
-	col = adjust_gamma(col, vec4(gamma, gamma_all) * i_gamma);
-	col = adjust_gain(col, vec4(gain, gain_all) * i_gain);
+	col = adjust_saturation(col, saturation);
+	col = adjust_gamma(col, vec4(gamma, gamma_all));
+	col = adjust_gain(col, vec4(gain, gain_all));
 	col = adjust_offset(col, vec4(offset_, offset_all));
-	col = adjust_contrast(col, vec4(contrast, contrast_all) * i_contrast);
+	col = adjust_contrast(col, vec4(contrast, contrast_all));
 	col = shift_hue(col, shiftr, shifty, shiftg, shiftc, shiftb, shiftm, rfo, yfo, gfo, cfo, bfo, mfo);
 
 	// Collect a matte to use in later passes for glows

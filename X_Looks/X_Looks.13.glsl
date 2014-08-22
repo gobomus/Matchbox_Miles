@@ -49,9 +49,17 @@ uniform float pcontrast_all;
 
 vec3 adjust_cgamma(vec3 col, float gamma)
 {
-    col.r = pow(col.r, 1.0 / gamma);
-    col.g = pow(col.g, 1.0 / gamma);
-    col.b = pow(col.b, 1.0 / gamma);
+	if (col.r >= 0.0) {
+    	col.r = pow(col.r, 1.0 / gamma);
+	}
+
+	if (col.g >= 0.0) {
+    	col.g = pow(col.g, 1.0 / gamma);
+	}
+
+	if (col.b >= 0.0) {
+    	col.b = pow(col.b, 1.0 / gamma);
+	}
 
     return col;
 }
@@ -61,19 +69,19 @@ vec3 to_rec709(vec3 col)
 {
     if (col.r < .018) {
         col.r *= 4.5;
-    } else {
+    } else if (col.r >= 0.0) {
         col.r = (1.099 * pow(col.r, .45)) - .099;
     }
 
     if (col.g < .018) {
         col.g *= 4.5;
-    } else {
+    } else if (col.g >= 0.0) {
         col.g = (1.099 * pow(col.g, .45)) - .099;
     }
 
     if (col.b < .018) {
         col.b *= 4.5;
-    } else {
+    } else if (col.b >= 0.0) {
         col.b = (1.099 * pow(col.b, .45)) - .099;
     }
 
@@ -83,9 +91,17 @@ vec3 to_rec709(vec3 col)
 
 vec3 to_sRGB(vec3 col)
 {
-    col.r = (1.055 * pow(col.r, 1.0 / 2.4)) - .055;
-    col.g = (1.055 * pow(col.g, 1.0 / 2.4)) - .055;
-    col.b = (1.055 * pow(col.b, 1.0 / 2.4)) - .055;
+    if (col.r >= 0.0) {
+    	col.r = (1.055 * pow(col.r, 1.0 / 2.4)) - .055;
+	}
+
+    if (col.g >= 0.0) {
+    	col.g = (1.055 * pow(col.g, 1.0 / 2.4)) - .055;
+	}
+
+    if (col.b >= 0.0) {
+    	col.b = (1.055 * pow(col.b, 1.0 / 2.4)) - .055;
+	}
 
     return col;
 }
@@ -193,9 +209,7 @@ vec3 make_palette(vec2 st, vec3 col)
 
     }
 
-    //col = clamp(col, 0.0, 1.0);
     col = mix(col, palette.rgb, palette.a);
-
 
     return col;
 }
@@ -219,12 +233,10 @@ float mids(vec3 col, float more_highs, float more_lows)
 }
 
 //http://www.ananasmurska.org/tools/PhotoshopMathFP.glsl
-#define BlendOverlayf(base, blend) 	(base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend)))
-#define BlendSoftLightf(base, blend) 	((blend < 0.5) ? (2.0 * base * blend + base * base * (1.0 - 2.0 * blend)) : (sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend)))
-#define BlendHypot(base, blend) (sqrt(base * base + blend * blend))
-#define BlendScreenf(base, blend) 		(1.0 - ((1.0 - base) * (1.0 - blend)))
-
-
+#define overlay(base, blend) 	(base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend)))
+#define softlight(base, blend) 	((blend < 0.5) ? (2.0 * base * blend + base * base * (1.0 - 2.0 * blend)) : (sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend)))
+#define hypot(base, blend) (sqrt(base * base + blend * blend))
+#define screen(base, blend) 		(1.0 - ((1.0 - base) * (1.0 - blend)))
 
 void main(void)
 {
@@ -236,7 +248,59 @@ void main(void)
 
 	vec4 grain = texture2D(GRAIN, st);
 
-	col += grain.rgb * mids(col, grain_hi, grain_low);
+	col += clamp(grain.rgb * mids(col, grain_hi, grain_low), 0.0, 1.0);
+
+
+	vec3 comp = vec3(0.0);
+
+	if (look == 1) {
+		//bleach bypass
+		comp.r = overlay(col.r, original.r);
+        comp.g = overlay(col.g, original.g);
+        comp.b = overlay(col.b, original.b);
+
+		col = comp;
+	} else if (look == 2) {
+		//sepia
+		comp.r = softlight(col.r, original.r);
+        comp.g = softlight(col.g, original.g);
+        comp.b = softlight(col.b, original.b);
+
+		col = comp;
+		col = adjust_saturation(col, .8);
+	}
+
+	if (blend == 0) {
+		comp = col;
+	} else if (blend == 1) {
+		//mix
+		comp = original;
+		col = mix(col, comp, 1.0 - mix_front);
+	} else if (blend == 2) {
+		//add
+		comp = col + original;
+		col = mix(col, comp, mix_front);
+	} else if (blend == 3) {
+		//multiply
+		comp = col * original;
+		col = mix(col, comp, mix_front);
+	} else if (blend == 4) {
+		//overlay
+		comp.r = overlay(col.r, original.r);
+		comp.g = overlay(col.g, original.g);
+		comp.b = overlay(col.b, original.b);
+		col = mix(col, comp, mix_front);
+	} else if (blend == 5) {
+		//softlight
+		comp.r = softlight(col.r, original.r);
+		comp.g = softlight(col.g, original.g);
+		comp.b = softlight(col.b, original.b);
+		col = mix(col, comp, mix_front);
+	} else if (blend == 6) {
+		//hypot
+		comp = hypot(col, original);
+		col = mix(col, comp, mix_front);
+	}
 
 	float i_pc_temp = 1.0;
 	float i_saturation = 1.0;

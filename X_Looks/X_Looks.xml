@@ -101,6 +101,14 @@ miles@noesclavo.com" Name="Looks">
 		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Look" Type="int" Name="look" ValueType="Popup">
             <PopupEntry Title="New" Value="0">
             </PopupEntry>
+            <PopupEntry Title="Bleach Bypass" Value="1">
+            </PopupEntry>
+            <PopupEntry Title="Sepia" Value="2">
+            </PopupEntry>
+            <PopupEntry Title="2 Strip" Value="3">
+            </PopupEntry>
+            <PopupEntry Title="Cross Process 1" Value="4">
+            </PopupEntry>
         </Uniform>
 
 		<!-- HUE SHIFT -->
