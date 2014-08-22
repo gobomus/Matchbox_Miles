@@ -31,12 +31,17 @@ uniform float X, Y, ratio;
 vec2 res = vec2(X, Y);
 vec2 texel  = vec2(1.0) / res;
 
+uniform vec3 grain_size;
+uniform float grain_size_all;
+
 vec4 gblur()
 {
 	//The blur function is based heavily off of lewis@lewissaunders.com Ls_Ash shader
 
 	float f = 1.0 *ratio;
 	vec2 xy = gl_FragCoord.xy;
+
+	xy = (xy - res * vec2(.5)) / grain_size_all + (res * vec2(.5));
   	vec2 px = vec2(1.0) / res;
 
 	float strength = 1.0;

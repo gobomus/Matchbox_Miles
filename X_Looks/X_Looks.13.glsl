@@ -7,14 +7,13 @@
 #define GRAIN adsk_results_pass12
 #define GLOWMATTE adsk_results_pass5
 
-#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
+#define luma(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
 #define tex(col, coords) texture2D(col, coords).rgb
 
 #define white vec4(1.0)
 #define black vec4(0.0)
-#define gray vec4(0.5)
 
-uniform float GAMMA;
+uniform int i_colorspace;
 
 uniform int look;
 
@@ -34,6 +33,9 @@ uniform vec2 palette_pos;
 uniform int blend;
 uniform float mix_front;
 
+uniform float grain_hi;
+uniform float grain_low;
+
 uniform float pc_temp;
 uniform float psaturation;
 uniform vec3 pgain;
@@ -45,6 +47,49 @@ uniform float poffset_all;
 uniform vec3 pcontrast;
 uniform float pcontrast_all;
 
+vec3 adjust_cgamma(vec3 col, float gamma)
+{
+    col.r = pow(col.r, 1.0 / gamma);
+    col.g = pow(col.g, 1.0 / gamma);
+    col.b = pow(col.b, 1.0 / gamma);
+
+    return col;
+}
+
+
+vec3 to_rec709(vec3 col)
+{
+    if (col.r < .018) {
+        col.r *= 4.5;
+    } else {
+        col.r = (1.099 * pow(col.r, .45)) - .099;
+    }
+
+    if (col.g < .018) {
+        col.g *= 4.5;
+    } else {
+        col.g = (1.099 * pow(col.g, .45)) - .099;
+    }
+
+    if (col.b < .018) {
+        col.b *= 4.5;
+    } else {
+        col.b = (1.099 * pow(col.b, .45)) - .099;
+    }
+
+
+    return col;
+}
+
+vec3 to_sRGB(vec3 col)
+{
+    col.r = (1.055 * pow(col.r, 1.0 / 2.4)) - .055;
+    col.g = (1.055 * pow(col.g, 1.0 / 2.4)) - .055;
+    col.b = (1.055 * pow(col.b, 1.0 / 2.4)) - .055;
+
+    return col;
+}
+
 bool isInTex( const vec2 coords )
 {
    return coords.x >= 0.0 && coords.x <= 1.0 &&
@@ -52,46 +97,53 @@ bool isInTex( const vec2 coords )
 }
 
 
-vec3 adjust_gain(vec3 col, vec4 ga)
+vec3 adjust_gain(vec3 col, vec4 gai)
 {
-    col *= ga.rgb;
-    col *= ga.a;
+    vec3 g = gai.rgb * vec3(gai.a);
+    col = g.rgb * col;
 
     return col;
 }
 
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
-    col = pow(col, 1.0 / gam.rgb);
-    col = pow(col, vec3(1.0 / gam.a));
+    vec3 g = gam.rgb * vec3(gam.a);
+    col.r = pow(col.r, 1.0 / g.r);
+    col.g = pow(col.g, 1.0 / g.g);
+    col.b = pow(col.b, 1.0 / g.b);
 
     return col;
 }
 
 vec3 adjust_offset(vec3 col, vec4 offs)
 {
-    col += offs.rgb - 1.0;
-    col += offs.a - 1.0;
+    vec3 o = offs.rgb * vec3(offs.a);
+    vec3 tmp = col - vec3(1.0);
+
+    col = mix(col, tmp, 1.0 - o);
 
     return col;
 }
 
 vec3 adjust_contrast(vec3 col, vec4 con)
 {
-	col.r = mix(gray.r, col.r, con.r);
-    col.g = mix(gray.r, col.g, con.g);
-    col.b = mix(gray.r, col.b, con.b);
-    col = mix(gray.rgb, col, con.a);
+    vec3 c = con.rgb * vec3(con.a);
+    vec3 t = (vec3(1.0) - c) / vec3(2.0);
+    t = vec3(.18);
+
+    col = (1.0 - c.rgb) * t + c.rgb * col;
 
     return col;
 }
 
-vec3 adjust_saturation(vec3 col, float sat)
+vec3 adjust_saturation(vec3 col, float c)
 {
-	vec3 intensity = vec3(luma(col));
-    col = abs(mix(intensity, col, sat));
+    float l = luma(col);
+    col = (1.0 - c) * l + c * col;
+
     return col;
 }
+
 
 // Rob Moggach
 vec3 color_temp(vec3 col, float temp)
@@ -132,11 +184,29 @@ vec3 make_palette(vec2 st, vec3 col)
 
     }
 
-    col = clamp(col, 0.0, 1.0);
+    //col = clamp(col, 0.0, 1.0);
     col = mix(col, palette.rgb, palette.a);
 
 
     return col;
+}
+
+float mids(vec3 col, float more_highs, float more_lows)
+{
+	float highs = luma(col);
+    float lows = 1.0 - highs;
+
+    vec3 tmp  = (1.0 - smoothstep(0.5, 1.0, col));
+    tmp = clamp(tmp, 0.0, 1.0);
+    col = min(tmp, col);
+    col = pow(col, vec3(.5));
+
+    col = mix(col, col + vec3(highs), more_highs);
+    col = mix(col, col + vec3(lows), more_lows);
+
+    float sol = luma(col);
+
+	return sol;
 }
 
 //http://www.ananasmurska.org/tools/PhotoshopMathFP.glsl
@@ -144,6 +214,8 @@ vec3 make_palette(vec2 st, vec3 col)
 #define BlendSoftLightf(base, blend) 	((blend < 0.5) ? (2.0 * base * blend + base * base * (1.0 - 2.0 * blend)) : (sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend)))
 #define BlendHypot(base, blend) (sqrt(base * base + blend * blend))
 #define BlendScreenf(base, blend) 		(1.0 - ((1.0 - base) * (1.0 - blend)))
+
+
 
 void main(void)
 {
@@ -155,7 +227,7 @@ void main(void)
 
 	vec4 grain = texture2D(GRAIN, st);
 
-	col += grain.rgb;
+	col += grain.rgb * mids(col, grain_hi, grain_low);
 
 	float i_pc_temp = 1.0;
 	float i_saturation = 1.0;
@@ -165,6 +237,7 @@ void main(void)
     vec4 i_contrast = vec4(1.0);
 
     if (look == 1) {
+		col *= original;
 	} else if (look == 2) {
 		col *= original;
 	} else if (look == 3) {
@@ -200,7 +273,17 @@ void main(void)
     col = adjust_offset(col, vec4(poffset, poffset_all) * i_offset);
     col = adjust_contrast(col, vec4(pcontrast, pcontrast_all) * i_contrast);
 
-	col = pow(col, vec3(1.0/GAMMA));
+	if (i_colorspace == 0) {
+		col = to_rec709(col);
+	} else if (i_colorspace == 1) {
+		col = to_sRGB(col);
+	} else if (i_colorspace == 2) {
+		col = adjust_cgamma(col, 1.0);
+	} else if (i_colorspace == 3) {
+		col = adjust_cgamma(col, 2.222222222);
+	} else if (i_colorspace == 4) {
+		col = adjust_cgamma(col, 1.8);
+	}
 
 	col = make_palette(st, col);
 

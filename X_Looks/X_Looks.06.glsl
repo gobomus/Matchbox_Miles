@@ -1,20 +1,11 @@
 #version 120
-#extension GL_ARB_shader_texture_lod : enable
 
 #define INPUT adsk_results_pass3
 #define BLUR adsk_results_pass5
-#define ratio adsk_result_frameratio
-#define center vec2(.5)
 
-#define white vec4(1.0)
-#define black vec4(0.0)
-#define gray vec4(0.5)
-
-#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
+#define luma(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
 #define tex(col, coords) texture2D(col, coords).rgb
-#define mat(col, coords) texture2D(col, coords).r
 
-uniform float adsk_time;
 uniform sampler2D INPUT;
 uniform sampler2D BLUR;
 uniform float adsk_result_w, adsk_result_h, ratio;
@@ -45,57 +36,66 @@ uniform float vinette_gamma_all;
 uniform vec3 vinette_gain;
 uniform float vinette_gain_all;
 
-vec3 adjust_gain(vec3 col, vec4 ga)
+vec3 adjust_gain(vec3 col, vec4 gai)
 {
-	col *= ga.rgb;
-	col *= ga.a;
+    vec3 g = gai.rgb * vec3(gai.a);
+    col = g.rgb * col;
 
-	return col;
+    return col;
 }
 
 vec3 adjust_gamma(vec3 col, vec4 gam)
 {
-	col = pow(col, 1.0 / gam.rgb);
-	col = pow(col, vec3(1.0 / gam.a));
+    vec3 g = gam.rgb * vec3(gam.a);
+    col.r = pow(col.r, 1.0 / g.r);
+    col.g = pow(col.g, 1.0 / g.g);
+    col.b = pow(col.b, 1.0 / g.b);
 
-	return col;
+    return col;
 }
 
 vec3 adjust_offset(vec3 col, vec4 offs)
 {
-	col += offs.rgb - 1.0;
-	col += offs.a - 1.0;
+    vec3 o = offs.rgb * vec3(offs.a);
+    vec3 tmp = col - vec3(1.0);
 
-	return col;
+    col = mix(col, tmp, 1.0 - o);
+
+    return col;
 }
 
 vec3 adjust_contrast(vec3 col, vec4 con)
 {
-	col.r = mix(gray.r, col.r, con.r);
-    col.g = mix(gray.r, col.g, con.g);
-    col.b = mix(gray.r, col.b, con.b);
-    col = mix(gray.rgb, col, con.a);
+    vec3 c = con.rgb * vec3(con.a);
+    vec3 t = (vec3(1.0) - c) / vec3(2.0);
+    t = vec3(.18);
 
-	return col;
+    col = (1.0 - c.rgb) * t + c.rgb * col;
+
+    return col;
 }
 
-vec3 adjust_saturation(vec3 col, float sat)
+vec3 adjust_saturation(vec3 col, float c)
 {
-	vec3 intensity = vec3(luma(col));
-    col = (mix(intensity, col, sat));
+    float l = luma(col);
+    col = (1.0 - c) * l + c * col;
 
-	return col;
+    return col;
 }
+
 
 vec3 adjust_glow(vec3 col, vec4 gamma, vec4 blur, bool glow_more)
 {
+	float matte = clamp(blur.a, 0.0, 1.0);
 	if (glow_more) {
 		vec3 glow = adjust_gamma(blur.rgb, gamma);
+
 		vec3 tmp = sqrt(glow * glow + col * col);
+
 		col = mix(col, tmp, blur.a);
 	} else {
 		vec3 glow = adjust_gamma(col, gamma);
-		col = mix(col, glow, blur.a);
+		col = mix(col, glow, matte);
 	}
 
 	return col;
@@ -111,25 +111,6 @@ vec3 make_vinette(vec3 col, vec2 st, float width, vec4 gain, vec4 gamma)
     col = mix(col, vinette_col, vinette);
 
     return col;
-}
-
-vec3 overlay(vec3 front, vec3 back) {
-    vec3 comp = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-    vec3 c = 1.0 - 2.0 * (1.0 - front) * (1.0 - back);
-
-    if (back.r < .5) {
-        comp.r = 2.0 * front.r * back.r;
-    }
-
-    if (back.g < .5) {
-        comp.g = 2.0 * front.g * back.g;
-    }
-
-    if (back.b < .5) {
-        comp.b = 2.0 * front.b * back.b;
-    }
-
-    return comp;
 }
 
 void main(void)
@@ -154,6 +135,8 @@ void main(void)
 
 	if (look == 1) {
 		//Bleach Bypass
+        i_gamma.w = 2.0;
+        i_gain.w = 1.15;
 	} else if (look == 2) {
 		//Sepia
 		i_saturation = .75 * .61;
@@ -181,7 +164,6 @@ void main(void)
     col = adjust_gain(col, vec4(post_gain, post_gain_all) * i_gain);
     col = adjust_offset(col, vec4(post_offset, post_offset_all) * i_offset);
     col = adjust_contrast(col, vec4(post_contrast, post_contrast_all) * i_contrast);
-
 	col = adjust_glow(col, vec4(glow_gamma, glow_gamma_all), blur, harsh_glow);
 	col = make_vinette(col, st, vinette_width * i_vin_width, vec4(vinette_gain, vinette_gain_all) * i_vin_gain, vec4(vinette_gamma, vinette_gamma_all) * i_vin_gamma);
 

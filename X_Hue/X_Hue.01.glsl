@@ -12,12 +12,13 @@ const float pi = 3.141592653589793238462643383279502884197969;
 
 uniform float in_g;
 
-uniform float shiftr, rfo;
-uniform float shiftg, gfo;
-uniform float shiftb, bfo;
-uniform float shiftc, cfo;
-uniform float shiftm, mfo;
-uniform float shifty, yfo;
+uniform float shiftr, rfo, rs;
+uniform float shiftg, gfo, gs;
+uniform float shiftb, bfo, bs;
+uniform float shiftc, cfo, cs;
+uniform float shiftm, mfo, ms;
+uniform float shifty, yfo, ys;
+uniform float saturation;
 
 vec3 toyiq(vec3 col)
 {
@@ -60,6 +61,21 @@ vec3 rhue(vec3 col, float r)
 
 	return col;
 }
+
+vec3 adjust_saturation(vec3 col, float s)
+{
+	//saturation
+	mat3 sm = mat3(
+		1.0, 0.0, 0.0,
+		0.0, s, 0.0,
+		0.0, 0.0, s
+	);
+
+	col *= sm;
+
+	return col;
+}
+
 
 vec3 hue_ops(vec3 col, float r, float s, float v)
 {
@@ -110,7 +126,7 @@ float get_hue(vec3 col)
 {
 	col = clamp(col, 0.0, 1.0);
 
-	//compute hue from rgb
+	//compute hue from rgb ... Damn cool
 	float h = atan(sqrt(3.0) * (col.g - col.b), 2.0 * col.r - col.g - col.b);
 	h = degrees(h);
 	if (h < 0.0) {
@@ -131,7 +147,7 @@ vec3 go(vec3 col, float g, int op)
 	return col;
 }
 
-vec3 shift_hue(vec3 col, float the_hue, float shift, float fo)
+vec3 shift_hue(vec3 col, float the_hue, float shift, float fo, float sat)
 {
 	float in_g = 1.0;
 
@@ -155,6 +171,7 @@ vec3 shift_hue(vec3 col, float the_hue, float shift, float fo)
 	}
 
 	col = rhue(col, s);
+	//col = adjust_saturation(col, s * sat + 1.0);
 	col = rhue(col, -dif);
 	col = fromyiq(col);
 
@@ -168,18 +185,19 @@ void main(void)
 	vec3 col = tex(INPUT, st);
 	col = go(col, in_g, 0);
 
-	vec3 hues[] = vec3[](
-		vec3(0.0, -shiftr, rfo),
-		vec3(60.0, -shifty, yfo),
-		vec3(120.0, -shiftg, gfo),
-		vec3(180.0, -shiftc, cfo),
-		vec3(240.0, -shiftb, bfo),
-		vec3(300.0, -shiftm, mfo)
+	vec4 hues[] = vec4[](
+		vec4(0.0, -shiftr, rfo, rs),
+		vec4(60.0, -shifty, yfo, ys),
+		vec4(120.0, -shiftg, gfo, gs),
+		vec4(180.0, -shiftc, cfo, cs),
+		vec4(240.0, -shiftb, bfo, bs),
+		vec4(300.0, -shiftm, mfo, ms)
 	);
 
 	for (int i = 0; i < 6; i++) {
-		col = shift_hue(col, hues[i].x, hues[i].y, hues[i].z);
+		col = shift_hue(col, hues[i].r, hues[i].g, hues[i].b, hues[i].a);
 	}
+
 
 	col = go(col, in_g, 1);
 

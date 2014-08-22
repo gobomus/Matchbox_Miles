@@ -75,6 +75,8 @@ vec4 gblur()
 
 	//a = pow(a, vec4(1.0/2.2));
 
+	a = clamp(a, 0.0, 1.0);
+
 	return vec4(a);
 }
 

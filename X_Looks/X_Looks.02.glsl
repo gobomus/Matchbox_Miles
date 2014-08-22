@@ -42,6 +42,8 @@ vec3 make_palette(vec2 st)
 
 	col = hsv2rgb(col);
 
+	col = clamp(col, 0.0, 1.0);
+
 
 	return col;
 }
