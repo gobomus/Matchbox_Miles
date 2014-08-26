@@ -2,6 +2,7 @@
 
 #define INPUT Front
 #define tex(col, coords) texture2D(col, coords).rgb
+#define luma(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
 
 uniform sampler2D INPUT;
 uniform float adsk_result_w, adsk_result_h, ratio;
@@ -63,6 +64,7 @@ void main(void)
 	vec2 st = gl_FragCoord.xy / res;
 
 	vec3 col = tex(INPUT, st);
+
 	if (i_colorspace == 0) {
 		col = from_rec709(col);
 	} else if (i_colorspace == 1) {

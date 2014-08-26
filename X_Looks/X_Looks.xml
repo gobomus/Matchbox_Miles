@@ -39,9 +39,12 @@ miles@noesclavo.com" Name="Looks">
 	<!-- PRIMARY GRADE -->
   	<Shader OutputBitDepth="Output" Index="3">
 
-      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" 
-			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      	<Uniform InputColor="67, 77, 83" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" 
+			GL_TEXTURE_MAG_FILTER="GL_LINEAR_MIPMAP_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR_MIPMAP_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       	</Uniform>
+
+		<Uniform Row="3" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Auto Balance Input" Type="bool" Name="autobalance">
+		</Uniform>
 
 		<Uniform ResDependent="None" Max="1.0" Min="00000.0" Default=".5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="2" DisplayName="Glow Threshold" Type="float" Name="glow_threshold">
 		</Uniform>
@@ -500,7 +503,7 @@ miles@noesclavo.com" Name="Looks">
       	</Col>
       	<Col Name="Palette" Col="2" Page="0">
       	</Col>
-      	<Col Name="Output" Col="3" Page="0">
+      	<Col Name="I/O" Col="3" Page="0">
       	</Col>
    	</Page>
    	<Page Name="Hue Shift" Page="1">

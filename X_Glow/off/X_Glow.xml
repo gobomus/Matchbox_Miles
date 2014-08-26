@@ -1,0 +1,128 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      </Uniform>
+      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Back" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Back">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Threshold" Type="float" Name="th">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Color" IconType="Pick" ValueType="Colour" Type="vec3" Name="color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.2" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Gamma" Type="float" Name="gamma">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.5" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Contrast" Type="float" Name="c">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="4">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Width Red" Type="float" Name="blur_red">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="30.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Width" Type="float" Name="blur_amount">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform Type="float" Name="blur_red">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="6">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.2" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Width Green" Type="float" Name="blur_green">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="7">
+      <Uniform Type="float" Name="blur_green">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="8">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.4" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Width Blue" Type="float" Name="blur_blue">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="9">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+      </Uniform>
+      <Uniform Type="float" Name="blur_blue">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="10">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Brightness" Type="float" Name="blend">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Glow Noise" Type="bool" Name="add_noise">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Noise Amplitude" Type="float" Name="noise_b">
+      </Uniform>
+      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Show Threshold" Type="bool" Name="show_t">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Noise Frequencey" Type="float" Name="noise_scale">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Scale Source" Type="float" Name="scale_source">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass9">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Column 1" Col="0" Page="0">
+      </Col>
+      <Col Name="Column 2" Col="1" Page="0">
+      </Col>
+      <Col Name="Column 3" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

@@ -94,6 +94,7 @@ vec3 adjust_saturation(vec3 col, float c)
 vec3 adjust_glow(vec3 col, vec4 gamma, vec4 blur, bool glow_more)
 {
 	float matte = clamp(blur.a, 0.0, 1.0);
+
 	if (glow_more) {
 		vec3 glow = adjust_gamma(blur.rgb, gamma);
 
@@ -156,7 +157,7 @@ void main(void)
     col = adjust_offset(col, i_offset);
     col = adjust_contrast(col, i_contrast);
 	col = adjust_glow(col, i_glow_gamma, blur, harsh_glow);
-	col = make_vinette(col, st, vinette_width * i_vin_width, i_vin_gain, i_vin_gamma);
+	col = make_vinette(col, st, i_vin_width, i_vin_gain, i_vin_gamma);
 
 	col = adjust_saturation(col, post_saturation);
     col = adjust_gamma(col, vec4(post_gamma, post_gamma_all));

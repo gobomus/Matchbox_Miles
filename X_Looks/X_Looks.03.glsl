@@ -1,4 +1,5 @@
 #version 120
+#extension GL_ARB_shader_texture_lod : enable
 
 #define INPUT adsk_results_pass1
 #define ratio adsk_result_frameratio
@@ -12,6 +13,7 @@ uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 uniform int look;
+uniform bool autobalance;
 
 // Grading
 uniform vec3 gain;
@@ -215,6 +217,34 @@ void main(void)
 
 	vec3 source = tex(INPUT, st);
 	vec3 col = source;
+
+	  // from crok_new_balance
+	vec4 front_a = texture2DLod(INPUT, st, 10.0 - 0.5);
+
+	if (autobalance) {
+       col /= 2.0 * front_a.rgb;
+	}
+
+	/*
+   	if( colourspace == 0)  // Rec 709 input is selected
+    {
+      if( Computing == 0)
+      {
+          front /= 2.0 * front_a;
+      }
+       if( Computing == 1)
+           front-=front_a+0.244459-0.918031;
+
+       if( Computing == 2)
+           front-=front_a-(front_a[0]+front_a[1]+front_a[2])/3.0;
+
+   	}
+
+   if( colourspace == 1)  // Linear input is selected
+       front /= 2.0 * front_a;
+	*/
+
+
 	
 	float glow_t = glow_threshold;
 
