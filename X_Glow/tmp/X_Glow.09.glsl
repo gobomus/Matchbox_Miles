@@ -77,5 +77,5 @@ vec4 gblur(float AMT)
 
 void main(void)
 {
-    gl_FragColor = gblur(blur_channel * (blur_channel * blur_amount));
+    gl_FragColor = gblur(blur_channel * blur_amount);
 }

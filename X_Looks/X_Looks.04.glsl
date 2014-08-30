@@ -32,6 +32,7 @@ uniform float X, Y, ratio;
 vec2 res = vec2(X, Y);
 vec2 texel  = vec2(1.0) / res;
 
+
 vec4 gblur()
 {
 	//The blur function is based heavily off of lewis@lewissaunders.com Ls_Ash shader
@@ -47,6 +48,7 @@ vec4 gblur()
 	#endif
 
 	float sigma = AMT * bias * strength + .001;
+
    
 	int support = int(sigma * 3.0);
 

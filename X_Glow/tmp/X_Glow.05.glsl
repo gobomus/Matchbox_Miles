@@ -2,21 +2,20 @@
 
 // Change the folling 4 lines to suite
 #define INPUT adsk_results_pass4
-#define STRENGTH adsk_results_pass4
-#define AMT blur_amount
+#define tex(col, coords) texture2D(col, coords).r
+#define blur_channel blur_red
 //#define VERTICAL 
-//#define STRENGTH_CHANNEL 
 
 #define X adsk_result_w
 #define Y adsk_result_h
 #define ratio adsk_result_frameratio
-#define center vec2(.5)
 #define PI 3.141592653589793238462643383279502884197969
+
 
 float bias = 1.0;
 
 #ifndef VERTICAL
-	int dir = 1;
+    int dir = 1;
 #else
 	int dir = 0;
 #endif
@@ -27,12 +26,12 @@ uniform sampler2D INPUT;
 	uniform sampler2D STRENGTH;
 #endif
 
-uniform float AMT;
+uniform float blur_amount, blur_channel;
 uniform float X, Y, ratio;
 vec2 res = vec2(X, Y);
+vec2 texel  = vec2(1.0) / res;
 
-
-vec4 gblur()
+vec4 gblur(float AMT)
 {
 	//The blur function is based heavily off of lewis@lewissaunders.com Ls_Ash shader
 
@@ -47,7 +46,7 @@ vec4 gblur()
 	#endif
 
 	float sigma = AMT * bias * strength + .001;
-
+   
 	int support = int(sigma * 3.0);
 
 	vec3 g;
@@ -55,7 +54,7 @@ vec4 gblur()
 	g.y = exp(-0.5 / (sigma * sigma));
 	g.z = g.y * g.y;
 
-	vec4 a = g.x * texture2D(INPUT, xy * px);
+	float a = g.x * tex(INPUT, xy * px);
 	float energy = g.x;
 	g.xy *= g.yz;
 
@@ -65,19 +64,18 @@ vec4 gblur()
 			tmp = vec2(float(i), 0.0);
 		}
 
-		a += g.x * texture2D(INPUT, (xy - tmp) * px);
-		a += g.x * texture2D(INPUT, (xy + tmp) * px);
+		a += g.x * tex(INPUT, (xy - tmp) * px);
+		a += g.x * tex(INPUT, (xy + tmp) * px);
 		energy += 2.0 * g.x;
 		g.xy *= g.yz;
+
 	}
 	a /= energy;
-
-	a = clamp(a, 0.0, 1.0);
 
 	return vec4(a);
 }
 
 void main(void)
 {
-	gl_FragColor = gblur();
+    gl_FragColor = gblur(blur_channel * blur_amount);
 }

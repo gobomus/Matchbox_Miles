@@ -2,8 +2,8 @@
 
 // Change the folling 4 lines to suite
 #define INPUT adsk_results_pass3
-#define tex(col, coords) texture2D(col, coords).b
-#define blur_channel blur_blue
+#define tex(col, coords) texture2D(col, coords).r
+#define blur_channel blur_red
 #define VERTICAL 
 
 #define X adsk_result_w
@@ -77,5 +77,5 @@ vec4 gblur(float AMT)
 
 void main(void)
 {
-    gl_FragColor = gblur(blur_channel * (blur_channel * blur_amount));
+    gl_FragColor = gblur(blur_channel * blur_amount);
 }
