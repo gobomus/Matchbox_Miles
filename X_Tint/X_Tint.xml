@@ -1,0 +1,59 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="Now you too can tint like Andrew Kramer !
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+- miles@noesclavo.com" Name="X_Tint">
+   	<Shader OutputBitDepth="Output" Index="1">
+      	<Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT"
+	  		GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      	</Uniform>
+   	</Shader>
+   	<Shader OutputBitDepth="Output" Index="2">
+      	<Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT"
+			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Back">
+      	</Uniform>
+   	</Shader>
+   	<Shader OutputBitDepth="Output" Index="3">
+      	<Uniform Index="2" NoInput="Black" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT"
+			GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
+      	</Uniform>
+   	</Shader>
+   	<Shader OutputBitDepth="Output" Index="4">
+	 	<Uniform ResDependent="None" Max="200.0" Min="000000.0" Default="100.0" Inc="0.1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      	</Uniform>
+      	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Color" IconType="Pick" ValueType="Colour" Type="vec3" Name="color">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.25">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         	</SubUniform>
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      	</Uniform>
+		<Uniform ResDependent="None" Max="360.0" Min="0.0" Default="50.0" Inc="0.1" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Hi/Lo Shift" Type="float" Name="rot">
+      	</Uniform>
+		<Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Base Highlights" Type="float" Name="gamma">
+      	</Uniform>
+		<Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Gain" Type="float" Name="gain">
+      	</Uniform>
+		<Uniform ResDependent="None" Max="5.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
+      	</Uniform>
+		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Output" Type="int" Name="result" ValueType="Popup">
+            <PopupEntry Title="Tinted" Value="0"></PopupEntry>
+            <PopupEntry Title="Over Back" Value="1"></PopupEntry>
+            <PopupEntry Title="Use Matte" Value="2"></PopupEntry>
+        </Uniform>
+
+   	</Shader>
+   	<Page Name="Page 1" Page="0">
+      	<Col Name="Color" Col="0" Page="0">
+      	</Col>
+      	<Col Name="Options" Col="1" Page="0">
+      	</Col>
+      	<Col Name="Output" Col="2" Page="0">
+      	</Col>
+   	</Page>
+</ShaderNodePreset>

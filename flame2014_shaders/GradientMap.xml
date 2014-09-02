@@ -1,0 +1,12 @@
+<ShaderNodePreset Description="" Name="Gradient Map" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Effect" Type="float" Name="effect">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Front" Name="warpMap">
+      </Uniform>
+   </Shader>
+   <Page Name="Gradient Map" Page="0">
+      <Col Name="Gradient Map" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

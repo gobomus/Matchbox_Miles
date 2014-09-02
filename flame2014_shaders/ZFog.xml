@@ -1,0 +1,50 @@
+<ShaderNodePreset Description="
+This Matchbox shader adds Fog into a specific depth in a scene using the scene's Z-depth pass.
+
+The required inputs are:
+  - The scene.
+  - The scene's depth pass.
+  - Lens texture(optional)." Name="Z-Fog" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="fogColor">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="1.0" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Lens Offset" ValueType="Position" Type="vec2" Name="lens_offset">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Front" Name="frontTex">
+      </Uniform>
+      <Uniform Index="2" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Lens Texture" Name="lensTex">
+      </Uniform>
+      <Uniform Row="2" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Infinite" Type="bool" Name="infinite">
+      </Uniform>
+      <Uniform Row="3" Col="1" Page="0" Default="True" Tooltip="" DisplayName="White Is Far" Type="bool" Name="white_is_far">
+      </Uniform>
+      <Uniform Max="100.0" Min="0.0" Default="75.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Gain" Type="float" Name="z_gain" ResDependent="None">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Lens Effect" Type="float" Name="lens_effect" ResDependent="None">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Origin" Type="float" Name="z_origin" ResDependent="None">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="0.25" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Range" Type="float" Name="z_range" ResDependent="None">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Z-Depth" Name="zdepthTex">
+      </Uniform>
+   </Shader>
+   <Page Name="Z-Fog" Page="0">
+      <Col Name="Fog Options" Col="0" Page="0">
+      </Col>
+      <Col Name="Depth Options" Col="1" Page="0">
+      </Col>
+      <Col Name="Lens Texture Options" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

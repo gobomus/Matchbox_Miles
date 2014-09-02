@@ -1,0 +1,48 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="" Name="Dots">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="bg_color">
+         <SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="20.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="Set the amount of softening" Row="1" Col="1" Page="0" DisplayName="Amount" Type="float" Name="blur_amount">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Image" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+      <Uniform Max="1000" Min="1" Default="20" Inc="1" Tooltip="Define the size of each cell in the grid" Row="0" Col="0" Page="0" DisplayName="Grid Size" Type="int" Name="gridSize">
+      </Uniform>
+      <Uniform ResDependent="None" Max="4.0" Min="0.1" Default="0.9" Inc="0.01" Tooltip="Define the maximum size of the shape relative to the grid" Row="1" Col="0" Page="0" DisplayName="Dot Size" Type="float" Name="size">
+      </Uniform>
+      <Uniform Row="3" Col="0" Page="0" Default="False" Tooltip="Transform circle into square patterns" DisplayName="Make Squares" Type="bool" Name="squares">
+      </Uniform>
+      <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="Use the luminance value to define the size of shapes" DisplayName="Luminance Scale" Type="bool" Name="useLuma">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform Type="vec3" Name="bg_color">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="Soften the resulting effect" DisplayName="Active" Type="bool" Name="soften">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Dots" Col="0" Page="0">
+      </Col>
+      <Col Name="Soften" Col="1" Page="0">
+      </Col>
+      <Col Name="Backgound" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+
+

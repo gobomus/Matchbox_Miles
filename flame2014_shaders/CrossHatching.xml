@@ -1,0 +1,17 @@
+<ShaderNodePreset Name="Cross Hatching" Description="" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="nbSteps" Type="int" DisplayName="Steps" Page="0" Col="0" Row="0" Tooltip="" Inc="1" Default="5" Min="1" Max="1000000">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="1.0" Default="3.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Scale" Type="float" Name="scale" ResDependent="Width">
+      </Uniform>
+      <Uniform Index="0" Name="t0" DisplayName="Front" Tooltip="" Type="sampler2D" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="1.0" Default="2.0" Inc="1.0" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Thickness" Type="float" Name="thickness" ResDependent="Width">
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Cross Hatching">
+      <Col Page="0" Col="0" Name="Cross Hatching">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

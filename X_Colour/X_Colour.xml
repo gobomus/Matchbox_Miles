@@ -1,0 +1,77 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="2" Description="
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+miles@noesclavo.com" Name="Colour">
+   	<Shader OutputBitDepth="Output" Index="1">
+      	<Uniform Index="0" NoInput="Black" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
+      	</Uniform>
+   	</Shader>
+
+   	<Shader OutputBitDepth="Output" Index="2">
+      	<Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Pick Colour" IconType="None" ValueType="Colour" Type="vec3" Name="color_rgb">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         	</SubUniform>
+      	</Uniform>
+   	</Shader>
+	
+   	<Shader OutputBitDepth="Output" Index="3">
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      	</Uniform>
+      	<Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Swatch Position" IconType="Axis" Type="vec2" Name="swatch_pos">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.825">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.825">
+         	</SubUniform>
+      	</Uniform>
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="30.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Swatch Size" Type="float" Name="swatch_size">
+      	</Uniform>
+   	</Shader>
+	
+   	<Shader OutputBitDepth="Output" Index="4">
+	<Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="HSV Value" Type="float" Name="value">
+   	</Uniform>
+   	</Shader>
+	
+   	<Shader OutputBitDepth="Output" Index="5">
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      	</Uniform>
+      	<Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Wheel Position" IconType="Axis" Type="vec2" Name="color_wheel_pos">
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.825">
+         	</SubUniform>
+         	<SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.175">
+         	</SubUniform>
+      	</Uniform>
+      	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="30.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Color Wheel Size" Type="float" Name="color_wheel_size">
+      	</Uniform>
+   	</Shader>
+	
+   	<Shader OutputBitDepth="Output" Index="6">
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_1EPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      	</Uniform>
+      	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      	</Uniform>
+		<Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Output Colour Only" Type="bool" Name="output_color_only">
+      	</Uniform>
+		<Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Show Colour Wheel" Type="bool" Name="show_colorwheel">
+      	</Uniform>
+      	<Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Show Result Swatch" Type="bool" Name="show_swatch">
+      	</Uniform>
+   	</Shader>
+
+   	<Page Name="Page 1" Page="0">
+      	<Col Name="Colour" Col="0" Page="0">
+      	</Col>
+      	<Col Name="Result Colour" Col="1" Page="0">
+      	</Col>
+      	<Col Name="Colour Wheel" Col="2" Page="0">
+      	</Col>
+      	<Col Name="Output" Col="3" Page="0">
+      	</Col>
+   	</Page>
+</ShaderNodePreset>

@@ -1,4 +1,26 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+A Damned Good Glow !
+This version is 2015 Only
+2014 Version here: https://github.com/noesclavo/Matchbox_Miles/releases/tag/20140902 (hit the green button) 
+Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
+
+For the 2014 Version the blend modes are as follows:
+0 - Screen
+1 - Hypot
+2 - Add
+3 - Overlay
+4 - Softlight
+5 - Multiply
+
+comp over:
+0 - Comp over front
+1 - Comp over back
+
+Multi channel blur by: lewis@lewissaunders.com
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Shader by miles@noesclavo.com" Name="X Glow">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
       </Uniform>

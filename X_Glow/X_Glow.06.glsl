@@ -79,8 +79,6 @@ vec4 gblur()
 
 	a /= energy;
 
-	a.rgb *= a.a;
-
 	return a;
 }
 

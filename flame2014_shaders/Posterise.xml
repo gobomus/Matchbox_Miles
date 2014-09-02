@@ -1,0 +1,15 @@
+<ShaderNodePreset Description="" Name="Posterise" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="Gamma" Type="float" DisplayName="Gamma" Page="0" Col="0" Row="1" Tooltip="" Inc="0.01" Default="0.6" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="NumColors" Type="int" DisplayName="Num Of Colours" Page="0" Col="0" Row="0" Tooltip="" Inc="1" Default="5" Min="1" Max="1000000">
+      </Uniform>
+      <Uniform Index="0" Name="t0" DisplayName="Front" Tooltip="" Type="sampler2D" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Posterise">
+      <Col Page="0" Col="0" Name="Posterise">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

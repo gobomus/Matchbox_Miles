@@ -1,0 +1,8 @@
+<ShaderNodePreset Description="" Name="Add" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Input1" Name="input1">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Input2" Name="input2">
+      </Uniform>
+   </Shader>
+</ShaderNodePreset>

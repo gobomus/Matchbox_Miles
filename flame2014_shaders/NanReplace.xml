@@ -1,0 +1,13 @@
+<ShaderNodePreset Description="Replaces nan values with a valid number." Name="NAN Replace" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Replace Value" Type="float" Name="replaceValue" ResDependent="None">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" Name="t0" DisplayName="Front">
+      </Uniform>
+   </Shader>
+   <Page Name="NAN Replace" Page="0">
+      <Col Name="NAN Replace" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

@@ -1,0 +1,21 @@
+<ShaderNodePreset Name="Twirl" Description="" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="amount" Type="float" DisplayName="Amount" Page="0" Col="0" Row="0" Tooltip="" Inc="0.01" Default="5.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="bias" Type="float" DisplayName="Bias" Page="0" Col="0" Row="1" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="frequency" Type="float" DisplayName="Frequency" Page="0" Col="0" Row="2" Tooltip="" Inc="0.01" Default="10.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="lanczos" Type="bool" DisplayName="Use Lanczos" Tooltip="" Default="False" Page="0" Col="0" Row="3">
+      </Uniform>
+      <Uniform Name="speed" Type="float" DisplayName="Speed" Page="0" Col="0" Row="4" Tooltip="" Inc="0.01" Default="1.0" Min="-100.0" Max="100.0" ResDependent="None">
+      </Uniform>
+      <Uniform Index="0" Name="t0" DisplayName="Front" Tooltip="" Type="sampler2D" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Twirl">
+      <Col Page="0" Col="0" Name="Twirl">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

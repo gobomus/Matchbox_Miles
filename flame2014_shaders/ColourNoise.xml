@@ -1,0 +1,10 @@
+<ShaderNodePreset Description="" Name="Colour Noise" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Row="0" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Animated" Type="bool" Name="animated">
+      </Uniform>
+   </Shader>
+   <Page Name="Colour Noise" Page="0">
+      <Col Name="Colour Noise" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

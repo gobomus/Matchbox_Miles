@@ -1,0 +1,14 @@
+<ShaderNodePreset Description="" Name="Fabric" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Max="1000000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Effect" Type="float" Name="effect" ResDependent="None">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Front" Name="frontTex">
+      </Uniform>
+      <Uniform Max="1000.0" Min="0.0" Default="5.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Size" Type="float" Name="size" ResDependent="Width">
+      </Uniform>
+   </Shader>
+   <Page Name="Fabric" Page="0">
+      <Col Name="Fabric" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

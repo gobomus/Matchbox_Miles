@@ -1,0 +1,40 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader extracts a matte of a specific depth in a scene using the scene's Z-depth pass.
+
+The required inputs are:
+  - The scene.
+  - The scene's depth pass." Name="ZMatte">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.45" Inc="0.01" Tooltip="Set the depth position that defines the matte" Row="0" Col="0" Page="0" DisplayName="Depth" Type="float" Name="depth">
+      </Uniform>
+      <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="Include all features between the set depth and the camera in the resulting matte" DisplayName="Slice to Camera" Type="bool" Name="foregroundMatte">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.1" Inc="0.01" Tooltip="Set the width of the region around the depth position to be included in the matte.
+      
+      Note: Disregarded when using Slice to Camera" Row="1" Col="0" Page="0" DisplayName="Width" Type="float" Name="width">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Z-Depth" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="zdepth">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="Set the amount of softening applied to the resulting matte" Row="1" Col="1" Page="0" DisplayName="Amount" Type="float" Name="blur_size">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="Soften the matte edges" DisplayName="Active" Type="bool" Name="softenEdges">
+      </Uniform>
+      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="Overlay the resulting matte on the front" DisplayName="Active" Type="bool" Name="matte_overlay">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Depth Slice" Col="0" Page="0">
+      </Col>
+      <Col Name="Soften Matte" Col="1" Page="0">
+      </Col>
+      <Col Name="Matte Overlay" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

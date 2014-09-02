@@ -1,0 +1,94 @@
+<ShaderNodePreset Name="Variables" Description="This preset provides custom UI to define expression variables" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="Var01" Type="float" DisplayName="Var01" Page="0" Col="0" Row="0" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var02" Type="float" DisplayName="Var02" Page="0" Col="0" Row="1" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var03" Type="float" DisplayName="Var03" Page="0" Col="0" Row="2" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var04" Type="float" DisplayName="Var04" Page="0" Col="0" Row="3" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var05" Type="float" DisplayName="Var05" Page="0" Col="0" Row="4" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var06" Type="float" DisplayName="Var06" Page="0" Col="1" Row="0" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var07" Type="float" DisplayName="Var07" Page="0" Col="1" Row="1" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var08" Type="float" DisplayName="Var08" Page="0" Col="1" Row="2" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var09" Type="float" DisplayName="Var09" Page="0" Col="1" Row="3" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Var10" Type="float" DisplayName="Var10" Page="0" Col="1" Row="4" Tooltip="" Inc="0.01" Default="0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Position01" Type="vec3" DisplayName="Position01" Page="0" Col="2" Row="0" Tooltip="" Inc="0.01" ValueType="Position">
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Position02" Type="vec3" DisplayName="Position02" Page="0" Col="2" Row="2" Tooltip="" Inc="0.01" ValueType="Position">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform DisplayName="Background" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_WRAP_T="GL_REPEAT" Index="0" Mipmaps="False" Name="bg" NoInput="Error" Tooltip="" Type="sampler2D"></Uniform>
+      <Uniform Row="4" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Show Background" Type="bool" Name="useBG">
+      </Uniform>
+      <Uniform Name="Colour01" Type="vec3" DisplayName="Colour01" Page="0" Col="3" Row="0" Tooltip="" Inc="0.01" ValueType="Colour">
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.368">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="0.188">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Colour02" Type="vec3" DisplayName="Colour02" Page="0" Col="3" Row="1" Tooltip="" Inc="0.01" ValueType="Colour">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.52734375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.734375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.25">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Colour03" Type="vec3" DisplayName="Colour03" Page="0" Col="3" Row="2" Tooltip="" Inc="0.01" ValueType="Colour">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.09375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.34375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.65625">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Colour04" Type="vec3" DisplayName="Colour04" Page="0" Col="3" Row="3" Tooltip="" Inc="0.01" ValueType="Colour">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0234375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5859375">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.83984375">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Colour05" Type="vec3" DisplayName="Colour05" Page="0" Col="3" Row="4" Tooltip="" Inc="0.01" ValueType="Colour">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.4453125">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.4453125">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Variables">
+      <Col Page="0" Col="0" Name="Variables">
+      </Col>
+      <Col Page="0" Col="1" Name="Variables">
+      </Col>
+      <Col Page="0" Col="2" Name="Positions">
+      </Col>
+      <Col Page="0" Col="3" Name="Colours">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

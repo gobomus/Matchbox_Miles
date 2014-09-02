@@ -1,0 +1,26 @@
+<ShaderNodePreset Description="
+This Matchbox shader acts as a Multiplexer to switch inputs." Name="Switcher" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="doBlend" Type="bool" DisplayName="Blend Input" Tooltip="" Default="False" Page="0" Col="0" Row="1">
+      </Uniform>
+      <Uniform Name="inputIndex" Type="float" DisplayName="Input Index" Page="0" Col="0" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="1.0" Max="6.0" ResDependent="None">
+      </Uniform>
+      <Uniform Index="0" Name="t0" DisplayName="Input 1" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Index="1" Name="t1" DisplayName="Input 2" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Index="2" Name="t2" DisplayName="Input 3" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Index="3" Name="t3" DisplayName="Input 4" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Index="4" Name="t4" DisplayName="Input 5" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Index="5" Name="t5" DisplayName="Input 6" Tooltip="" Type="sampler2D" NoInput="Black" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Switcher">
+      <Col Page="0" Col="0" Name="Switcher">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

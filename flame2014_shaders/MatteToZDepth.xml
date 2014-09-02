@@ -1,0 +1,51 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader transforms matte inputs into a single depth map based on the depth value assigned to each of them.
+
+The required inputs are:
+- Mattes(inputs 1 to 5)." Name="MatteToZDepth">
+   <Shader OutputBitDepth="Output" Index="1">
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.0" Inc="0.01" Tooltip="Allow to offset the positon of the gradient" Row="1" Col="2" Page="0" DisplayName="Offset" Type="float" Name="grad_offset">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.1" Default="1.0" Inc="0.01" Tooltip="Allow to compress or expand the gradient" Row="2" Col="2" Page="0" DisplayName="Scale" Type="float" Name="grad_scale">
+      </Uniform>
+      <Uniform Index="0" NoInput="Black" Tooltip="" DisplayName="Depth Matte 1" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte1">
+      </Uniform>
+      <Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Depth Matte 2" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte2">
+      </Uniform>
+      <Uniform Index="2" NoInput="Black" Tooltip="" DisplayName="Depth Matte 3" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte3">
+      </Uniform>
+      <Uniform Index="3" NoInput="Black" Tooltip="" DisplayName="Depth Matte 4" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte4">
+      </Uniform>
+      <Uniform Index="4" NoInput="Black" Tooltip="" DisplayName="Depth Matte 5" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte5">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.1" Inc="0.01" Tooltip="Define the Depth of the Matte(0.01 is closest to camera and 0 disregards it)" Row="0" Col="1" Page="0" DisplayName="Depth 1" Type="float" Name="matte_depth1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.2" Inc="0.01" Tooltip="Define the Depth of the Matte(0.01 is closest to camera and 0 disregards it)" Row="1" Col="1" Page="0" DisplayName="Depth 2" Type="float" Name="matte_depth2">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.3" Inc="0.01" Tooltip="Define the Depth of the Matte(0.01 is closest to camera and 0 disregards it)" Row="2" Col="1" Page="0" DisplayName="Depth 3" Type="float" Name="matte_depth3">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.4" Inc="0.01" Tooltip="Define the Depth of the Matte(0.01 is closest to camera and 0 disregards it)" Row="3" Col="1" Page="0" DisplayName="Depth 4" Type="float" Name="matte_depth4">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="Define the Depth of the Matte(0.01 is closest to camera and 0 disregards it)" Row="4" Col="1" Page="0" DisplayName="Depth 5" Type="float" Name="matte_depth5">
+      </Uniform>
+      <Uniform ResDependent="None" Max="360.0" Min="-360.0" Default="0.0" Inc="1.0" Tooltip="Degrees of gradient rotation" Row="3" Col="2" Page="0" DisplayName="Rotation" Type="float" Name="rot">
+      </Uniform>
+      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="Turns gradient On or Off" DisplayName="Active" Type="bool" Name="useGrad">
+      </Uniform>
+     <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="Define the amount of semi transparent region of the matte included in the ZDepth" Row="0" Col="0" Page="0" DisplayName="Threshold" Type="float" Name="m_threshold">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Background Gradient" Col="2" Page="0">
+      </Col>
+      <Col Name="Matte Depths" Col="1" Page="0">
+      </Col>
+      <Col Name="Matte Transparency" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

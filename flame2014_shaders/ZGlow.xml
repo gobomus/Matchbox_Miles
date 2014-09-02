@@ -1,0 +1,77 @@
+<ShaderNodePreset Description="
+This Matchbox shader adds glow into a specific depth in a scene using the scene's Z-depth pass.
+
+The required inputs are:
+  - The scene(Input 1 and 3).
+  - The scene's depth pass." Name="Z-Glow" SupportsAdaptiveDegradation="False">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Front" Name="frontTex">
+      </Uniform>
+      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Infinite" Type="bool" Name="infinite">
+      </Uniform>
+      <Uniform Row="3" Col="2" Page="0" Default="True" Tooltip="" DisplayName="White Is Far" Type="bool" Name="white_is_far">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Origin" Type="float" Name="z_origin" ResDependent="None">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="0.25" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Range" Type="float" Name="z_range" ResDependent="None">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Z-Depth" Name="zdepthTex">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="10.0" Inc="1.0" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Amount X" Type="float" Name="amountX" ResDependent="Width">
+      </Uniform>
+      <Uniform Row="2" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Gaussian" Type="bool" Name="gaussian">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="10.0" Inc="1.0" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Amount Y" Type="float" Name="amountY" ResDependent="Height">
+      </Uniform>
+      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Depth View" Type="bool" Name="depth_view">
+      </Uniform>
+      <Uniform Index="2" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Front" Name="frontTex">
+      </Uniform>
+      <Uniform Type="bool" Name="gaussian">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Colour 1" ValueType="Colour" Type="vec3" Name="glowColor1">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Colour 2" ValueType="Colour" Type="vec3" Name="glowColor2">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Row="1" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Glow Only" Type="bool" Name="glow_only">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="-1000000.0" Default="100.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Gain 1" Type="float" Name="gain1" ResDependent="None">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="-1000000.0" Default="100.0" Inc="1.0" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Gain 2" Type="float" Name="gain2" ResDependent="None">
+      </Uniform>
+   </Shader>
+   <Page Name="Z-Glow" Page="0">
+      <Col Name="Glow Options" Col="0" Page="0">
+      </Col>
+      <Col Name="Blur Options" Col="1" Page="0">
+      </Col>
+      <Col Name="Depth Options" Col="2" Page="0">
+      </Col>
+      <Col Name="View Options" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

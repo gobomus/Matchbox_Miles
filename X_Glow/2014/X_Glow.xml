@@ -1,4 +1,23 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Preset Name">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+A Damned Good Glow !
+
+For the 2014 Version the blend modes are as follows:
+0 - Screen
+1 - Hypot
+2 - Add
+3 - Overlay
+4 - Softlight
+5 - Multiply
+
+comp over:
+0 - Comp over front
+1 - Comp over back
+
+Multi channel blur by: lewis@lewissaunders.com
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Shader by miles@noesclavo.com" Name="X Glow">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
       </Uniform>
@@ -78,9 +97,9 @@
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Brightness" Type="float" Name="blend">
       </Uniform>
-	   <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Blend Mode" Type="int" Name="blend_mode">
+	   <Uniform Max="5" Min="0" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Blend Mode" Type="int" Name="blend_mode">
 	   </Uniform>
-		<Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Comp Over" Type="int" Name="comp">
+		<Uniform Max="1" Min="0" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Comp Over" Type="int" Name="comp">
      	</Uniform>
 	   <!--
 	<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Blend Mode" Type="int" Name="blend_mode" ValueType="Popup">

@@ -1,0 +1,29 @@
+<ShaderNodePreset Name="Ripples" Description="" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="bias" Type="float" DisplayName="Bias" Page="0" Col="0" Row="0" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="frequency" Type="float" DisplayName="Frequency" Page="0" Col="0" Row="1" Tooltip="" Inc="0.01" Default="25.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="height" Type="float" DisplayName="Height" Page="0" Col="0" Row="2" Tooltip="" Inc="0.01" Default="100.0" Min="-1000000.0" Max="1000000.0" ResDependent="Width">
+      </Uniform>
+      <Uniform Name="lanczos" Type="bool" DisplayName="Use Lanczos" Tooltip="" Default="True" Page="0" Col="0" Row="3">
+      </Uniform>
+      <Uniform Name="speed" Type="float" DisplayName="Speed" Page="0" Col="0" Row="4" Tooltip="" Inc="0.01" Default="1.0" Min="-100.0" Max="100.0" ResDependent="None">
+      </Uniform>
+      <Uniform Index="0" Name="t0" DisplayName="Front" Tooltip="" Type="sampler2D" NoInput="Error" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Centre" Type="vec2" Name="center">
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+         </SubUniform>
+         <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Ripples">
+      <Col Page="0" Col="0" Name="Ripples">
+      </Col>
+      <Col Page="0" Col="1" Name="Centre">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

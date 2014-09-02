@@ -1,0 +1,17 @@
+<ShaderNodePreset Description="" Name="Mipmaps" SupportsAdaptiveDegradation="False">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Index="0" NoInput="Error" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR_MIPMAP_LINEAR" Type="sampler2D" Tooltip="" DisplayName="Smooth Input" Name="front_linear">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_NEAREST_MIPMAP_NEAREST" Type="sampler2D" Tooltip="" DisplayName="Blocky Input" Name="front_nearest">
+      </Uniform>
+      <Uniform Max="1000000.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Mipmap Level" Type="float" Name="lod" ResDependent="None">
+      </Uniform>
+      <Uniform Row="1" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Smooth" Type="bool" Name="smooth">
+      </Uniform>
+   </Shader>
+   <Page Name="Mipmaps" Page="0">
+      <Col Name="Mipmaps" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+
