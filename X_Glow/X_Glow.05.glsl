@@ -60,6 +60,7 @@ vec4 gblur()
 	sigmas = max(sigmas, 0.0001);
 
 	vec4 gx, gy, gz;
+	//Circle
 	gx = 1.0 / (sqrt(2.0 * PI) * sigmas);
 	gy = exp(-0.5 / (sigmas * sigmas));
 	gz = gy * gy;

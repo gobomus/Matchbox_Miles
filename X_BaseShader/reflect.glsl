@@ -1,16 +1,28 @@
-#version 120
+//#version 120
 
-uniform float adsk_result_frameratio;
-uniform float adsk_result_w, adsk_result_h;
+#define INPUT Front
+//#define INPUT adsk_results_pass1
+#define ratio adsk_result_frameratio
+#define luma(col) dot(col, vec3(0.2125, 0.7154, 0.0721))
+#define lumalin(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
+
+uniform sampler2D INPUT;
+uniform float adsk_result_w, adsk_result_h, ratio;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform vec2 i, n;
-uniform vec3 position;
+vec2 texel  = vec2(1.0) / res;
 
-uniform sampler2D Front;
-
-vec2 center = vec2(.5);
-
-
+uniform vec2 m, rn, s;
+uniform float o;
+uniform float a;
+uniform float rs;
+uniform vec3 rot, nrot;
+uniform vec3 cam;
+uniform vec3 axis;
+//uniform vec3 dir, line;
+uniform float angle;
+uniform float near, far;
+uniform float fov;
+uniform float width;
 
 bool isInTex( const vec2 coords )
 {
@@ -19,74 +31,98 @@ bool isInTex( const vec2 coords )
 }
 
 
-mat3 reflect_m(vec3 coords)
+vec2 rotate(vec2 coords, vec3 dir)
 {
-	coords = normalize(coords);
+	coords -= .5;
+	coords.x *= ratio;
 
-	float u = coords.x;
-	float v = coords.y;
+	vec4 t = vec4(coords, 1.0, 1.0);
 
-	mat3 reflect_matrix = mat3(
-								1.0 - 2.0 * (v * v), 	2.0 * u * v, 		0,
-								2.0 * u * v,			-1 + 2 * (v * v), 	0,
-								0.0,					0.0,				1.0
-								);
+	float u = dir.x;
+	float v = dir.y;
+	float w = dir.z;
 
-	return reflect_matrix;
+	float u2 = u * u;
+	float v2 = v * v;
+	float w2 = w * w;
+	
+	float L = u2 + v2 + w2;
+
+	/*
+	float a = line.x;
+	float b = line.y;
+	float c = line.z;
+	*/
+
+	float a = 0.0;
+	float b = 0.0;
+	float c = 1.0;
+
+
+	mat4 ra = mat4(
+				(u2 + (v2 + w2) * cos(angle))/L, (u * v * (1.0 - cos(angle)) - w * sqrt(L) * sin(angle)) / L, (u * w * (1.0 - cos(angle)) + v * sqrt(L) * sin(angle)) / L,
+																			((a * (v2 + w2) - u * (b * v + c * w)) * (1.0 - cos(angle)) + (b * w - c * v) * sqrt(L) * sin(angle)) / L,																		
+
+				(u * v * (1.0 - cos(angle)) + w * sqrt(L) * sin(angle)) / L, (v2 + (u2 + w2) * cos(angle)) / L, (v * w * (1.0 - cos(angle)) - u * sqrt(L) * sin(angle)) / L,
+																			((b * (u2 + w2) - v * (a * u + c * w)) * (1.0 - cos(angle)) + (c * u - a * w) * sqrt(L) * sin(angle)) / L,
+
+				(u * w * (1.0 - cos(angle)) - v * sqrt(L) * sin(angle)) / L, (v * w * (1.0 -cos(angle)) + u * sqrt(L) * sin(angle)) / L, (w2 + (u2 + v2) * cos(angle)) / L,
+																			((c * (u2 + v2) - w * (a * u + b * v)) * (1.0 -cos(angle)) + (a *v - b * u) * sqrt(L) * sin(angle)) / L,
+
+				0, 0, 0, 1
+	);
+
+
+	float d = 1.0 / tan(fov/2.0);
+
+				//d/(width * cos(angle)), 0.0, 0.0, 0.0,
+	mat4 pa = mat4(
+				d/width, 0.0, 0.0, 0.0,
+				0.0, d, 0.0, 0.0,
+				0.0, 0.0, (near + far) / (near - far), (2.0 * near * far) / (near - far),	
+				0.0, 0.0, -1, 0.0
+	);
+
+	t *= pa;
+	t.xy /= t.z;
+
+	t *= ra;
+	t.xy /= t.z;
+
+	coords = t.xy;
+
+	coords.x /= ratio;
+	coords += .5;
+	
+
+	return coords;
 }
 
-mat3 translate(vec3 translation_amount)
-{
-    mat3 translation_matrix = mat3(
-                                    1.0, 0.0, -translation_amount.x,
-                                    0.0, 1.0, -translation_amount.y,
-                                    0.0, 0.0, 1.0 + translation_amount.z
-                                );
 
-    return translation_matrix;
-}
-
-vec2 apply_transformations(vec2 coords, vec2 center, mat3 transformation_matrix)
-{
-    coords -= center;
-    coords.x *= adsk_result_frameratio;
-
-    vec3 tmp_vec = vec3(coords, 1.0);
-    tmp_vec *= transformation_matrix;
-
-    coords.x = tmp_vec.x / tmp_vec.z;
-    coords.y = tmp_vec.y / tmp_vec.z;
-
-    coords.x /= adsk_result_frameratio;
-    coords += center;
-
-    return coords;
-}
 
 void main(void)
 {
 	vec2 st = gl_FragCoord.xy / res;
-	vec3 front = vec3(0.0);
+	vec3 col = vec3(0.0);
 
-	mat3 t_matrix = mat3(
-						1.0, 0.0, 0.0,
-						0.0, 1.0, 0.0,
-						0.0, 0.0, 1.0
-						);
-
-	t_matrix *= translate(position);
-	vec2 coords = apply_transformations(st, center, t_matrix);
-
-
-	if (isInTex(coords)) {
-		front = texture2D(Front, coords).rgb;
-	}
-
-	t_matrix *= reflect_m(vec3(coords, 1));
-	st = apply_transformations(st, center, t_matrix);
+	//st /= s;
+	//st += m;
+	st = rotate(st);
 
 	if (isInTex(st)) {
-		front += texture2D(Front, st).rgb;
+		col = texture2D(INPUT, st).rgb;
 	}
-	gl_FragColor = vec4(front, 0.0);
+
+	vec2 n = rn;
+	normalize(n);
+
+
+	vec2 r = reflect(st, n);
+
+	if (isInTex(r)) {
+		vec3 ref = texture2D(INPUT, r).rgb;
+		col = mix(col, ref, rs);
+	}
+
+	gl_FragColor = vec4(col, 0.0);
 }
