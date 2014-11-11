@@ -41,6 +41,7 @@ miles@noesclavo.com" Name="AOV">
             <PopupEntry Title="Multiply" Value="3"></PopupEntry>
             <PopupEntry Title="Min" Value="4"></PopupEntry>
             <PopupEntry Title="Max" Value="5"></PopupEntry>
+            <PopupEntry Title="Screen" Value="6"></PopupEntry>
       </Uniform>
 	  <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Combine Op" Type="int" Name="op2" ValueType="Popup">
             <PopupEntry Title="Add" Value="0"></PopupEntry>
@@ -49,6 +50,7 @@ miles@noesclavo.com" Name="AOV">
             <PopupEntry Title="Multiply" Value="3"></PopupEntry>
             <PopupEntry Title="Min" Value="4"></PopupEntry>
             <PopupEntry Title="Max" Value="5"></PopupEntry>
+            <PopupEntry Title="Screen" Value="6"></PopupEntry>
       </Uniform>
 	  <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Combine Op" Type="int" Name="op3" ValueType="Popup">
             <PopupEntry Title="Add" Value="0"></PopupEntry>
@@ -57,6 +59,7 @@ miles@noesclavo.com" Name="AOV">
             <PopupEntry Title="Multiply" Value="3"></PopupEntry>
             <PopupEntry Title="Min" Value="4"></PopupEntry>
             <PopupEntry Title="Max" Value="5"></PopupEntry>
+            <PopupEntry Title="Screen" Value="6"></PopupEntry>
       </Uniform>
       <Uniform Row="0" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Red" Type="bool" Name="red">
       </Uniform>
