@@ -1,14 +1,19 @@
 #version 120
 
-uniform float adsk_result_w, adsk_result_h;
-vec2 res = vec2(adsk_result_w, adsk_result_h);
+#define in1 adsk_results_pass1
+#define mt Matte1
+#define ratio adsk_result_frameratio
 
-uniform sampler2D Matte;
+uniform sampler2D in1, mt;
+uniform float adsk_result_w, adsk_result_h, ratio;
+vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 void main(void)
 {
 	vec2 st = gl_FragCoord.xy / res;
-	vec3 matte = texture2D(Matte, st).rgb;
 
-	gl_FragColor = vec4(matte, matte.r);
+	vec3 col = texture2D(in1, st).rgb;
+	float matte = texture2D(mt, st).r;
+
+	gl_FragColor = vec4(col, matte);
 }

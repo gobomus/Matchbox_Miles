@@ -29,6 +29,17 @@ uniform float angle;
 const vec2 dir = vec2(1.0, 0.0);
 const float bias = 1.0;
 
+float rand(vec2 co)
+{
+    float a = 12.9898;
+    float b = 78.233;
+    float c = 43758.5453;
+    float dt= dot(co.xy ,vec2(a,b));
+    float sn= mod(dt,3.14);
+    return fract(sin(sn) * c);
+}
+
+
 vec2 rotate(vec2 coords, float rz)
 {
     float r = radians(rz);
@@ -70,6 +81,7 @@ vec4 gblur()
 	gx *= gy;
 	gy *= gz;
 
+	//float s = (vec2(sin(xy.y * texel * PI), 0.0) + 1) * .5;
 	vec2 bangle = rotate(dir, angle);
 
 	for(float i = 1; i <= support; i++) {
