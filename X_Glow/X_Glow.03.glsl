@@ -14,5 +14,7 @@ void main(void)
 	vec3 col = texture2D(INPUT, st).rgb;
 	float mat = texture2D(MAT, st).r;
 
+	mat = clamp(mat, 0.0, 1.0);
+
 	gl_FragColor = vec4(col, mat);
 }

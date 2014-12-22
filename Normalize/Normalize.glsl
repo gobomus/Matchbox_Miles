@@ -19,6 +19,7 @@ uniform int times;
 uniform bool keep_between_0_and_1;
 uniform bool invert_Y;
 uniform bool invert_X;
+uniform bool alpha_out;
 
 void main(void)
 {
@@ -71,5 +72,11 @@ void main(void)
     	N =  (N - 0.5) * 2.0;
 	}
 
-	gl_FragColor = vec4(N, luma(edge));
+	float a = 1.0;
+	
+	if (alpha_out) {
+		a = luma(edge);
+	}
+
+	gl_FragColor = vec4(N, a);
 }

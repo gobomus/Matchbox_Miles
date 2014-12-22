@@ -14,6 +14,8 @@
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Strength" Type="float" Name="normalStrength">
       </Uniform>
+	 <Uniform Row="3" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Edges as Alpha" Type="bool" Name="alpha_out">
+      </Uniform>
    </Shader>
    <Page Name="Page 1" Page="0">
       <Col Name="Normals" Col="0" Page="0">
