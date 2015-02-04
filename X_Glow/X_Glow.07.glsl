@@ -65,25 +65,32 @@ void main(void)
 
 	orig = tmp.rgb;
 	orig = mix(orig, orig * scale_source, clamp(alpha, 0.0, 1.0));
+
+	if (comp  == 2) {
+		orig = mix(orig, orig * 0.0, clamp(alpha, 0.0, 1.0));
+	}
 	
 	if (blend_mode == 0) {
 		if (scale_source > 1.0) orig = clamp(orig, 0.0, 1.0);
 		col = screen(orig, col);
 	} else if (blend_mode == 1) {
-		col = hypot(orig, col);
+		orig = clamp(orig, 0.0, 1.0);
+		col = screen(orig, col);
 	} else if (blend_mode == 2) {
-		col += orig;
+		col = hypot(orig, col);
 	} else if (blend_mode == 3) {
+		col += orig;
+	} else if (blend_mode == 4) {
 		if (scale_source > 1.0) orig = clamp(orig, 0.0, 1.0);
 		col.r = boverlay(orig.r, col.r);
 		col.g = boverlay(orig.g, col.g);
 		col.b = boverlay(orig.b, col.b);
-	} else if (blend_mode == 4) {
+	} else if (blend_mode == 5) {
 		if (scale_source > 1.0) orig = clamp(orig, 0.0, 1.0);
 		col.r = bsoftlight(orig.r, col.r);
 		col.g = bsoftlight(orig.g, col.g);
 		col.b = bsoftlight(orig.b, col.b);
-	} else if (blend_mode == 5) {
+	} else if (blend_mode == 6) {
 		col *= orig;
 	}
 

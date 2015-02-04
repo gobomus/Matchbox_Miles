@@ -6,11 +6,12 @@ Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
 
 For the 2014 Version the blend modes are as follows:
 0 - Screen
-1 - Hypot
-2 - Add
-3 - Overlay
-4 - Softlight
-5 - Multiply
+0 - Screen and Clamp Input
+2 - Hypot
+3 - Add
+4 - Overlay
+5 - Softlight
+6 - Multiply
 
 comp over:
 0 - Comp over front
@@ -103,21 +104,25 @@ Shader by miles@noesclavo.com" Name="X Glow">
 	<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Blend Mode" Type="int" Name="blend_mode" ValueType="Popup">
             <PopupEntry Title="Screen" Value="0">
             </PopupEntry>
-            <PopupEntry Title="Hypot" Value="1">
+            <PopupEntry Title="Screen and Clamp Input" Value="1">
             </PopupEntry>
-            <PopupEntry Title="Add" Value="2">
+            <PopupEntry Title="Hypot" Value="2">
             </PopupEntry>
-            <PopupEntry Title="Overlay" Value="3">
+            <PopupEntry Title="Add" Value="3">
             </PopupEntry>
-            <PopupEntry Title="Softlight" Value="4">
+            <PopupEntry Title="Overlay" Value="4">
             </PopupEntry>
-            <PopupEntry Title="Multiply" Value="5">
+            <PopupEntry Title="Softlight" Value="5">
+            </PopupEntry>
+            <PopupEntry Title="Multiply" Value="6">
             </PopupEntry>
         </Uniform>
 	<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Comp Over" Type="int" Name="comp" ValueType="Popup">
             <PopupEntry Title="Front" Value="0">
             </PopupEntry>
             <PopupEntry Title="Back" Value="1">
+            </PopupEntry>
+            <PopupEntry Title="Glow Only" Value="2">
             </PopupEntry>
         </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="0.5" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
