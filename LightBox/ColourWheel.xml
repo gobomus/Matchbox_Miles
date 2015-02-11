@@ -1,0 +1,30 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Colour Wheel">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+      <!--To use the Colour Wheel widget change the Value Type to ColourWheel in any vec3 uniform. Automatically a Colour Wheel widget will take up a full column, so the Row value is disregarded.
+          The Column name will be taken from the Col Name value, but the Animation Channel folder will be taken from the DisplayName value.
+	  The ColourWheel widget will expect to received an angle as it's first float value(hsv.x) to control the position in the hue wheel and 
+	  2 intensity parameters where the first one(hsv.y) is expressed in the colour wheel as the distance of the widget and the third one(hsv.z) the saturation of the outside ring of the colour wheel.
+	  There are 4 new parameters you can define on ColourWheel widget:
+	       - HueShift="True/False"  - This define how the outer ring of the colour wheel will behaves. When set to True it will show a hue shift based on the angle value(hsv.x) 
+	       and when set to False it will act as saturation display based on the second intensity(hsv.z)
+	       - AngleName="numeric_name" - Allow to define a name on the UI for the first numeric field(hsv.x)
+	       - IntensityName1="numeric_name" - Allow to define a name on the UI for the first numeric field(hsv.y)	       
+	       - IntensityName2="numeric_name" - Allow to define a name on the UI for the first numeric field(hsv.z)
+      -->
+      <Uniform Inc="0.1" Tooltip="" Row="0" Col="0" Page="0" IconType="None" ValueType="ColourWheel" Type="vec3" DisplayName="HSV" Name="colourWheel" HueShift="False" AngleName="Hue"
+         IntensityName1="Val" IntensityName2="Sat">
+         <SubUniform ResDependent="None" Max="1000.0" Min="-1000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000.0" Min="-1000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000.0" Min="-1000.0" Default="100.0">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Name="HSV" Page="0">
+      <Col Name="HSV" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

@@ -1,0 +1,55 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Curves">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="input1" InputColor="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+     <!--To use the Curve widget you need to set the ValueType to Curve on any int, ivec2, ivec3 or ivec4 uniform. Automatically, a Curve widget will take up 2 column of screen space so the Row value and column name will be ignored.
+         When defining a Curve Widget you will have to define Min and Max, Background, Curve type and behavior for up to 4 curves(ivec4) in the same widget, but you can define as many widget as you like.
+	 Here are the value you will need to define when creating setting a ValueType to Curve:
+	      - CurveBackground = You can set the Curve Background to either a grey default background(0), hue gradient like the Colour Curves Batch node(1) or a luma gradient(2).
+	      - CurveWrapArround = With a value of 0 you have the normal behavior of a curve where both end are independant, however you can set it to 1 and have the Batch Colour Curves node where both end are connected together.
+	      - CurveMinX = This set the min value of the X axis fo the table(Default is 0.0)
+	      - CurveMaxX = This set the max value of the X axis fo the table(Default is 1.0)
+	      - CurveMinY = This set the min value of the Y axis fo the table(Default is 0.0)
+	      - CurveMaxY = This set the max value of the Y axis fo the table(Default is 1.0)
+	      - CurveShape = This allow to set the default curve shape when the shader is initialized. 
+	              - 0 is Linear shape from CurveMinX/MinY to CurveMaxX/MaxY
+		      - 1 is Linear shape from CurveMinX/MaxY to CurveMaxX/MinY
+		      - 2 is an S Shape
+		      - 3 is an inverse S Shape
+		      - 4 is constant with a MaxY value
+		      - 5 is constant with a MinY value
+		      - 6 is constant in the Y axis mid value 
+	 SubUniform value:
+	      - CurveName = This set the name of the curve in the Curve selection toggle button
+	      - CurveR = This allow to set the color of the curve with the Red component
+	      - CurveG = This allow to set the color of the curve with the Green component
+	      - CurveB = This allow to set the color of the curve with the Blue component
+      -->
+      <Uniform Inc="1" Tooltip="" Row="0" Col="0" Page="0" Type="ivec3" DisplayName=" RGB Curves" Name="colorCurves" CurveBackground="1" ValueType="Curve" CurveWrapArround="1" CurveMinY="-1" CurveMaxY="1" CurveShape="3">
+         <SubUniform Max="1000000" Min="-1000000" Default="0" CurveName="Red" CurveR="255"
+            CurveG="0" CurveB="0">
+         </SubUniform>
+         <SubUniform Max="1000000" Min="-1000000" Default="0" CurveName="Green" CurveR="0"
+            CurveG="255" CurveB="0">
+         </SubUniform>
+         <SubUniform Max="1000000" Min="-1000000" Default="0" CurveName="Blue" CurveR="0" CurveG="0"
+            CurveB="255">
+         </SubUniform>
+      </Uniform>
+     <!-- In the Example above I used a ivec3 to create an RGB to boost or cut the gain using the Batch node Colour Curves model with a flat curve 
+     and below a simple luma curve using a int and a linear curve model.
+      -->
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="2" Page="0" Type="int" DisplayName="Luma Curve" Name="lumaCurve" CurveBackground="2" ValueType="Curve">
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Column 1" Col="0" Page="0">
+      </Col>
+      <Col Name="Column 2" Col="1" Page="0">
+      </Col>
+      <Col Name="Column 3" Col="2" Page="0">
+      </Col>
+      <Col Name="Column 4" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

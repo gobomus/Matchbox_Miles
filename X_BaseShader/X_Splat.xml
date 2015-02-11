@@ -1,0 +1,113 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Splate">
+   <Shader OutputBitDepth="Output" Index="1">
+   <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Texture2" InputColor="67, 77, 83" 
+   		Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Texture2">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Texture1" InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Texture1">
+      </Uniform>
+      <Uniform Index="3" NoInput="Error" Tooltip="" DisplayName="Texture3" InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Texture3">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Alpha" InputColor="67, 77, 83" 
+	  	Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Alpha">
+      </Uniform>
+
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Width" Type="float" Name="width">
+      </Uniform>
+
+	<!--
+     <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Center" IconType="Pick" Type="vec2" Name="center">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+      </Uniform>
+	-->
+
+		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Shift Hue" Type="float" Name="shift_hue">
+      </Uniform>
+
+  
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
+      </Uniform>
+
+	<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Contrast RGB" IconType="Pick" ValueType="Colour" Type="vec3" Name="contrast_rgb">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+      </Uniform>
+
+
+	 <Uniform Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="bgcol" IconType="Pick" ValueType="Colour" Type="vec3" Name="bgcol">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+
+
+
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".25" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Scale" Type="float" Name="scale0">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Rotation" Type="float" Name="angle0">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Contrast" Type="float" Name="contrast0">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Saturation" Type="float" Name="saturation0">
+      </Uniform>
+
+
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Scale" Type="float" Name="scale1">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="90.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Rotation" Type="float" Name="angle1">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Contrast" Type="float" Name="contrast1">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Saturation" Type="float" Name="saturation1">
+      </Uniform>
+
+
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".85" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Scale" Type="float" Name="scale2">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="180.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Rotation" Type="float" Name="angle2">
+      </Uniform>
+
+         <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Contrast" Type="float" Name="contrast2">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Saturation" Type="float" Name="saturation2">
+      </Uniform>
+  </Shader>
+
+
+   <Page Name="Page 1" Page="0">
+      <Col Name="Alpha" Col="0" Page="0">
+      </Col>
+      <Col Name="Texture 1" Col="1" Page="0">
+      </Col>
+      <Col Name="Texture 2" Col="2" Page="0">
+      </Col>
+      <Col Name="Texture 3" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

@@ -1,0 +1,12 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Lightbox Basics">
+   <Shader OutputBitDepth="Output" Index="1">
+      <!--The XML part of the Lightbox shaders is almost identical to Matchbox with the exception that no 2D Samplers are necessary since the texture is supplied automatically by Action
+      -->
+      <Uniform ResDependent="None" Max="100.0" Min="-100.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" Type="float" DisplayName="Amount" Name="adskUID_gain">
+      </Uniform>
+   </Shader>
+   <Page Name="Lightbox" Page="0">
+      <Col Name="Gain" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

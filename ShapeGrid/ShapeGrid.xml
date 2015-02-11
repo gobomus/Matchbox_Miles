@@ -1,0 +1,100 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+Latest binaries here: https://github.com/noesclavo/Matchbox/releases/
+
+2015 Only
+Make Shapes
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+miles@noesclavo.com" Name="Shape Grid">
+   <Shader OutputBitDepth="Output" Index="4">
+		<Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Color 1" IconType="Pick" ValueType="Colour" Type="vec3" Name="color2">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".281">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".402">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".586">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Color 2" IconType="Pick" ValueType="Colour" Type="vec3" Name="color1">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+
+   		<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.1" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Shape Rotation" Type="float" Name="shape_rotation">
+		      </Uniform>
+
+		<Uniform Row="4" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Clamp Colors" Type="bool" Name="clamp_shape">
+      </Uniform>
+
+			 <Uniform Max="10" Min="1" Default="3" Inc="1" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Replicate Shapes" Type="int" Name="num_shapes">
+      </Uniform>
+      <Uniform Max="50" Min="3" Default="3" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Number of Sides" Type="int" Name="sides">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.85" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Size" Type="float" Name="shape_size">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Aspect" Type="float" Name="shape_aspect">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Shape Offset" IconType="None" Type="vec2" Name="shape_offset">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Rotation" Type="float" Name="rotation">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="25.0" Inc="0.1" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Zoom" Type="float" Name="scale">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Stretch" IconType="None" Type="vec2" Name="scale_bias">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="6">
+      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Anti Aliasing" Type="bool" Name="aa">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="7">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Y Blur" Type="float" Name="v_bias">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Post Blur" Type="float" Name="blur_amount">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="8">
+   	 <Uniform Row="4" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Show Center" Type="bool" Name="crosshairs">
+	       </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="X Blur" Type="float" Name="h_bias">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+      </Uniform>
+      <Uniform Type="float" Name="blur_amount">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Shape Properties" Col="0" Page="0">
+      </Col>
+      <Col Name="Shape Transform" Col="1" Page="0">
+      </Col>
+      <Col Name="Grid Options" Col="2" Page="0">
+      </Col>
+      <Col Name="Post Operations" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

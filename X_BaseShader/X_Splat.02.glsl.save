@@ -1,0 +1,32 @@
+#version 120
+
+#define INPUT adsk_results_pass1
+#define ratio adsk_result_frameratio
+#define center vec2(.5)
+
+uniform sampler2D INPUT;
+uniform float adsk_result_w, adsk_result_h, ratio;
+vec2 res = vec2(adsk_result_w, adsk_result_h);
+vec2 texel  = vec2(1.0) / res;
+
+void main(void)
+{
+	vec2 st = gl_FragCoord.xy / res;
+
+	vec3 orig = texture2D(INPUT, st).rgb;
+
+	float dx = distance(st.x, center.x);
+	float dy = distance(st.y, center.y);
+
+	float mx =  pow(dx, .4);
+	float my =  pow(dy, .4);
+
+	float m = mx * my;
+	m *= 5.0;
+
+	st -= center;
+	vec3 col = texture2D(INPUT, st).rgb;
+	col = mix(orig, col, m);
+
+	gl_FragColor = vec4(col, m);
+}
