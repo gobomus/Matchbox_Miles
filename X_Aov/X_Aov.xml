@@ -1,73 +1,188 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
-This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-miles@noesclavo.com" Name="AOV">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="AOV">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="ID1" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID1">
+      <Uniform Row="4" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Negate" Type="bool" Name="neg4">
       </Uniform>
-      <Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="ID2" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID2">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Blue" Type="int" Name="b3" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Blue" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Index="2" NoInput="Black" Tooltip="" DisplayName="ID3" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID3">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Blue" Type="int" Name="b1" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Blue" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Index="3" NoInput="Black" Tooltip="" DisplayName="ID4" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID4">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Green" Type="int" Name="g4" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Green" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Green" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Green * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Blue" Type="bool" Name="blue">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Green" Type="int" Name="g2" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Green" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Green" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Green * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="2" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Blue" Type="bool" Name="blue2">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="ID1" InputColor="0, 128, 128" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID1">
       </Uniform>
-      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Blue" Type="bool" Name="blue3">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Red" Type="int" Name="r4" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Red" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Red" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Red * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Blue" Type="bool" Name="blue4">
+      <Uniform Row="4" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Negate" Type="bool" Name="neg3">
       </Uniform>
-      <Uniform Row="1" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Green" Type="bool" Name="green">
+      <Uniform Row="4" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Negate" Type="bool" Name="neg1">
       </Uniform>
-      <Uniform Row="1" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Green" Type="bool" Name="green2">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Red" Type="int" Name="r2" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Red" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Red" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Red * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="1" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Green" Type="bool" Name="green3">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Operation" Type="int" Name="op1" ValueType="Popup">
+	  	<PopupEntry Title="Add" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - 2" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="2 - 1" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Multiply" Value="3">
+		</PopupEntry>
+	  	<PopupEntry Title="Min" Value="4">
+		</PopupEntry>
+	  	<PopupEntry Title="Max" Value="5">
+		</PopupEntry>
+	  	<PopupEntry Title="Screen" Value="6">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="1" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Green" Type="bool" Name="green4">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Blue" Type="int" Name="b4" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Blue" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="4" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Negate Result" Type="bool" Name="neg1">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Operation" Type="int" Name="op3" ValueType="Popup">
+	  	<PopupEntry Title="Add" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="3 - 4" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="4 - 3" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Multiply" Value="3">
+		</PopupEntry>
+	  	<PopupEntry Title="Min" Value="4">
+		</PopupEntry>
+	  	<PopupEntry Title="Max" Value="5">
+		</PopupEntry>
+	  	<PopupEntry Title="Screen" Value="6">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="4" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Negate Result" Type="bool" Name="neg2">
+      <Uniform Index="3" NoInput="Error" Tooltip="" DisplayName="ID4" InputColor="0, 0, 0" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID4">
       </Uniform>
-      <Uniform Row="4" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Negate Result" Type="bool" Name="neg3">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Green" Type="int" Name="g1" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Green" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Green" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Green * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="4" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Negate Result" Type="bool" Name="neg4">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Green" Type="int" Name="g3" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Green" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Green" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Green * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-	  <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Combine Op" Type="int" Name="op1" ValueType="Popup">
-            <PopupEntry Title="Add" Value="0"></PopupEntry>
-            <PopupEntry Title="1 - 2" Value="1"></PopupEntry>
-            <PopupEntry Title="2 - 1" Value="2"></PopupEntry>
-            <PopupEntry Title="Multiply" Value="3"></PopupEntry>
-            <PopupEntry Title="Min" Value="4"></PopupEntry>
-            <PopupEntry Title="Max" Value="5"></PopupEntry>
-            <PopupEntry Title="Screen" Value="6"></PopupEntry>
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blue" Type="int" Name="b2" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Blue" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Blue * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-	  <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Combine Op" Type="int" Name="op2" ValueType="Popup">
-            <PopupEntry Title="Add" Value="0"></PopupEntry>
-            <PopupEntry Title="2 - 3" Value="1"></PopupEntry>
-            <PopupEntry Title="3 - 2" Value="2"></PopupEntry>
-            <PopupEntry Title="Multiply" Value="3"></PopupEntry>
-            <PopupEntry Title="Min" Value="4"></PopupEntry>
-            <PopupEntry Title="Max" Value="5"></PopupEntry>
-            <PopupEntry Title="Screen" Value="6"></PopupEntry>
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="ID2" InputColor="128, 0, 128" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID2">
       </Uniform>
-	  <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Combine Op" Type="int" Name="op3" ValueType="Popup">
-            <PopupEntry Title="Add" Value="0"></PopupEntry>
-            <PopupEntry Title="3 - 4" Value="1"></PopupEntry>
-            <PopupEntry Title="4 - 3" Value="2"></PopupEntry>
-            <PopupEntry Title="Multiply" Value="3"></PopupEntry>
-            <PopupEntry Title="Min" Value="4"></PopupEntry>
-            <PopupEntry Title="Max" Value="5"></PopupEntry>
-            <PopupEntry Title="Screen" Value="6"></PopupEntry>
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Red" Type="int" Name="r3" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Red" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Red" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Red * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="0" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Red" Type="bool" Name="red">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Red" Type="int" Name="r1" ValueType="Popup">
+	  	<PopupEntry Title="Off" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="Red" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="1 - Red" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Red * 2" Value="3">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Red" Type="bool" Name="red2">
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Operation" Type="int" Name="op2" ValueType="Popup">
+	  	<PopupEntry Title="Add" Value="0">
+		</PopupEntry>
+	  	<PopupEntry Title="2 - 3" Value="1">
+		</PopupEntry>
+	  	<PopupEntry Title="3 - 2" Value="2">
+		</PopupEntry>
+	  	<PopupEntry Title="Multiply" Value="3">
+		</PopupEntry>
+	  	<PopupEntry Title="Min" Value="4">
+		</PopupEntry>
+	  	<PopupEntry Title="Max" Value="5">
+		</PopupEntry>
+	  	<PopupEntry Title="Screen" Value="6">
+		</PopupEntry>
       </Uniform>
-      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Red" Type="bool" Name="red3">
+      <Uniform Row="4" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Negate" Type="bool" Name="neg2">
       </Uniform>
-      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Red" Type="bool" Name="red4">
+      <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="ID3" InputColor="128, 128, 0" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="ID3">
       </Uniform>
    </Shader>
    <Page Name="Page 1" Page="0">

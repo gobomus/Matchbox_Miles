@@ -30,20 +30,40 @@ uniform bool neg2;
 uniform bool neg3;
 uniform bool neg4;
 
+uniform int r1, g1, b1, r2, g2, b2, r3, g3, b3, r4, g4, b4;
 
-float make_matte(vec3 col, bool r, bool g, bool b)
+
+float make_matte(vec3 col, int r, int g, int b)
 {
 	float m = 0.0;
 
-	if (r) {
+	if (r == 2) {
+		col.r = 1.0 - col.r;
+	} else if (r == 3) {
+		col.r += col.r;
+	}
+
+	if (g == 2) {
+		col.g = 1.0 - col.g;
+	} else if (g == 3) {
+		col.g += col.g;
+	}
+
+	if (b == 2) {
+		col.b = 1.0 - col.b;
+	} else if (b == 3) {
+		col.b += col.b;
+	}
+
+	if (r > 0) {
 		m += col.r;
 	}
 
-	if (g) {
+	if (g > 0) {
 		m += col.g;
 	}
 
-	if (b) {
+	if (b > 0) {
 		m += col.b;
 	}
 
@@ -54,7 +74,7 @@ float make_matte(vec3 col, bool r, bool g, bool b)
 
 float do_op(float a1, float a2, int o)
 {
-	// add, 1-2, 2-1, multiply, min, max
+	// add, 1-2, 2-1, multiply, min, max, screen
 	float m = 0.0;
 
 	if (o == 0) {
@@ -87,10 +107,10 @@ void main(void)
 	vec3 col3 = texture2D(INPUT3, st).rgb;
 	vec3 col4 = texture2D(INPUT4, st).rgb;
 
-	float m1 = make_matte(col, red, green, blue);
-	float m2 = make_matte(col2, red2, green2, blue2);
-	float m3 = make_matte(col3, red3, green3, blue3);
-	float m4 = make_matte(col4, red4, green4, blue4);
+	float m1 = make_matte(col, r1, g1, b1);
+	float m2 = make_matte(col2, r2, g2, b2);
+	float m3 = make_matte(col3, r3, g3, b3);
+	float m4 = make_matte(col4, r4, g4, b4);
 
 	// add, 1-2, 2-1, multiply, min, max
 
@@ -120,5 +140,5 @@ void main(void)
 	}
 
 
-	gl_FragColor = vec4(matte);
+	gl_FragColor.rgb = vec4(matte);
 }

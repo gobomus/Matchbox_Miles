@@ -1,12 +1,22 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Source">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="" Name="Source Node">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Mix" Type="float" Name="mmix">
+	<!--
+   	 <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Premultiplied Front" Type="bool" Name="front_is_premultiplied">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Uniform Scale" Type="float" Name="funis">
+	-->
+      <Uniform Inc="1.0" Tooltip="" Row="2" Col="2" Page="0" DisplayName="" IconType="None" ValueType="Position" Type="vec3" Name="matte_scale" UIConditionSource="lock_front_and_back" UIConditionValue="False" UIConditionType="Disable">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="1.0" Tooltip="" Row="1" Col="1" Page="0" DisplayName="" Type="float" Name="front_rotation">
       </Uniform>
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Front">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Position" IconType="None" Type="vec2" Name="ft">
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Matte" IconType="None" Type="vec2" Name="matte_translate" UIConditionSource="lock_front_and_back" UIConditionValue="False" UIConditionType="Disable">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
@@ -14,35 +24,37 @@
       </Uniform>
       <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Position" IconType="None" Type="vec2" Name="mt">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
-         </SubUniform>
-      </Uniform>
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Uniform Scale" Type="float" Name="munis">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Mix" Type="float" Name="comp_mix">
       </Uniform>
       <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Back">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Scale" IconType="None" Type="vec2" Name="fs">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+      <Uniform Inc="1.0" Tooltip="" Row="0" Col="2" Page="0" DisplayName="" IconType="None" ValueType="Position" Type="vec3" Name="front_scale">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
          </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
          </SubUniform>
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Scale" IconType="None" Type="vec2" Name="ms">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+      <Uniform Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Front" IconType="None" Type="vec2" Name="front_translate">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="1.0" Tooltip="" Row="3" Col="1" Page="0" DisplayName="" Type="float" Name="matte_rotation" UIConditionSource="lock_front_and_back" UIConditionValue="False" UIConditionType="Disable">
+      </Uniform>
+      <Uniform Row="3" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Lock Front and Back (Repo)" Type="bool" Name="lock_front_and_back">
       </Uniform>
    </Shader>
    <Page Name="Page 1" Page="0">
-      <Col Name="Front" Col="0" Page="0">
+      <Col Name="Position" Col="0" Page="0">
       </Col>
-      <Col Name="Matte" Col="1" Page="0">
+      <Col Name="Rotation" Col="1" Page="0">
       </Col>
-      <Col Name="" Col="2" Page="0">
+      <Col Name="Scale X / Y / Uniform" Col="2" Page="0">
+      </Col>
+      <Col Name="Options" Col="3" Page="0">
       </Col>
    </Page>
 </ShaderNodePreset>
