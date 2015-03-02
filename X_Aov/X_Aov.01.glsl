@@ -141,5 +141,5 @@ void main(void)
 	}
 
 
-	gl_FragColor.rgb = vec4(matte);
+	gl_FragColor.rgb = vec3(matte);
 }
